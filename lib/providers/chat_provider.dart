@@ -175,6 +175,7 @@ class ChatProvider extends ChangeNotifier {
     final smartReminder = _aiEngine.detectSmartReminder(text);
     if (smartReminder != null) {
       await _handleSmartReminder(userId, smartReminder);
+      return; // Don't generate a second AI response after reminder
     }
 
     // Check token budget — accurate estimation based on message length

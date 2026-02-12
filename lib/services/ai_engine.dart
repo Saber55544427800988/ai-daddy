@@ -92,8 +92,8 @@ class AIEngine {
     // If mood is low, lean caring
     if (profile.averageMood > 0 && profile.averageMood < 2.5) return 'caring';
 
-    // Otherwise use the best learned tone
-    return profile.bestTone;
+    // Respect the user's explicitly chosen personality
+    return base;
   }
 
   String _detectIntent(String message) {

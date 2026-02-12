@@ -14,10 +14,10 @@ class RemindersScreen extends StatefulWidget {
   const RemindersScreen({super.key, required this.userId});
 
   @override
-  State<RemindersScreen> createState() => _RemindersScreenState();
+  RemindersScreenState createState() => RemindersScreenState();
 }
 
-class _RemindersScreenState extends State<RemindersScreen>
+class RemindersScreenState extends State<RemindersScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   List<SmartReminderModel> _smartReminders = [];
@@ -36,6 +36,9 @@ class _RemindersScreenState extends State<RemindersScreen>
     _tabController.dispose();
     super.dispose();
   }
+
+  /// Public method to refresh reminders (called from HomeScreen on tab switch)
+  void refreshReminders() => _loadReminders();
 
   Future<void> _loadReminders() async {
     final db = DatabaseHelper.instance;

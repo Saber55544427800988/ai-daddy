@@ -374,8 +374,11 @@ class AIEngine {
     // ── Action keywords that signal a reminder ──
     final hasReminderIntent = RegExp(
       r'remind|need to|have to|must|gotta|should|'
-      r"i have a|don't forget|don't let me forget|"
-      r'wake me|wake up|alarm',
+      r"i have\b|i got\b|i've got|ive got|"
+      r"don't forget|dont forget|don't let me forget|"
+      r'wake me|wake up|alarm|'
+      r'going to|gonna|planning to|scheduled|'
+      r'appointment|deadline|due|submit',
     ).hasMatch(lower);
 
     // ── Event keywords ──
@@ -430,7 +433,7 @@ class AIEngine {
       }
     }
 
-    // Must have either: time reference, duration, tomorrow/today + event, or reminder intent + time context
+    // Must have: (time context + event/intent) OR (event keyword + intent) OR (event keyword alone = auto-detect)
     final hasTimeContext = timeMatch != null ||
         durationMatch != null ||
         hasTomorrow ||
@@ -439,7 +442,9 @@ class AIEngine {
         hasNight ||
         hasAfternoon;
 
-    if (!hasTimeContext && !hasReminderIntent) return null;
+    // If nothing found at all, skip
+    if (!hasTimeContext && !hasReminderIntent && eventType == null) return null;
+    // If only reminder intent with no time and no event, skip
     if (!hasTimeContext && eventType == null) return null;
 
     // ── Calculate scheduled time ──

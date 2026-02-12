@@ -21,6 +21,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
+  final GlobalKey<RemindersScreenState> _remindersKey = GlobalKey();
+
   late final List<Widget> _screens;
 
   @override
@@ -28,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _screens = [
       ChatScreen(userId: widget.userId),
-      RemindersScreen(userId: widget.userId),
+      RemindersScreen(key: _remindersKey, userId: widget.userId),
       MissionsScreen(userId: widget.userId),
       SettingsScreen(userId: widget.userId),
     ];
@@ -58,7 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
-          onTap: (index) => setState(() => _currentIndex = index),
+          onTap: (index) {
+            setState(() => _currentIndex = index);
+            // Refresh reminders when switching to Reminders tab
+            if (index == 1) {
+              _remindersKey.currentState?.refreshReminders();
+            }
+          },
           type: BottomNavigationBarType.fixed,
           backgroundColor: AppTheme.navyMid,
           selectedItemColor: AppTheme.glowCyan,

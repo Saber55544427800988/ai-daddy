@@ -436,12 +436,9 @@ class ChatProvider extends ChangeNotifier {
     final confirmText =
         confirmTexts[DateTime.now().millisecond % confirmTexts.length];
 
-    const costNote =
-        '\n\n⚡ -${SmartReminderModel.tokenCost} tokens for smart reminder';
-
     final confirmMsg = MessageModel(
       userId: userId,
-      text: '$confirmText$costNote',
+      text: confirmText,
       senderType: SenderType.ai,
       timestamp: DateTime.now().toIso8601String(),
     );

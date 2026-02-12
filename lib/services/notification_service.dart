@@ -44,6 +44,7 @@ class NotificationService {
               AndroidFlutterLocalNotificationsPlugin>();
       if (androidPlugin != null) {
         final granted = await androidPlugin.requestNotificationsPermission();
+        await androidPlugin.requestExactAlarmsPermission();
         return granted ?? false;
       }
     } catch (_) {}
@@ -68,16 +69,23 @@ class NotificationService {
       tzTime,
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'ai_daddy_reminders',
-          'AI Daddy Reminders',
-          channelDescription: 'Reminders and messages from AI Daddy',
-          importance: Importance.high,
-          priority: Priority.high,
+          'ai_daddy_alerts',
+          'AI Daddy Alerts',
+          channelDescription: 'Reminders and alerts from AI Daddy',
+          importance: Importance.max,
+          priority: Priority.max,
+          playSound: true,
+          enableVibration: true,
+          fullScreenIntent: true,
           icon: '@mipmap/ic_launcher',
         ),
-        iOS: DarwinNotificationDetails(),
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
       ),
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
   }
 
@@ -95,14 +103,21 @@ class NotificationService {
       body,
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'ai_daddy_checkin',
-          'AI Daddy Check-ins',
-          channelDescription: 'Check-in messages from AI Daddy',
-          importance: Importance.high,
-          priority: Priority.high,
+          'ai_daddy_alerts',
+          'AI Daddy Alerts',
+          channelDescription: 'Reminders and alerts from AI Daddy',
+          importance: Importance.max,
+          priority: Priority.max,
+          playSound: true,
+          enableVibration: true,
+          fullScreenIntent: true,
           icon: '@mipmap/ic_launcher',
         ),
-        iOS: DarwinNotificationDetails(),
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
       ),
     );
   }
@@ -168,16 +183,23 @@ class NotificationService {
       scheduledDate,
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'ai_daddy_reminders',
-          'AI Daddy Reminders',
-          channelDescription: 'Reminders and messages from AI Daddy',
-          importance: Importance.high,
-          priority: Priority.high,
+          'ai_daddy_alerts',
+          'AI Daddy Alerts',
+          channelDescription: 'Reminders and alerts from AI Daddy',
+          importance: Importance.max,
+          priority: Priority.max,
+          playSound: true,
+          enableVibration: true,
+          fullScreenIntent: true,
           icon: '@mipmap/ic_launcher',
         ),
-        iOS: DarwinNotificationDetails(),
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
       ),
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }

@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 /// Text-to-Speech service — works on both mobile and web.
@@ -15,6 +15,7 @@ class TTSService {
     await _tts.setSpeechRate(kIsWeb ? 0.9 : 0.5);
     await _tts.setVolume(1.0);
     await _tts.setPitch(1.0);
+    await _tts.awaitSpeakCompletion(true);
 
     _tts.setStartHandler(() {
       _isSpeaking = true;
@@ -89,13 +90,4 @@ class TTSService {
       await _tts.stop();
     } catch (_) {}
   }
-}
-
-/// Helper to print in debug mode only
-void debugPrint(String message) {
-  assert(() {
-    // ignore: avoid_print
-    print(message);
-    return true;
-  }());
 }

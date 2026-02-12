@@ -359,9 +359,23 @@ class AIEngine {
         r'(\d{1,2})\s*(am|pm|AM|PM)|at\s+(\d{1,2}):?(\d{2})?\s*(am|pm|AM|PM)?');
     final timeMatch = timeRegex.firstMatch(lower);
 
-    // "in X minutes/hours" pattern
-    final inDurationRegex =
-        RegExp(r'in\s+(\d+)\s*(minutes?|mins?|hours?|hrs?)');
+    // Word-to-number mapping for time expressions
+    const wordToNum = <String, int>{
+      'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+      'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10,
+      'eleven': 11, 'twelve': 12, 'fifteen': 15, 'twenty': 20,
+      'thirty': 30, 'forty': 40, 'fifty': 50,
+    };
+
+    // "in X minutes/hours" or "X minutes/hours later" — supports word numbers
+    final numWords = wordToNum.keys.join('|');
+    final inDurationRegex = RegExp(
+      '(?:in\\s+)(\\d+|$numWords)\\s*(minutes?|mins?|hours?|hrs?)'
+      '|(\\d+|$numWords)\\s*(minutes?|mins?|hours?|hrs?)\\s+(?:later|from now)'
+      '|(?:in\\s+)?half\\s+(?:an?\\s+)?hour\\s*(?:later|from\\s*now)?'
+      '|(?:in\\s+)an?\\s+hour\\s*(?:later|from\\s*now)?',
+      caseSensitive: false,
+    );
     final durationMatch = inDurationRegex.firstMatch(lower);
 
     // ── Date patterns ──
@@ -451,13 +465,24 @@ class AIEngine {
     DateTime scheduledTime = DateTime.now();
 
     if (durationMatch != null) {
-      // "in 30 minutes" / "in 2 hours"
-      final amount = int.tryParse(durationMatch.group(1) ?? '0') ?? 0;
-      final unit = durationMatch.group(2) ?? '';
-      if (unit.startsWith('h')) {
-        scheduledTime = scheduledTime.add(Duration(hours: amount));
+      // "in 30 minutes" / "five minutes later" / "half an hour"
+      final numStr = durationMatch.group(1) ?? durationMatch.group(3);
+      final unitStr = durationMatch.group(2) ?? durationMatch.group(4) ?? '';
+      if (numStr == null) {
+        // "half an hour" or "an hour" pattern
+        final matchText = durationMatch.group(0) ?? '';
+        if (matchText.contains('half')) {
+          scheduledTime = scheduledTime.add(const Duration(minutes: 30));
+        } else {
+          scheduledTime = scheduledTime.add(const Duration(hours: 1));
+        }
       } else {
-        scheduledTime = scheduledTime.add(Duration(minutes: amount));
+        final amount = int.tryParse(numStr) ?? wordToNum[numStr.toLowerCase()] ?? 0;
+        if (unitStr.startsWith('h')) {
+          scheduledTime = scheduledTime.add(Duration(hours: amount));
+        } else {
+          scheduledTime = scheduledTime.add(Duration(minutes: amount));
+        }
       }
     } else if (timeMatch != null) {
       int hour =

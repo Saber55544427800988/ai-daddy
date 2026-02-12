@@ -62,7 +62,19 @@ class DaddyLifecycleService {
         '$nickname, take a breath. The day is ending. You did well.',
         'Time to wind down, $nickname. You earned it.',
       ];
-
+  /// Dad Task reminder templates (0 AI tokens)
+  static List<String> dadTaskTemplates(String nickname) => [
+        'Hey $nickname! Time to check your Dad Tasks. Small wins add up! 💪',
+        'Don\'t forget your Dad Tasks today, $nickname. Daddy is counting on you.',
+        '$nickname, have you completed your Dad Tasks? Open the app and crush them!',
+        'Dad Task reminder: consistency is key, $nickname. Get them done! ⭐',
+        'Quick check, $nickname — your Dad Tasks are waiting. Earn that XP!',
+        'Hey champ. Your Dad Tasks won\'t complete themselves. Let\'s go!',
+        '$nickname, real growth comes from daily habits. Check your Dad Tasks.',
+        'Time to level up, $nickname! Complete your Dad Tasks and earn rewards.',
+        'Daddy\'s reminder: your Dad Tasks are important. Do them now, $nickname.',
+        'Hey $nickname. Champions complete their Dad Tasks every day. Be one.',
+      ];
   // ════════════════════════════════════════════════════
   //  2. LATE-NIGHT ESCALATION (0 TOKENS)
   // ════════════════════════════════════════════════════
@@ -315,7 +327,19 @@ class DaddyLifecycleService {
         scheduledTime: scheduled,
       );
     }
-  }
+    // ── 5 daily Dad Task reminders ──
+    final dadTaskMsgs = dadTaskTemplates(nickname);
+    dadTaskMsgs.shuffle(_rng);
+    final dadTaskTimes = [9, 12, 15, 18, 20];
+    for (int i = 0; i < 5; i++) {
+      await NotificationService.instance.scheduleDailyNotification(
+        id: 300 + i,
+        title: 'Dad Tasks 📋',
+        body: dadTaskMsgs[i],
+        hour: dadTaskTimes[i],
+        minute: 0,
+      );
+    }  }
 
   // ════════════════════════════════════════════════════
   //  6. DOUBLE REMINDER SYSTEM

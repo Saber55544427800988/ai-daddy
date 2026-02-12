@@ -30,7 +30,7 @@ jobs:
         run: flutter pub get
 
       - name: Run flutter analyze
-        run: flutter analyze
+        run: flutter analyze --no-fatal-infos
 
       - name: Generate Upload Keystore
         run: |

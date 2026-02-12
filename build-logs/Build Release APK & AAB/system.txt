@@ -1,8 +1,8 @@
-2026-02-12T18:27:32.7410000Z Evaluating build.if
-2026-02-12T18:27:32.7410000Z Evaluating: success()
-2026-02-12T18:27:32.7410000Z Result: true
-2026-02-12T18:27:33.0120000Z Requested labels: ubuntu-latest
-2026-02-12T18:27:33.0120000Z Job defined at: Saber55544427800988/ai-daddy/.github/workflows/build-release.yml@refs/heads/main
-2026-02-12T18:27:33.0120000Z Waiting for a runner to pick up this job...
-2026-02-12T18:27:33.0340000Z Job is about to start running on the hosted runner: GitHub Actions 1000000065
-2026-02-12T18:27:33.0310000Z Job is waiting for a hosted runner to come online.
+2026-02-12T18:57:27.6340000Z Job is waiting for a hosted runner to come online.
+2026-02-12T18:57:27.6270000Z Evaluating build.if
+2026-02-12T18:57:27.6270000Z Evaluating: success()
+2026-02-12T18:57:27.6270000Z Result: true
+2026-02-12T18:57:27.6280000Z Requested labels: ubuntu-latest
+2026-02-12T18:57:27.6280000Z Job defined at: Saber55544427800988/ai-daddy/.github/workflows/build-release.yml@refs/heads/main
+2026-02-12T18:57:27.6280000Z Waiting for a runner to pick up this job...
+2026-02-12T18:57:27.6340000Z Job is about to start running on the hosted runner: GitHub Actions 1000000070

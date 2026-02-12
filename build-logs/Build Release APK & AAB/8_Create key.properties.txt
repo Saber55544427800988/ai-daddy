@@ -1,0 +1,14 @@
+﻿2026-02-12T18:20:34.1785501Z ##[group]Run cat > android/key.properties << EOF
+2026-02-12T18:20:34.1785887Z [36;1mcat > android/key.properties << EOF[0m
+2026-02-12T18:20:34.1786178Z [36;1mstorePassword=AiDaddy2026!Secure[0m
+2026-02-12T18:20:34.1786452Z [36;1mkeyPassword=AiDaddy2026!Secure[0m
+2026-02-12T18:20:34.1787227Z [36;1mkeyAlias=ai-daddy-release[0m
+2026-02-12T18:20:34.1787512Z [36;1mstoreFile=../app/upload-keystore.jks[0m
+2026-02-12T18:20:34.1787766Z [36;1mEOF[0m
+2026-02-12T18:20:34.1837054Z shell: /usr/bin/bash -e {0}
+2026-02-12T18:20:34.1837286Z env:
+2026-02-12T18:20:34.1837585Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:20:34.1838058Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:20:34.1838512Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-12T18:20:34.1839037Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-12T18:20:34.1839283Z ##[endgroup]

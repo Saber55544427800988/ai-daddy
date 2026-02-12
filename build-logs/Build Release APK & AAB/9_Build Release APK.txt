@@ -1,0 +1,33 @@
+﻿2026-02-12T18:20:34.1947211Z ##[group]Run flutter build apk --release --split-per-abi
+2026-02-12T18:20:34.1947649Z [36;1mflutter build apk --release --split-per-abi[0m
+2026-02-12T18:20:34.1994578Z shell: /usr/bin/bash -e {0}
+2026-02-12T18:20:34.1994814Z env:
+2026-02-12T18:20:34.1995095Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:20:34.1995568Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:20:34.1996009Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-12T18:20:34.1996366Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-12T18:20:34.1996807Z ##[endgroup]
+2026-02-12T18:20:34.8685310Z 
+2026-02-12T18:22:32.6073226Z Running Gradle task 'assembleRelease'...                        
+2026-02-12T18:22:32.6107299Z 
+2026-02-12T18:22:32.6138752Z FAILURE: Build failed with an exception.
+2026-02-12T18:22:32.6139233Z 
+2026-02-12T18:22:32.6147890Z * Where:
+2026-02-12T18:22:32.6148513Z Build file '/home/runner/work/ai-daddy/ai-daddy/android/build.gradle' line: 13
+2026-02-12T18:22:32.6149470Z 
+2026-02-12T18:22:32.6149630Z * What went wrong:
+2026-02-12T18:22:32.6150228Z A problem occurred evaluating root project 'android'.
+2026-02-12T18:22:32.6150989Z > A problem occurred configuring project ':app'.
+2026-02-12T18:22:32.6152340Z    > Conflicting configuration : 'armeabi-v7a,arm64-v8a,x86_64' in ndk abiFilters cannot be present when splits abi filters are set : x86_64,armeabi-v7a,arm64-v8a
+2026-02-12T18:22:32.6153584Z 
+2026-02-12T18:22:32.6158287Z * Try:
+2026-02-12T18:22:32.6158867Z > Run with --stacktrace option to get the stack trace.
+2026-02-12T18:22:32.6159734Z > Run with --info or --debug option to get more log output.
+2026-02-12T18:22:32.6160445Z > Run with --scan to get full insights.
+2026-02-12T18:22:32.6160866Z 
+2026-02-12T18:22:32.6184605Z * Get more help at https://help.gradle.org
+2026-02-12T18:22:32.6185003Z 
+2026-02-12T18:22:32.6185134Z BUILD FAILED in 1m 57s
+2026-02-12T18:22:33.0526165Z Running Gradle task 'assembleRelease'...                          118.1s
+2026-02-12T18:22:33.0573998Z Gradle task assembleRelease failed with exit code 1
+2026-02-12T18:22:33.0642940Z ##[error]Process completed with exit code 1.

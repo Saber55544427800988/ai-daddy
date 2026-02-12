@@ -33,11 +33,6 @@ android {
         versionCode = 1
         versionName = "1.0.0"
         multiDexEnabled true
-
-        // 64-bit support (required by Play Store)
-        ndk {
-            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
-        }
     }
 
     signingConfigs {

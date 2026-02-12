@@ -1,0 +1,11 @@
+﻿2026-02-12T18:20:15.2784778Z ##[group]Run flutter analyze
+2026-02-12T18:20:15.2785090Z [36;1mflutter analyze[0m
+2026-02-12T18:20:15.2834265Z shell: /usr/bin/bash -e {0}
+2026-02-12T18:20:15.2834519Z env:
+2026-02-12T18:20:15.2834812Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:20:15.2835289Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:20:15.2835746Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-12T18:20:15.2836083Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-12T18:20:15.2836332Z ##[endgroup]
+2026-02-12T18:20:29.1609114Z Analyzing ai-daddy...                                           
+2026-02-12T18:20:29.1623756Z No issues found! (ran in 13.0s)

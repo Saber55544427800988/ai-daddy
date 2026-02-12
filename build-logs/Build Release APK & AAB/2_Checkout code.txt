@@ -1,0 +1,72 @@
+﻿2026-02-12T18:19:32.9171465Z ##[group]Run actions/checkout@v4
+2026-02-12T18:19:32.9172697Z with:
+2026-02-12T18:19:32.9173426Z   repository: Saber55544427800988/ai-daddy
+2026-02-12T18:19:32.9174615Z   token: ***
+2026-02-12T18:19:32.9175290Z   ssh-strict: true
+2026-02-12T18:19:32.9175996Z   ssh-user: git
+2026-02-12T18:19:32.9176887Z   persist-credentials: true
+2026-02-12T18:19:32.9177699Z   clean: true
+2026-02-12T18:19:32.9178420Z   sparse-checkout-cone-mode: true
+2026-02-12T18:19:32.9179301Z   fetch-depth: 1
+2026-02-12T18:19:32.9179987Z   fetch-tags: false
+2026-02-12T18:19:32.9180696Z   show-progress: true
+2026-02-12T18:19:32.9181394Z   lfs: false
+2026-02-12T18:19:32.9182061Z   submodules: false
+2026-02-12T18:19:32.9182774Z   set-safe-directory: true
+2026-02-12T18:19:32.9183813Z ##[endgroup]
+2026-02-12T18:19:33.0414121Z Syncing repository: Saber55544427800988/ai-daddy
+2026-02-12T18:19:33.0418376Z ##[group]Getting Git version info
+2026-02-12T18:19:33.0420473Z Working directory is '/home/runner/work/ai-daddy/ai-daddy'
+2026-02-12T18:19:33.0423611Z [command]/usr/bin/git version
+2026-02-12T18:19:33.0425145Z git version 2.52.0
+2026-02-12T18:19:33.0438708Z ##[endgroup]
+2026-02-12T18:19:33.0452810Z Temporarily overriding HOME='/home/runner/work/_temp/1dcd3672-b1f6-4aee-80c0-11b589de150d' before making global git config changes
+2026-02-12T18:19:33.0455380Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-12T18:19:33.0465775Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-daddy/ai-daddy
+2026-02-12T18:19:33.0506710Z Deleting the contents of '/home/runner/work/ai-daddy/ai-daddy'
+2026-02-12T18:19:33.0510343Z ##[group]Initializing the repository
+2026-02-12T18:19:33.0514563Z [command]/usr/bin/git init /home/runner/work/ai-daddy/ai-daddy
+2026-02-12T18:19:33.0624736Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-12T18:19:33.0627683Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-12T18:19:33.0630597Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-12T18:19:33.0632730Z hint: call:
+2026-02-12T18:19:33.0633514Z hint:
+2026-02-12T18:19:33.0634346Z hint: 	git config --global init.defaultBranch <name>
+2026-02-12T18:19:33.0635418Z hint:
+2026-02-12T18:19:33.0636382Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-12T18:19:33.0638775Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-12T18:19:33.0640090Z hint:
+2026-02-12T18:19:33.0640730Z hint: 	git branch -m <name>
+2026-02-12T18:19:33.0641505Z hint:
+2026-02-12T18:19:33.0642734Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-12T18:19:33.0644801Z Initialized empty Git repository in /home/runner/work/ai-daddy/ai-daddy/.git/
+2026-02-12T18:19:33.0648849Z [command]/usr/bin/git remote add origin https://github.com/Saber55544427800988/ai-daddy
+2026-02-12T18:19:33.0688395Z ##[endgroup]
+2026-02-12T18:19:33.0689764Z ##[group]Disabling automatic garbage collection
+2026-02-12T18:19:33.0693397Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-12T18:19:33.0728211Z ##[endgroup]
+2026-02-12T18:19:33.0730336Z ##[group]Setting up auth
+2026-02-12T18:19:33.0736708Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-12T18:19:33.0771121Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-12T18:19:33.1158097Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-12T18:19:33.1196878Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-12T18:19:33.1458762Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-12T18:19:33.1500861Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-12T18:19:33.1758656Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-12T18:19:33.1799616Z ##[endgroup]
+2026-02-12T18:19:33.1801140Z ##[group]Fetching the repository
+2026-02-12T18:19:33.1812368Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dd8c3659b57f0f97a27289214a021935b57c0e82:refs/remotes/origin/main
+2026-02-12T18:19:33.4325888Z From https://github.com/Saber55544427800988/ai-daddy
+2026-02-12T18:19:33.4327844Z  * [new ref]         dd8c3659b57f0f97a27289214a021935b57c0e82 -> origin/main
+2026-02-12T18:19:33.4361487Z ##[endgroup]
+2026-02-12T18:19:33.4363625Z ##[group]Determining the checkout info
+2026-02-12T18:19:33.4366037Z ##[endgroup]
+2026-02-12T18:19:33.4369915Z [command]/usr/bin/git sparse-checkout disable
+2026-02-12T18:19:33.4413314Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-12T18:19:33.4441640Z ##[group]Checking out the ref
+2026-02-12T18:19:33.4445454Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-02-12T18:19:33.4775697Z Switched to a new branch 'main'
+2026-02-12T18:19:33.4778112Z branch 'main' set up to track 'origin/main'.
+2026-02-12T18:19:33.4789110Z ##[endgroup]
+2026-02-12T18:19:33.4834302Z [command]/usr/bin/git log -1 --format=%H
+2026-02-12T18:19:33.4860532Z dd8c3659b57f0f97a27289214a021935b57c0e82

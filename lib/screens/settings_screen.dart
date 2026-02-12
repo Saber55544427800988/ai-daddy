@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import '../database/database_helper.dart';
 import '../models/user_model.dart';
+import '../models/ai_token_model.dart';
 import '../models/reminder_model.dart';
 import '../services/notification_service.dart';
 import '../providers/chat_provider.dart';

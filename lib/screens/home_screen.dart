@@ -75,8 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
               label: AppLocalizations.of(context).t('reminders'),
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.flag_rounded),
-              label: AppLocalizations.of(context).t('missions'),
+              icon: const Icon(Icons.task_alt_rounded),
+              label: AppLocalizations.of(context).t('dadTasks'),
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.settings_rounded),

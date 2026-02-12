@@ -136,7 +136,7 @@ class _DadReportScreenState extends State<DadReportScreen> {
           Row(
             children: [
               _miniStat('💬', '${report.totalMessages}', AppLocalizations.of(context).t('messages')),
-              _miniStat('🎯', '${report.missionsCompleted}', AppLocalizations.of(context).t('missions')),
+              _miniStat('🎯', '${report.missionsCompleted}', AppLocalizations.of(context).t('dadTasks')),
               _miniStat(report.moodTrendEmoji,
                   report.avgMood.toStringAsFixed(1), AppLocalizations.of(context).t('avgMood')),
               _miniStat('📈', report.moodTrend, AppLocalizations.of(context).t('trend')),

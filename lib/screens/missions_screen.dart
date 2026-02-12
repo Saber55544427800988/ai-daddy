@@ -20,7 +20,7 @@ class MissionsScreen extends StatelessWidget {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  title: Text(l.t('missions')),
+                  title: Text(l.t('dadTasks')),
                   automaticallyImplyLeading: false,
                   pinned: true,
                   backgroundColor: AppTheme.navyMid,
@@ -57,7 +57,7 @@ class MissionsScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                       ],
                       Text(
-                        l.t('dailyMissions'),
+                        l.t('dailyDadTasks'),
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

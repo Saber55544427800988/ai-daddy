@@ -1,383 +1,889 @@
-﻿2026-02-12T18:19:31.0887171Z Current runner version: '2.331.0'
-2026-02-12T18:19:31.0911531Z ##[group]Runner Image Provisioner
-2026-02-12T18:19:31.0912458Z Hosted Compute Agent
-2026-02-12T18:19:31.0913040Z Version: 20260123.484
-2026-02-12T18:19:31.0913615Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
-2026-02-12T18:19:31.0914366Z Build Date: 2026-01-23T19:41:17Z
-2026-02-12T18:19:31.0914994Z Worker ID: {cf0dabcd-ccdc-46ca-8145-a090bbaea48d}
-2026-02-12T18:19:31.0915723Z Azure Region: eastus2
-2026-02-12T18:19:31.0916269Z ##[endgroup]
-2026-02-12T18:19:31.0917876Z ##[group]Operating System
-2026-02-12T18:19:31.0918458Z Ubuntu
-2026-02-12T18:19:31.0919029Z 24.04.3
-2026-02-12T18:19:31.0919515Z LTS
-2026-02-12T18:19:31.0919981Z ##[endgroup]
-2026-02-12T18:19:31.0920556Z ##[group]Runner Image
-2026-02-12T18:19:31.0921089Z Image: ubuntu-24.04
-2026-02-12T18:19:31.0921620Z Version: 20260209.23.1
-2026-02-12T18:19:31.0922821Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260209.23/images/ubuntu/Ubuntu2404-Readme.md
-2026-02-12T18:19:31.0924283Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260209.23
-2026-02-12T18:19:31.0925211Z ##[endgroup]
-2026-02-12T18:19:31.0926293Z ##[group]GITHUB_TOKEN Permissions
-2026-02-12T18:19:31.0928742Z Contents: read
-2026-02-12T18:19:31.0929675Z Metadata: read
-2026-02-12T18:19:31.0930468Z Packages: read
-2026-02-12T18:19:31.0931246Z ##[endgroup]
-2026-02-12T18:19:31.0933669Z Secret source: Actions
-2026-02-12T18:19:31.0934398Z Prepare workflow directory
-2026-02-12T18:19:31.1263107Z Prepare all required actions
-2026-02-12T18:19:31.1301812Z Getting action download info
-2026-02-12T18:19:31.5269530Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
-2026-02-12T18:19:31.6656015Z Download action repository 'actions/setup-java@v4' (SHA:c1e323688fd81a25caa38c78aa6df2d33d3e20d9)
-2026-02-12T18:19:32.0727835Z Download action repository 'subosito/flutter-action@v2' (SHA:fd55f4c5af5b953cc57a2be44cb082c8f6635e8e)
-2026-02-12T18:19:32.2653584Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
-2026-02-12T18:19:32.5266980Z Getting action download info
-2026-02-12T18:19:32.6443983Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
-2026-02-12T18:19:32.8301140Z Complete job name: Build Release APK & AAB
-2026-02-12T18:19:32.9171496Z ##[group]Run actions/checkout@v4
-2026-02-12T18:19:32.9172709Z with:
-2026-02-12T18:19:32.9173431Z   repository: Saber55544427800988/ai-daddy
-2026-02-12T18:19:32.9174620Z   token: ***
-2026-02-12T18:19:32.9175301Z   ssh-strict: true
-2026-02-12T18:19:32.9176000Z   ssh-user: git
-2026-02-12T18:19:32.9176894Z   persist-credentials: true
-2026-02-12T18:19:32.9177707Z   clean: true
-2026-02-12T18:19:32.9178424Z   sparse-checkout-cone-mode: true
-2026-02-12T18:19:32.9179305Z   fetch-depth: 1
-2026-02-12T18:19:32.9179991Z   fetch-tags: false
-2026-02-12T18:19:32.9180700Z   show-progress: true
-2026-02-12T18:19:32.9181398Z   lfs: false
-2026-02-12T18:19:32.9182065Z   submodules: false
-2026-02-12T18:19:32.9182777Z   set-safe-directory: true
-2026-02-12T18:19:32.9183826Z ##[endgroup]
-2026-02-12T18:19:33.0414191Z Syncing repository: Saber55544427800988/ai-daddy
-2026-02-12T18:19:33.0418422Z ##[group]Getting Git version info
-2026-02-12T18:19:33.0420591Z Working directory is '/home/runner/work/ai-daddy/ai-daddy'
-2026-02-12T18:19:33.0423638Z [command]/usr/bin/git version
-2026-02-12T18:19:33.0425165Z git version 2.52.0
-2026-02-12T18:19:33.0438737Z ##[endgroup]
-2026-02-12T18:19:33.0452836Z Temporarily overriding HOME='/home/runner/work/_temp/1dcd3672-b1f6-4aee-80c0-11b589de150d' before making global git config changes
-2026-02-12T18:19:33.0455386Z Adding repository directory to the temporary git global config as a safe directory
-2026-02-12T18:19:33.0465801Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-daddy/ai-daddy
-2026-02-12T18:19:33.0506741Z Deleting the contents of '/home/runner/work/ai-daddy/ai-daddy'
-2026-02-12T18:19:33.0510360Z ##[group]Initializing the repository
-2026-02-12T18:19:33.0514582Z [command]/usr/bin/git init /home/runner/work/ai-daddy/ai-daddy
-2026-02-12T18:19:33.0624763Z hint: Using 'master' as the name for the initial branch. This default branch name
-2026-02-12T18:19:33.0627708Z hint: will change to "main" in Git 3.0. To configure the initial branch name
-2026-02-12T18:19:33.0630643Z hint: to use in all of your new repositories, which will suppress this warning,
-2026-02-12T18:19:33.0632741Z hint: call:
-2026-02-12T18:19:33.0633520Z hint:
-2026-02-12T18:19:33.0634351Z hint: 	git config --global init.defaultBranch <name>
-2026-02-12T18:19:33.0635422Z hint:
-2026-02-12T18:19:33.0636386Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
-2026-02-12T18:19:33.0638792Z hint: 'development'. The just-created branch can be renamed via this command:
-2026-02-12T18:19:33.0640093Z hint:
-2026-02-12T18:19:33.0640734Z hint: 	git branch -m <name>
-2026-02-12T18:19:33.0641509Z hint:
-2026-02-12T18:19:33.0642742Z hint: Disable this message with "git config set advice.defaultBranchName false"
-2026-02-12T18:19:33.0644811Z Initialized empty Git repository in /home/runner/work/ai-daddy/ai-daddy/.git/
-2026-02-12T18:19:33.0648864Z [command]/usr/bin/git remote add origin https://github.com/Saber55544427800988/ai-daddy
-2026-02-12T18:19:33.0688417Z ##[endgroup]
-2026-02-12T18:19:33.0689794Z ##[group]Disabling automatic garbage collection
-2026-02-12T18:19:33.0693416Z [command]/usr/bin/git config --local gc.auto 0
-2026-02-12T18:19:33.0728245Z ##[endgroup]
-2026-02-12T18:19:33.0730360Z ##[group]Setting up auth
-2026-02-12T18:19:33.0736743Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-02-12T18:19:33.0771156Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-02-12T18:19:33.1158156Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-02-12T18:19:33.1196940Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-02-12T18:19:33.1459185Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-02-12T18:19:33.1500897Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-02-12T18:19:33.1758717Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
-2026-02-12T18:19:33.1799650Z ##[endgroup]
-2026-02-12T18:19:33.1801148Z ##[group]Fetching the repository
-2026-02-12T18:19:33.1812392Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dd8c3659b57f0f97a27289214a021935b57c0e82:refs/remotes/origin/main
-2026-02-12T18:19:33.4325983Z From https://github.com/Saber55544427800988/ai-daddy
-2026-02-12T18:19:33.4327855Z  * [new ref]         dd8c3659b57f0f97a27289214a021935b57c0e82 -> origin/main
-2026-02-12T18:19:33.4361516Z ##[endgroup]
-2026-02-12T18:19:33.4363652Z ##[group]Determining the checkout info
-2026-02-12T18:19:33.4366047Z ##[endgroup]
-2026-02-12T18:19:33.4369972Z [command]/usr/bin/git sparse-checkout disable
-2026-02-12T18:19:33.4413348Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
-2026-02-12T18:19:33.4441666Z ##[group]Checking out the ref
-2026-02-12T18:19:33.4445487Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
-2026-02-12T18:19:33.4775764Z Switched to a new branch 'main'
-2026-02-12T18:19:33.4778124Z branch 'main' set up to track 'origin/main'.
-2026-02-12T18:19:33.4789130Z ##[endgroup]
-2026-02-12T18:19:33.4834329Z [command]/usr/bin/git log -1 --format=%H
-2026-02-12T18:19:33.4860558Z dd8c3659b57f0f97a27289214a021935b57c0e82
-2026-02-12T18:19:33.5194622Z ##[group]Run actions/setup-java@v4
-2026-02-12T18:19:33.5195734Z with:
-2026-02-12T18:19:33.5196383Z   distribution: temurin
-2026-02-12T18:19:33.5197292Z   java-version: 17
-2026-02-12T18:19:33.5198009Z   java-package: jdk
-2026-02-12T18:19:33.5198727Z   check-latest: false
-2026-02-12T18:19:33.5199454Z   server-id: github
-2026-02-12T18:19:33.5200190Z   server-username: GITHUB_ACTOR
-2026-02-12T18:19:33.5201063Z   server-password: GITHUB_TOKEN
-2026-02-12T18:19:33.5201917Z   overwrite-settings: true
-2026-02-12T18:19:33.5202710Z   job-status: success
-2026-02-12T18:19:33.5203746Z   token: ***
-2026-02-12T18:19:33.5204402Z ##[endgroup]
-2026-02-12T18:19:33.7204616Z ##[group]Installed distributions
-2026-02-12T18:19:33.7416126Z Resolved Java 17.0.18+8 from tool-cache
-2026-02-12T18:19:33.7418193Z Setting Java 17.0.18+8 as the default
-2026-02-12T18:19:33.7433020Z Creating toolchains.xml for JDK version 17 from temurin
-2026-02-12T18:19:33.7512045Z Writing to /home/runner/.m2/toolchains.xml
-2026-02-12T18:19:33.7513402Z 
-2026-02-12T18:19:33.7513954Z Java configuration:
-2026-02-12T18:19:33.7515278Z   Distribution: temurin
-2026-02-12T18:19:33.7516840Z   Version: 17.0.18+8
-2026-02-12T18:19:33.7518698Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:33.7520364Z 
-2026-02-12T18:19:33.7521740Z ##[endgroup]
-2026-02-12T18:19:33.7538350Z Creating settings.xml with server-id: github
-2026-02-12T18:19:33.7545424Z Writing to /home/runner/.m2/settings.xml
-2026-02-12T18:19:33.7998970Z ##[group]Run subosito/flutter-action@v2
-2026-02-12T18:19:33.7999917Z with:
-2026-02-12T18:19:33.8000610Z   flutter-version: 3.24.0
-2026-02-12T18:19:33.8001372Z   channel: stable
-2026-02-12T18:19:33.8002051Z   architecture: X64
-2026-02-12T18:19:33.8002732Z   cache: false
-2026-02-12T18:19:33.8003411Z   pub-cache-path: default
-2026-02-12T18:19:33.8004169Z   dry-run: false
-2026-02-12T18:19:33.8005004Z   git-source: https://github.com/flutter/flutter.git
-2026-02-12T18:19:33.8005996Z env:
-2026-02-12T18:19:33.8007088Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:33.8008707Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:33.8009966Z ##[endgroup]
-2026-02-12T18:19:33.8127415Z ##[group]Run chmod +x "$GITHUB_ACTION_PATH/setup.sh"
-2026-02-12T18:19:33.8128597Z [36;1mchmod +x "$GITHUB_ACTION_PATH/setup.sh"[0m
-2026-02-12T18:19:33.8187107Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
-2026-02-12T18:19:33.8188236Z env:
-2026-02-12T18:19:33.8189174Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:33.8190756Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:33.8192492Z ##[endgroup]
-2026-02-12T18:19:33.8385594Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh -p \
-2026-02-12T18:19:33.8386970Z [36;1m$GITHUB_ACTION_PATH/setup.sh -p \[0m
-2026-02-12T18:19:33.8387919Z [36;1m  -n '3.24.0' \[0m
-2026-02-12T18:19:33.8388651Z [36;1m  -f '' \[0m
-2026-02-12T18:19:33.8389330Z [36;1m  -a 'X64' \[0m
-2026-02-12T18:19:33.8390045Z [36;1m  -k '' \[0m
-2026-02-12T18:19:33.8390714Z [36;1m  -c '' \[0m
-2026-02-12T18:19:33.8391388Z [36;1m  -l '' \[0m
-2026-02-12T18:19:33.8392090Z [36;1m  -d 'default' \[0m
-2026-02-12T18:19:33.8393039Z [36;1m  -g 'https://github.com/flutter/flutter.git' \[0m
-2026-02-12T18:19:33.8394072Z [36;1m  stable[0m
-2026-02-12T18:19:33.8447497Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
-2026-02-12T18:19:33.8448580Z env:
-2026-02-12T18:19:33.8449534Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:33.8451121Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:33.8452366Z ##[endgroup]
-2026-02-12T18:19:34.0467583Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh \
-2026-02-12T18:19:34.0468605Z [36;1m$GITHUB_ACTION_PATH/setup.sh \[0m
-2026-02-12T18:19:34.0469529Z [36;1m  -n '3.24.0' \[0m
-2026-02-12T18:19:34.0470275Z [36;1m  -a 'x64' \[0m
-2026-02-12T18:19:34.0471207Z [36;1m  -c '/opt/hostedtoolcache/flutter/stable-3.24.0-x64' \[0m
-2026-02-12T18:19:34.0472562Z [36;1m  -d '/home/runner/.pub-cache' \[0m
-2026-02-12T18:19:34.0473440Z [36;1m  stable[0m
-2026-02-12T18:19:34.0528040Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
-2026-02-12T18:19:34.0529106Z env:
-2026-02-12T18:19:34.0530058Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:34.0531658Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:19:34.0532903Z ##[endgroup]
-2026-02-12T18:19:34.2353219Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-2026-02-12T18:19:34.2355786Z                                  Dload  Upload   Total   Spent    Left  Speed
-2026-02-12T18:19:34.2357284Z 
-2026-02-12T18:19:34.5812915Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-2026-02-12T18:19:35.5819048Z   6  639M    6 38.6M    0     0   111M      0  0:00:05 --:--:--  0:00:05  111M
-2026-02-12T18:19:36.5812270Z  35  639M   35  228M    0     0   169M      0  0:00:03  0:00:01  0:00:02  169M
-2026-02-12T18:19:37.5815457Z  62  639M   62  400M    0     0   170M      0  0:00:03  0:00:02  0:00:01  170M
-2026-02-12T18:19:37.6800130Z  96  639M   96  618M    0     0   184M      0  0:00:03  0:00:03 --:--:--  184M
-2026-02-12T18:19:37.6801289Z 100  639M  100  639M    0     0   185M      0  0:00:03  0:00:03 --:--:--  185M
-2026-02-12T18:20:03.7970727Z ##[group]Run flutter pub get
-2026-02-12T18:20:03.7971029Z [36;1mflutter pub get[0m
-2026-02-12T18:20:03.8022094Z shell: /usr/bin/bash -e {0}
-2026-02-12T18:20:03.8022344Z env:
-2026-02-12T18:20:03.8022645Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:03.8023124Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:03.8023575Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
-2026-02-12T18:20:03.8023913Z   PUB_CACHE: /home/runner/.pub-cache
-2026-02-12T18:20:03.8024166Z ##[endgroup]
-2026-02-12T18:20:04.0755656Z 
-2026-02-12T18:20:04.0769289Z   ╔════════════════════════════════════════════════════════════════════════════╗
-2026-02-12T18:20:04.0770470Z   ║                 Welcome to Flutter! - https://flutter.dev                  ║
-2026-02-12T18:20:04.0771291Z   ║                                                                            ║
-2026-02-12T18:20:04.0772217Z   ║ The Flutter tool uses Google Analytics to anonymously report feature usage ║
-2026-02-12T18:20:04.0773214Z   ║ statistics and basic crash reports. This data is used to help improve      ║
-2026-02-12T18:20:04.0774156Z   ║ Flutter tools over time.                                                   ║
-2026-02-12T18:20:04.0774970Z   ║                                                                            ║
-2026-02-12T18:20:04.0775806Z   ║ Flutter tool analytics are not sent on the very first run. To disable      ║
-2026-02-12T18:20:04.0777182Z   ║ reporting, type 'flutter config --no-analytics'. To display the current    ║
-2026-02-12T18:20:04.0778402Z   ║ setting, type 'flutter config'. If you opt out of analytics, an opt-out    ║
-2026-02-12T18:20:04.0779489Z   ║ event will be sent, and then no further information will be sent by the    ║
-2026-02-12T18:20:04.0780396Z   ║ Flutter tool.                                                              ║
-2026-02-12T18:20:04.0781270Z   ║                                                                            ║
-2026-02-12T18:20:04.0782251Z   ║ By downloading the Flutter SDK, you agree to the Google Terms of Service.  ║
-2026-02-12T18:20:04.0783381Z   ║ The Google Privacy Policy describes how data is handled in this service.   ║
-2026-02-12T18:20:04.0784280Z   ║                                                                            ║
-2026-02-12T18:20:04.0785219Z   ║ Moreover, Flutter includes the Dart SDK, which may send usage metrics and  ║
-2026-02-12T18:20:04.0786256Z   ║ crash reports to Google.                                                   ║
-2026-02-12T18:20:04.0787343Z   ║                                                                            ║
-2026-02-12T18:20:04.0788592Z   ║ Read about data we send with crash reports:                                ║
-2026-02-12T18:20:04.0789642Z   ║ https://flutter.dev/to/crash-reporting                                     ║
-2026-02-12T18:20:04.0790587Z   ║                                                                            ║
-2026-02-12T18:20:04.0791533Z   ║ See Google's privacy policy:                                               ║
-2026-02-12T18:20:04.0792646Z   ║ https://policies.google.com/privacy                                        ║
-2026-02-12T18:20:04.0793615Z   ║                                                                            ║
-2026-02-12T18:20:04.0794540Z   ║ To disable animations in this tool, use                                    ║
-2026-02-12T18:20:04.0795578Z   ║ 'flutter config --no-cli-animations'.                                      ║
-2026-02-12T18:20:04.0796880Z   ╚════════════════════════════════════════════════════════════════════════════╝
-2026-02-12T18:20:04.0797430Z 
-2026-02-12T18:20:09.5305772Z Resolving dependencies...
-2026-02-12T18:20:10.4059784Z Downloading packages...
-2026-02-12T18:20:14.7833696Z   async 2.11.0 (2.13.0 available)
-2026-02-12T18:20:14.7835031Z   boolean_selector 2.1.1 (2.1.2 available)
-2026-02-12T18:20:14.7835484Z   characters 1.3.0 (1.4.1 available)
-2026-02-12T18:20:14.7836225Z   checked_yaml 2.0.3 (2.0.4 available)
-2026-02-12T18:20:14.7836918Z   clock 1.1.1 (1.1.2 available)
-2026-02-12T18:20:14.7837272Z   collection 1.18.0 (1.19.1 available)
-2026-02-12T18:20:14.7837653Z   dev_build 1.1.1+8 (1.1.3+1 available)
-2026-02-12T18:20:14.7838094Z   fake_async 1.3.1 (1.3.3 available)
-2026-02-12T18:20:14.7840936Z   ffi 2.1.3 (2.2.0 available)
-2026-02-12T18:20:14.7841657Z   flutter_lints 4.0.0 (6.0.0 available)
-2026-02-12T18:20:14.7843830Z   flutter_local_notifications 19.5.0 (20.1.0 available)
-2026-02-12T18:20:14.7846431Z   flutter_local_notifications_linux 6.0.0 (7.0.0 available)
-2026-02-12T18:20:14.7847457Z   flutter_local_notifications_platform_interface 9.1.0 (10.0.0 available)
-2026-02-12T18:20:14.7848201Z   flutter_local_notifications_windows 1.0.3 (2.0.1 available)
-2026-02-12T18:20:14.7848746Z   google_fonts 6.3.0 (8.0.1 available)
-2026-02-12T18:20:14.7849182Z   http_parser 4.0.2 (4.1.2 available)
-2026-02-12T18:20:14.7849592Z   intl 0.19.0 (0.20.2 available)
-2026-02-12T18:20:14.7850028Z   json_annotation 4.9.0 (4.10.0 available)
-2026-02-12T18:20:14.7850452Z   leak_tracker 10.0.5 (11.0.2 available)
-2026-02-12T18:20:14.7850964Z   leak_tracker_flutter_testing 3.0.5 (3.0.10 available)
-2026-02-12T18:20:14.7851786Z   leak_tracker_testing 3.0.1 (3.0.2 available)
-2026-02-12T18:20:14.7872536Z   lints 4.0.0 (6.1.0 available)
-2026-02-12T18:20:14.7872973Z   matcher 0.12.16+1 (0.12.18 available)
-2026-02-12T18:20:14.7873472Z   material_color_utilities 0.11.1 (0.13.0 available)
-2026-02-12T18:20:14.7873964Z   meta 1.15.0 (1.18.1 available)
-2026-02-12T18:20:14.7874356Z   path 1.9.0 (1.9.1 available)
-2026-02-12T18:20:14.7874821Z   path_provider_android 2.2.15 (2.2.22 available)
-2026-02-12T18:20:14.7875392Z   path_provider_foundation 2.4.1 (2.6.0 available)
-2026-02-12T18:20:14.7875874Z   petitparser 6.0.2 (7.0.1 available)
-2026-02-12T18:20:14.7876290Z   process_run 1.2.2+1 (1.3.0 available)
-2026-02-12T18:20:14.7876985Z   shared_preferences 2.5.3 (2.5.4 available)
-2026-02-12T18:20:14.7877551Z   shared_preferences_android 2.4.7 (2.4.20 available)
-2026-02-12T18:20:14.7878160Z   shared_preferences_foundation 2.5.4 (2.5.6 available)
-2026-02-12T18:20:14.7878660Z   source_span 1.10.0 (1.10.2 available)
-2026-02-12T18:20:14.7879090Z   sqflite 2.4.1 (2.4.2 available)
-2026-02-12T18:20:14.7879496Z   sqflite_android 2.4.0 (2.4.2+2 available)
-2026-02-12T18:20:14.7879983Z   sqflite_common 2.5.4+6 (2.5.6 available)
-2026-02-12T18:20:14.7880475Z   sqflite_common_ffi 2.3.4+4 (2.4.0+2 available)
-2026-02-12T18:20:14.7881006Z   sqflite_common_ffi_web 0.4.5+4 (1.1.1 available)
-2026-02-12T18:20:14.7881527Z   sqflite_darwin 2.4.1+1 (2.4.2 available)
-2026-02-12T18:20:14.7882337Z   sqlite3 2.9.4 (3.1.5 available)
-2026-02-12T18:20:14.7882762Z   stack_trace 1.11.1 (1.12.1 available)
-2026-02-12T18:20:14.7883198Z   stream_channel 2.1.2 (2.1.4 available)
-2026-02-12T18:20:14.7883651Z   string_scanner 1.2.0 (1.4.1 available)
-2026-02-12T18:20:14.7884076Z   synchronized 3.3.0+3 (3.4.0 available)
-2026-02-12T18:20:14.7884519Z   term_glyph 1.2.1 (1.2.2 available)
-2026-02-12T18:20:14.7884946Z   test_api 0.7.2 (0.7.9 available)
-2026-02-12T18:20:14.7885345Z   timezone 0.10.1 (0.11.0 available)
-2026-02-12T18:20:14.7885750Z   vector_math 2.1.4 (2.2.0 available)
-2026-02-12T18:20:14.7886160Z   vm_service 14.2.4 (15.0.2 available)
-2026-02-12T18:20:14.7886786Z   xml 6.5.0 (6.6.1 available)
-2026-02-12T18:20:14.7887180Z Got dependencies!
-2026-02-12T18:20:14.7887764Z 51 packages have newer versions incompatible with dependency constraints.
-2026-02-12T18:20:14.7888471Z Try `flutter pub outdated` for more information.
-2026-02-12T18:20:15.2784791Z ##[group]Run flutter analyze
-2026-02-12T18:20:15.2785093Z [36;1mflutter analyze[0m
-2026-02-12T18:20:15.2834275Z shell: /usr/bin/bash -e {0}
-2026-02-12T18:20:15.2834522Z env:
-2026-02-12T18:20:15.2834815Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:15.2835292Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:15.2835749Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
-2026-02-12T18:20:15.2836085Z   PUB_CACHE: /home/runner/.pub-cache
-2026-02-12T18:20:15.2836334Z ##[endgroup]
-2026-02-12T18:20:29.1609164Z Analyzing ai-daddy...                                           
-2026-02-12T18:20:29.1623776Z No issues found! (ran in 13.0s)
-2026-02-12T18:20:29.1806469Z ##[group]Run keytool -genkey -v \
-2026-02-12T18:20:29.1807072Z [36;1mkeytool -genkey -v \[0m
-2026-02-12T18:20:29.1807367Z [36;1m  -keystore android/app/upload-keystore.jks \[0m
-2026-02-12T18:20:29.1807674Z [36;1m  -keyalg RSA \[0m
-2026-02-12T18:20:29.1807883Z [36;1m  -keysize 2048 \[0m
-2026-02-12T18:20:29.1808117Z [36;1m  -validity 10000 \[0m
-2026-02-12T18:20:29.1808339Z [36;1m  -alias ai-daddy-release \[0m
-2026-02-12T18:20:29.1808620Z [36;1m  -storepass 'AiDaddy2026!Secure' \[0m
-2026-02-12T18:20:29.1808919Z [36;1m  -keypass 'AiDaddy2026!Secure' \[0m
-2026-02-12T18:20:29.1809277Z [36;1m  -dname "CN=AI Daddy, OU=Mobile, O=AI Daddy, L=City, S=State, C=US"[0m
-2026-02-12T18:20:29.1858274Z shell: /usr/bin/bash -e {0}
-2026-02-12T18:20:29.1858512Z env:
-2026-02-12T18:20:29.1858805Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:29.1859277Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:29.1859753Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
-2026-02-12T18:20:29.1860120Z   PUB_CACHE: /home/runner/.pub-cache
-2026-02-12T18:20:29.1860367Z ##[endgroup]
-2026-02-12T18:20:32.6351859Z Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days
-2026-02-12T18:20:32.6365032Z 	for: CN=AI Daddy, OU=Mobile, O=AI Daddy, L=City, ST=State, C=US
-2026-02-12T18:20:33.8545578Z [Storing android/app/upload-keystore.jks]
-2026-02-12T18:20:34.1785514Z ##[group]Run cat > android/key.properties << EOF
-2026-02-12T18:20:34.1785896Z [36;1mcat > android/key.properties << EOF[0m
-2026-02-12T18:20:34.1786181Z [36;1mstorePassword=AiDaddy2026!Secure[0m
-2026-02-12T18:20:34.1786454Z [36;1mkeyPassword=AiDaddy2026!Secure[0m
-2026-02-12T18:20:34.1787231Z [36;1mkeyAlias=ai-daddy-release[0m
-2026-02-12T18:20:34.1787515Z [36;1mstoreFile=../app/upload-keystore.jks[0m
-2026-02-12T18:20:34.1787768Z [36;1mEOF[0m
-2026-02-12T18:20:34.1837061Z shell: /usr/bin/bash -e {0}
-2026-02-12T18:20:34.1837289Z env:
-2026-02-12T18:20:34.1837588Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:34.1838061Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:34.1838515Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
-2026-02-12T18:20:34.1839039Z   PUB_CACHE: /home/runner/.pub-cache
-2026-02-12T18:20:34.1839285Z ##[endgroup]
-2026-02-12T18:20:34.1947221Z ##[group]Run flutter build apk --release --split-per-abi
-2026-02-12T18:20:34.1947652Z [36;1mflutter build apk --release --split-per-abi[0m
-2026-02-12T18:20:34.1994585Z shell: /usr/bin/bash -e {0}
-2026-02-12T18:20:34.1994816Z env:
-2026-02-12T18:20:34.1995098Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:34.1995570Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
-2026-02-12T18:20:34.1996012Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
-2026-02-12T18:20:34.1996369Z   PUB_CACHE: /home/runner/.pub-cache
-2026-02-12T18:20:34.1996810Z ##[endgroup]
-2026-02-12T18:20:34.8685354Z 
-2026-02-12T18:22:32.6073267Z Running Gradle task 'assembleRelease'...                        
-2026-02-12T18:22:32.6107391Z 
-2026-02-12T18:22:32.6138784Z FAILURE: Build failed with an exception.
-2026-02-12T18:22:32.6139241Z 
-2026-02-12T18:22:32.6147911Z * Where:
-2026-02-12T18:22:32.6148618Z Build file '/home/runner/work/ai-daddy/ai-daddy/android/build.gradle' line: 13
-2026-02-12T18:22:32.6149480Z 
-2026-02-12T18:22:32.6149635Z * What went wrong:
-2026-02-12T18:22:32.6150235Z A problem occurred evaluating root project 'android'.
-2026-02-12T18:22:32.6150995Z > A problem occurred configuring project ':app'.
-2026-02-12T18:22:32.6152352Z    > Conflicting configuration : 'armeabi-v7a,arm64-v8a,x86_64' in ndk abiFilters cannot be present when splits abi filters are set : x86_64,armeabi-v7a,arm64-v8a
-2026-02-12T18:22:32.6153594Z 
-2026-02-12T18:22:32.6158301Z * Try:
-2026-02-12T18:22:32.6158873Z > Run with --stacktrace option to get the stack trace.
-2026-02-12T18:22:32.6159742Z > Run with --info or --debug option to get more log output.
-2026-02-12T18:22:32.6160452Z > Run with --scan to get full insights.
-2026-02-12T18:22:32.6160873Z 
-2026-02-12T18:22:32.6184619Z * Get more help at https://help.gradle.org
-2026-02-12T18:22:32.6185007Z 
-2026-02-12T18:22:32.6185139Z BUILD FAILED in 1m 57s
-2026-02-12T18:22:33.0526241Z Running Gradle task 'assembleRelease'...                          118.1s
-2026-02-12T18:22:33.0574014Z Gradle task assembleRelease failed with exit code 1
-2026-02-12T18:22:33.0642962Z ##[error]Process completed with exit code 1.
-2026-02-12T18:22:33.0835888Z Post job cleanup.
-2026-02-12T18:22:33.0915242Z Post job cleanup.
-2026-02-12T18:22:33.2748508Z Post job cleanup.
-2026-02-12T18:22:33.3724315Z [command]/usr/bin/git version
-2026-02-12T18:22:33.3769208Z git version 2.52.0
-2026-02-12T18:22:33.3818149Z Temporarily overriding HOME='/home/runner/work/_temp/98228964-04c6-40ee-8013-827fb38e463c' before making global git config changes
-2026-02-12T18:22:33.3820657Z Adding repository directory to the temporary git global config as a safe directory
-2026-02-12T18:22:33.3826010Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-daddy/ai-daddy
-2026-02-12T18:22:33.3869750Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-02-12T18:22:33.3907853Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-02-12T18:22:33.4186310Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-02-12T18:22:33.4214199Z http.https://github.com/.extraheader
-2026-02-12T18:22:33.4233330Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
-2026-02-12T18:22:33.4270916Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-02-12T18:22:33.4533986Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-02-12T18:22:33.4573315Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-02-12T18:22:33.4960278Z Cleaning up orphan processes
-2026-02-12T18:22:33.5248426Z Terminate orphan process: pid (2672) (java)
+﻿2026-02-12T18:27:35.8138788Z Current runner version: '2.331.0'
+2026-02-12T18:27:35.8162552Z ##[group]Runner Image Provisioner
+2026-02-12T18:27:35.8163611Z Hosted Compute Agent
+2026-02-12T18:27:35.8164187Z Version: 20260123.484
+2026-02-12T18:27:35.8164834Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+2026-02-12T18:27:35.8165514Z Build Date: 2026-01-23T19:41:17Z
+2026-02-12T18:27:35.8166177Z Worker ID: {f258534d-d9d4-4e84-a509-77ec4d699c0e}
+2026-02-12T18:27:35.8166807Z Azure Region: westus
+2026-02-12T18:27:35.8167455Z ##[endgroup]
+2026-02-12T18:27:35.8168811Z ##[group]Operating System
+2026-02-12T18:27:35.8169404Z Ubuntu
+2026-02-12T18:27:35.8169938Z 24.04.3
+2026-02-12T18:27:35.8170400Z LTS
+2026-02-12T18:27:35.8170842Z ##[endgroup]
+2026-02-12T18:27:35.8171406Z ##[group]Runner Image
+2026-02-12T18:27:35.8171955Z Image: ubuntu-24.04
+2026-02-12T18:27:35.8172423Z Version: 20260209.23.1
+2026-02-12T18:27:35.8173812Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260209.23/images/ubuntu/Ubuntu2404-Readme.md
+2026-02-12T18:27:35.8175210Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260209.23
+2026-02-12T18:27:35.8176222Z ##[endgroup]
+2026-02-12T18:27:35.8177240Z ##[group]GITHUB_TOKEN Permissions
+2026-02-12T18:27:35.8179056Z Contents: read
+2026-02-12T18:27:35.8179627Z Metadata: read
+2026-02-12T18:27:35.8180099Z Packages: read
+2026-02-12T18:27:35.8180672Z ##[endgroup]
+2026-02-12T18:27:35.8182717Z Secret source: Actions
+2026-02-12T18:27:35.8183867Z Prepare workflow directory
+2026-02-12T18:27:35.8504058Z Prepare all required actions
+2026-02-12T18:27:35.8547522Z Getting action download info
+2026-02-12T18:27:36.3772552Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-02-12T18:27:36.5597977Z Download action repository 'actions/setup-java@v4' (SHA:c1e323688fd81a25caa38c78aa6df2d33d3e20d9)
+2026-02-12T18:27:37.6573450Z Download action repository 'subosito/flutter-action@v2' (SHA:fd55f4c5af5b953cc57a2be44cb082c8f6635e8e)
+2026-02-12T18:27:38.4400565Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-02-12T18:27:38.6943722Z Getting action download info
+2026-02-12T18:27:38.9007876Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-02-12T18:27:39.0395154Z Complete job name: Build Release APK & AAB
+2026-02-12T18:27:39.1075724Z ##[group]Run actions/checkout@v4
+2026-02-12T18:27:39.1076341Z with:
+2026-02-12T18:27:39.1076590Z   repository: Saber55544427800988/ai-daddy
+2026-02-12T18:27:39.1077066Z   token: ***
+2026-02-12T18:27:39.1077284Z   ssh-strict: true
+2026-02-12T18:27:39.1077508Z   ssh-user: git
+2026-02-12T18:27:39.1077743Z   persist-credentials: true
+2026-02-12T18:27:39.1078003Z   clean: true
+2026-02-12T18:27:39.1078237Z   sparse-checkout-cone-mode: true
+2026-02-12T18:27:39.1078514Z   fetch-depth: 1
+2026-02-12T18:27:39.1078745Z   fetch-tags: false
+2026-02-12T18:27:39.1078962Z   show-progress: true
+2026-02-12T18:27:39.1079193Z   lfs: false
+2026-02-12T18:27:39.1079420Z   submodules: false
+2026-02-12T18:27:39.1079659Z   set-safe-directory: true
+2026-02-12T18:27:39.1080109Z ##[endgroup]
+2026-02-12T18:27:39.2227630Z Syncing repository: Saber55544427800988/ai-daddy
+2026-02-12T18:27:39.2229011Z ##[group]Getting Git version info
+2026-02-12T18:27:39.2229507Z Working directory is '/home/runner/work/ai-daddy/ai-daddy'
+2026-02-12T18:27:39.2230117Z [command]/usr/bin/git version
+2026-02-12T18:27:39.2241570Z git version 2.52.0
+2026-02-12T18:27:39.2268076Z ##[endgroup]
+2026-02-12T18:27:39.2284145Z Temporarily overriding HOME='/home/runner/work/_temp/b846e5b1-55c2-4397-803b-ef5324202af5' before making global git config changes
+2026-02-12T18:27:39.2297188Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-12T18:27:39.2298424Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-daddy/ai-daddy
+2026-02-12T18:27:39.2337332Z Deleting the contents of '/home/runner/work/ai-daddy/ai-daddy'
+2026-02-12T18:27:39.2341807Z ##[group]Initializing the repository
+2026-02-12T18:27:39.2346602Z [command]/usr/bin/git init /home/runner/work/ai-daddy/ai-daddy
+2026-02-12T18:27:39.2441191Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-12T18:27:39.2442225Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-12T18:27:39.2443178Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-12T18:27:39.2443627Z hint: call:
+2026-02-12T18:27:39.2443836Z hint:
+2026-02-12T18:27:39.2444143Z hint: 	git config --global init.defaultBranch <name>
+2026-02-12T18:27:39.2444528Z hint:
+2026-02-12T18:27:39.2445105Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-12T18:27:39.2445984Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-12T18:27:39.2446410Z hint:
+2026-02-12T18:27:39.2446635Z hint: 	git branch -m <name>
+2026-02-12T18:27:39.2447078Z hint:
+2026-02-12T18:27:39.2447711Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-12T18:27:39.2448834Z Initialized empty Git repository in /home/runner/work/ai-daddy/ai-daddy/.git/
+2026-02-12T18:27:39.2458743Z [command]/usr/bin/git remote add origin https://github.com/Saber55544427800988/ai-daddy
+2026-02-12T18:27:39.2491813Z ##[endgroup]
+2026-02-12T18:27:39.2492529Z ##[group]Disabling automatic garbage collection
+2026-02-12T18:27:39.2497141Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-12T18:27:39.2526723Z ##[endgroup]
+2026-02-12T18:27:39.2527471Z ##[group]Setting up auth
+2026-02-12T18:27:39.2534615Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-12T18:27:39.2566811Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-12T18:27:39.2892772Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-12T18:27:39.2921918Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-12T18:27:39.3149692Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-12T18:27:39.3179703Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-12T18:27:39.3420762Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-12T18:27:39.3455699Z ##[endgroup]
+2026-02-12T18:27:39.3456504Z ##[group]Fetching the repository
+2026-02-12T18:27:39.3464850Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8a607518d0326add91235eda9cefb07142455653:refs/remotes/origin/main
+2026-02-12T18:27:40.1564874Z From https://github.com/Saber55544427800988/ai-daddy
+2026-02-12T18:27:40.1565655Z  * [new ref]         8a607518d0326add91235eda9cefb07142455653 -> origin/main
+2026-02-12T18:27:40.1596703Z ##[endgroup]
+2026-02-12T18:27:40.1599196Z ##[group]Determining the checkout info
+2026-02-12T18:27:40.1600044Z ##[endgroup]
+2026-02-12T18:27:40.1605713Z [command]/usr/bin/git sparse-checkout disable
+2026-02-12T18:27:40.1645346Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-12T18:27:40.1671226Z ##[group]Checking out the ref
+2026-02-12T18:27:40.1675544Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-02-12T18:27:40.1951181Z Switched to a new branch 'main'
+2026-02-12T18:27:40.1954663Z branch 'main' set up to track 'origin/main'.
+2026-02-12T18:27:40.1962177Z ##[endgroup]
+2026-02-12T18:27:40.1997777Z [command]/usr/bin/git log -1 --format=%H
+2026-02-12T18:27:40.2020734Z 8a607518d0326add91235eda9cefb07142455653
+2026-02-12T18:27:40.2291533Z ##[group]Run actions/setup-java@v4
+2026-02-12T18:27:40.2291990Z with:
+2026-02-12T18:27:40.2292176Z   distribution: temurin
+2026-02-12T18:27:40.2292385Z   java-version: 17
+2026-02-12T18:27:40.2292569Z   java-package: jdk
+2026-02-12T18:27:40.2292758Z   check-latest: false
+2026-02-12T18:27:40.2293126Z   server-id: github
+2026-02-12T18:27:40.2293322Z   server-username: GITHUB_ACTOR
+2026-02-12T18:27:40.2293554Z   server-password: GITHUB_TOKEN
+2026-02-12T18:27:40.2293777Z   overwrite-settings: true
+2026-02-12T18:27:40.2293985Z   job-status: success
+2026-02-12T18:27:40.2294282Z   token: ***
+2026-02-12T18:27:40.2294469Z ##[endgroup]
+2026-02-12T18:27:40.4284503Z ##[group]Installed distributions
+2026-02-12T18:27:40.4593398Z Resolved Java 17.0.18+8 from tool-cache
+2026-02-12T18:27:40.4594091Z Setting Java 17.0.18+8 as the default
+2026-02-12T18:27:40.4608262Z Creating toolchains.xml for JDK version 17 from temurin
+2026-02-12T18:27:40.4685154Z Writing to /home/runner/.m2/toolchains.xml
+2026-02-12T18:27:40.4685741Z 
+2026-02-12T18:27:40.4686221Z Java configuration:
+2026-02-12T18:27:40.4687258Z   Distribution: temurin
+2026-02-12T18:27:40.4687988Z   Version: 17.0.18+8
+2026-02-12T18:27:40.4689464Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.4690491Z 
+2026-02-12T18:27:40.4691084Z ##[endgroup]
+2026-02-12T18:27:40.4707439Z Creating settings.xml with server-id: github
+2026-02-12T18:27:40.4712488Z Writing to /home/runner/.m2/settings.xml
+2026-02-12T18:27:40.4961229Z ##[group]Run subosito/flutter-action@v2
+2026-02-12T18:27:40.4961520Z with:
+2026-02-12T18:27:40.4961709Z   flutter-version: 3.24.0
+2026-02-12T18:27:40.4961916Z   channel: stable
+2026-02-12T18:27:40.4962105Z   architecture: X64
+2026-02-12T18:27:40.4962281Z   cache: false
+2026-02-12T18:27:40.4962471Z   pub-cache-path: default
+2026-02-12T18:27:40.4962679Z   dry-run: false
+2026-02-12T18:27:40.4963097Z   git-source: https://github.com/flutter/flutter.git
+2026-02-12T18:27:40.4963391Z env:
+2026-02-12T18:27:40.4963659Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.4964151Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.4964519Z ##[endgroup]
+2026-02-12T18:27:40.5052078Z ##[group]Run chmod +x "$GITHUB_ACTION_PATH/setup.sh"
+2026-02-12T18:27:40.5052477Z [36;1mchmod +x "$GITHUB_ACTION_PATH/setup.sh"[0m
+2026-02-12T18:27:40.5106109Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-02-12T18:27:40.5106484Z env:
+2026-02-12T18:27:40.5106771Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.5107253Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.5107616Z ##[endgroup]
+2026-02-12T18:27:40.5256968Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh -p \
+2026-02-12T18:27:40.5257325Z [36;1m$GITHUB_ACTION_PATH/setup.sh -p \[0m
+2026-02-12T18:27:40.5257599Z [36;1m  -n '3.24.0' \[0m
+2026-02-12T18:27:40.5257795Z [36;1m  -f '' \[0m
+2026-02-12T18:27:40.5257982Z [36;1m  -a 'X64' \[0m
+2026-02-12T18:27:40.5258176Z [36;1m  -k '' \[0m
+2026-02-12T18:27:40.5258351Z [36;1m  -c '' \[0m
+2026-02-12T18:27:40.5258515Z [36;1m  -l '' \[0m
+2026-02-12T18:27:40.5258697Z [36;1m  -d 'default' \[0m
+2026-02-12T18:27:40.5258977Z [36;1m  -g 'https://github.com/flutter/flutter.git' \[0m
+2026-02-12T18:27:40.5259284Z [36;1m  stable[0m
+2026-02-12T18:27:40.5304342Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-02-12T18:27:40.5304678Z env:
+2026-02-12T18:27:40.5304970Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.5305447Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.5305801Z ##[endgroup]
+2026-02-12T18:27:40.6961291Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh \
+2026-02-12T18:27:40.6961622Z [36;1m$GITHUB_ACTION_PATH/setup.sh \[0m
+2026-02-12T18:27:40.6961877Z [36;1m  -n '3.24.0' \[0m
+2026-02-12T18:27:40.6962086Z [36;1m  -a 'x64' \[0m
+2026-02-12T18:27:40.6962362Z [36;1m  -c '/opt/hostedtoolcache/flutter/stable-3.24.0-x64' \[0m
+2026-02-12T18:27:40.6963065Z [36;1m  -d '/home/runner/.pub-cache' \[0m
+2026-02-12T18:27:40.6963362Z [36;1m  stable[0m
+2026-02-12T18:27:40.7011510Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-02-12T18:27:40.7011826Z env:
+2026-02-12T18:27:40.7012109Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.7012593Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:27:40.7013186Z ##[endgroup]
+2026-02-12T18:27:40.8623684Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-02-12T18:27:40.8624526Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-02-12T18:27:40.8624946Z 
+2026-02-12T18:27:40.8943838Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-02-12T18:27:41.8870402Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-02-12T18:27:42.8821395Z   8  639M    8 51.8M    0     0  50.6M      0  0:00:12  0:00:01  0:00:11 50.5M
+2026-02-12T18:27:43.8818701Z  18  639M   18  118M    0     0  58.6M      0  0:00:10  0:00:02  0:00:08 58.6M
+2026-02-12T18:27:44.8829663Z  26  639M   26  171M    0     0  56.7M      0  0:00:11  0:00:03  0:00:08 56.7M
+2026-02-12T18:27:45.8830808Z  33  639M   33  216M    0     0  53.7M      0  0:00:11  0:00:04  0:00:07 53.7M
+2026-02-12T18:27:46.8816520Z  42  639M   42  274M    0     0  54.7M      0  0:00:11  0:00:05  0:00:06 55.1M
+2026-02-12T18:27:47.8815889Z  52  639M   52  334M    0     0  55.4M      0  0:00:11  0:00:06  0:00:05 56.4M
+2026-02-12T18:27:48.8814412Z  62  639M   62  397M    0     0  56.5M      0  0:00:11  0:00:07  0:00:04 55.7M
+2026-02-12T18:27:49.8833571Z  72  639M   72  466M    0     0  58.1M      0  0:00:10  0:00:08  0:00:02 59.0M
+2026-02-12T18:27:50.8889563Z  82  639M   82  528M    0     0  58.5M      0  0:00:10  0:00:09  0:00:01 62.4M
+2026-02-12T18:27:51.8814393Z  89  639M   89  573M    0     0  57.1M      0  0:00:11  0:00:10  0:00:01 59.6M
+2026-02-12T18:27:51.9297872Z  99  639M   99  635M    0     0  57.6M      0  0:00:11  0:00:11 --:--:-- 60.3M
+2026-02-12T18:27:51.9298683Z 100  639M  100  639M    0     0  57.7M      0  0:00:11  0:00:11 --:--:-- 59.8M
+2026-02-12T18:28:17.5703549Z ##[group]Run flutter pub get
+2026-02-12T18:28:17.5703882Z [36;1mflutter pub get[0m
+2026-02-12T18:28:17.5753704Z shell: /usr/bin/bash -e {0}
+2026-02-12T18:28:17.5753958Z env:
+2026-02-12T18:28:17.5754241Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:17.5754727Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:17.5755181Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-12T18:28:17.5755505Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-12T18:28:17.5755744Z ##[endgroup]
+2026-02-12T18:28:17.8959574Z 
+2026-02-12T18:28:17.8972035Z   ╔════════════════════════════════════════════════════════════════════════════╗
+2026-02-12T18:28:17.8973193Z   ║                 Welcome to Flutter! - https://flutter.dev                  ║
+2026-02-12T18:28:17.8974003Z   ║                                                                            ║
+2026-02-12T18:28:17.8974888Z   ║ The Flutter tool uses Google Analytics to anonymously report feature usage ║
+2026-02-12T18:28:17.8975841Z   ║ statistics and basic crash reports. This data is used to help improve      ║
+2026-02-12T18:28:17.8976728Z   ║ Flutter tools over time.                                                   ║
+2026-02-12T18:28:17.8977352Z   ║                                                                            ║
+2026-02-12T18:28:17.8977811Z   ║ Flutter tool analytics are not sent on the very first run. To disable      ║
+2026-02-12T18:28:17.8978390Z   ║ reporting, type 'flutter config --no-analytics'. To display the current    ║
+2026-02-12T18:28:17.8978931Z   ║ setting, type 'flutter config'. If you opt out of analytics, an opt-out    ║
+2026-02-12T18:28:17.8979457Z   ║ event will be sent, and then no further information will be sent by the    ║
+2026-02-12T18:28:17.8980366Z   ║ Flutter tool.                                                              ║
+2026-02-12T18:28:17.8980907Z   ║                                                                            ║
+2026-02-12T18:28:17.8981370Z   ║ By downloading the Flutter SDK, you agree to the Google Terms of Service.  ║
+2026-02-12T18:28:17.8981956Z   ║ The Google Privacy Policy describes how data is handled in this service.   ║
+2026-02-12T18:28:17.8982436Z   ║                                                                            ║
+2026-02-12T18:28:17.8983097Z   ║ Moreover, Flutter includes the Dart SDK, which may send usage metrics and  ║
+2026-02-12T18:28:17.8983642Z   ║ crash reports to Google.                                                   ║
+2026-02-12T18:28:17.8984050Z   ║                                                                            ║
+2026-02-12T18:28:17.8984478Z   ║ Read about data we send with crash reports:                                ║
+2026-02-12T18:28:17.8985031Z   ║ https://flutter.dev/to/crash-reporting                                     ║
+2026-02-12T18:28:17.8985482Z   ║                                                                            ║
+2026-02-12T18:28:17.8985920Z   ║ See Google's privacy policy:                                               ║
+2026-02-12T18:28:17.8986427Z   ║ https://policies.google.com/privacy                                        ║
+2026-02-12T18:28:17.8986885Z   ║                                                                            ║
+2026-02-12T18:28:17.8987319Z   ║ To disable animations in this tool, use                                    ║
+2026-02-12T18:28:17.8987833Z   ║ 'flutter config --no-cli-animations'.                                      ║
+2026-02-12T18:28:17.8988380Z   ╚════════════════════════════════════════════════════════════════════════════╝
+2026-02-12T18:28:17.8988650Z 
+2026-02-12T18:28:23.1181442Z Resolving dependencies...
+2026-02-12T18:28:23.9289671Z Downloading packages...
+2026-02-12T18:28:27.8805728Z   async 2.11.0 (2.13.0 available)
+2026-02-12T18:28:27.8806366Z   boolean_selector 2.1.1 (2.1.2 available)
+2026-02-12T18:28:27.8809437Z   characters 1.3.0 (1.4.1 available)
+2026-02-12T18:28:27.8810473Z   checked_yaml 2.0.3 (2.0.4 available)
+2026-02-12T18:28:27.8811163Z   clock 1.1.1 (1.1.2 available)
+2026-02-12T18:28:27.8811737Z   collection 1.18.0 (1.19.1 available)
+2026-02-12T18:28:27.8812325Z   dev_build 1.1.1+8 (1.1.3+1 available)
+2026-02-12T18:28:27.8812796Z   fake_async 1.3.1 (1.3.3 available)
+2026-02-12T18:28:27.8813910Z   ffi 2.1.3 (2.2.0 available)
+2026-02-12T18:28:27.8814299Z   flutter_lints 4.0.0 (6.0.0 available)
+2026-02-12T18:28:27.8814807Z   flutter_local_notifications 19.5.0 (20.1.0 available)
+2026-02-12T18:28:27.8815432Z   flutter_local_notifications_linux 6.0.0 (7.0.0 available)
+2026-02-12T18:28:27.8816396Z   flutter_local_notifications_platform_interface 9.1.0 (10.0.0 available)
+2026-02-12T18:28:27.8817265Z   flutter_local_notifications_windows 1.0.3 (2.0.1 available)
+2026-02-12T18:28:27.8818003Z   google_fonts 6.3.0 (8.0.1 available)
+2026-02-12T18:28:27.8818563Z   http_parser 4.0.2 (4.1.2 available)
+2026-02-12T18:28:27.8819328Z   intl 0.19.0 (0.20.2 available)
+2026-02-12T18:28:27.8820039Z   json_annotation 4.9.0 (4.10.0 available)
+2026-02-12T18:28:27.8820499Z   leak_tracker 10.0.5 (11.0.2 available)
+2026-02-12T18:28:27.8820986Z   leak_tracker_flutter_testing 3.0.5 (3.0.10 available)
+2026-02-12T18:28:27.8821523Z   leak_tracker_testing 3.0.1 (3.0.2 available)
+2026-02-12T18:28:27.8821973Z   lints 4.0.0 (6.1.0 available)
+2026-02-12T18:28:27.8822360Z   matcher 0.12.16+1 (0.12.18 available)
+2026-02-12T18:28:27.8823042Z   material_color_utilities 0.11.1 (0.13.0 available)
+2026-02-12T18:28:27.8823528Z   meta 1.15.0 (1.18.1 available)
+2026-02-12T18:28:27.8823915Z   path 1.9.0 (1.9.1 available)
+2026-02-12T18:28:27.8824336Z   path_provider_android 2.2.15 (2.2.22 available)
+2026-02-12T18:28:27.8824904Z   path_provider_foundation 2.4.1 (2.6.0 available)
+2026-02-12T18:28:27.8825790Z   petitparser 6.0.2 (7.0.1 available)
+2026-02-12T18:28:27.8826234Z   process_run 1.2.2+1 (1.3.0 available)
+2026-02-12T18:28:27.8826690Z   shared_preferences 2.5.3 (2.5.4 available)
+2026-02-12T18:28:27.8827220Z   shared_preferences_android 2.4.7 (2.4.20 available)
+2026-02-12T18:28:27.8827786Z   shared_preferences_foundation 2.5.4 (2.5.6 available)
+2026-02-12T18:28:27.8828283Z   source_span 1.10.0 (1.10.2 available)
+2026-02-12T18:28:27.8828712Z   sqflite 2.4.1 (2.4.2 available)
+2026-02-12T18:28:27.8829122Z   sqflite_android 2.4.0 (2.4.2+2 available)
+2026-02-12T18:28:27.8829579Z   sqflite_common 2.5.4+6 (2.5.6 available)
+2026-02-12T18:28:27.8830032Z   sqflite_common_ffi 2.3.4+4 (2.4.0+2 available)
+2026-02-12T18:28:27.8830534Z   sqflite_common_ffi_web 0.4.5+4 (1.1.1 available)
+2026-02-12T18:28:27.8831009Z   sqflite_darwin 2.4.1+1 (2.4.2 available)
+2026-02-12T18:28:27.8831433Z   sqlite3 2.9.4 (3.1.5 available)
+2026-02-12T18:28:27.8831823Z   stack_trace 1.11.1 (1.12.1 available)
+2026-02-12T18:28:27.8832249Z   stream_channel 2.1.2 (2.1.4 available)
+2026-02-12T18:28:27.8832677Z   string_scanner 1.2.0 (1.4.1 available)
+2026-02-12T18:28:27.8833335Z   synchronized 3.3.0+3 (3.4.0 available)
+2026-02-12T18:28:27.8833794Z   term_glyph 1.2.1 (1.2.2 available)
+2026-02-12T18:28:27.8834189Z   test_api 0.7.2 (0.7.9 available)
+2026-02-12T18:28:27.8834590Z   timezone 0.10.1 (0.11.0 available)
+2026-02-12T18:28:27.8835000Z   vector_math 2.1.4 (2.2.0 available)
+2026-02-12T18:28:27.8835426Z   vm_service 14.2.4 (15.0.2 available)
+2026-02-12T18:28:27.8835844Z   xml 6.5.0 (6.6.1 available)
+2026-02-12T18:28:27.8836231Z Got dependencies!
+2026-02-12T18:28:27.8843486Z 51 packages have newer versions incompatible with dependency constraints.
+2026-02-12T18:28:27.8844173Z Try `flutter pub outdated` for more information.
+2026-02-12T18:28:28.3757073Z ##[group]Run flutter analyze
+2026-02-12T18:28:28.3757549Z [36;1mflutter analyze[0m
+2026-02-12T18:28:28.3808246Z shell: /usr/bin/bash -e {0}
+2026-02-12T18:28:28.3808473Z env:
+2026-02-12T18:28:28.3808772Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:28.3809246Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:28.3809698Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-12T18:28:28.3810021Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-12T18:28:28.3810264Z ##[endgroup]
+2026-02-12T18:28:41.9445177Z Analyzing ai-daddy...                                           
+2026-02-12T18:28:41.9460092Z No issues found! (ran in 12.7s)
+2026-02-12T18:28:41.9695932Z ##[group]Run keytool -genkey -v \
+2026-02-12T18:28:41.9696251Z [36;1mkeytool -genkey -v \[0m
+2026-02-12T18:28:41.9696530Z [36;1m  -keystore android/app/upload-keystore.jks \[0m
+2026-02-12T18:28:41.9696832Z [36;1m  -keyalg RSA \[0m
+2026-02-12T18:28:41.9697035Z [36;1m  -keysize 2048 \[0m
+2026-02-12T18:28:41.9697243Z [36;1m  -validity 10000 \[0m
+2026-02-12T18:28:41.9697468Z [36;1m  -alias ai-daddy-release \[0m
+2026-02-12T18:28:41.9697749Z [36;1m  -storepass 'AiDaddy2026!Secure' \[0m
+2026-02-12T18:28:41.9698018Z [36;1m  -keypass 'AiDaddy2026!Secure' \[0m
+2026-02-12T18:28:41.9698356Z [36;1m  -dname "CN=AI Daddy, OU=Mobile, O=AI Daddy, L=City, S=State, C=US"[0m
+2026-02-12T18:28:41.9747124Z shell: /usr/bin/bash -e {0}
+2026-02-12T18:28:41.9747350Z env:
+2026-02-12T18:28:41.9747629Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:41.9748104Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:41.9748568Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-12T18:28:41.9748893Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-12T18:28:41.9749124Z ##[endgroup]
+2026-02-12T18:28:44.9941089Z Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days
+2026-02-12T18:28:44.9958052Z 	for: CN=AI Daddy, OU=Mobile, O=AI Daddy, L=City, ST=State, C=US
+2026-02-12T18:28:45.4004237Z [Storing android/app/upload-keystore.jks]
+2026-02-12T18:28:45.5878022Z ##[group]Run cat > android/key.properties << EOF
+2026-02-12T18:28:45.5878463Z [36;1mcat > android/key.properties << EOF[0m
+2026-02-12T18:28:45.5878765Z [36;1mstorePassword=AiDaddy2026!Secure[0m
+2026-02-12T18:28:45.5879031Z [36;1mkeyPassword=AiDaddy2026!Secure[0m
+2026-02-12T18:28:45.5879277Z [36;1mkeyAlias=ai-daddy-release[0m
+2026-02-12T18:28:45.5879538Z [36;1mstoreFile=../app/upload-keystore.jks[0m
+2026-02-12T18:28:45.5879784Z [36;1mEOF[0m
+2026-02-12T18:28:45.5929004Z shell: /usr/bin/bash -e {0}
+2026-02-12T18:28:45.5929225Z env:
+2026-02-12T18:28:45.5929518Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:45.5929975Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:45.5930404Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-12T18:28:45.5930744Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-12T18:28:45.5930978Z ##[endgroup]
+2026-02-12T18:28:45.6031337Z ##[group]Run flutter build apk --release --split-per-abi
+2026-02-12T18:28:45.6031732Z [36;1mflutter build apk --release --split-per-abi[0m
+2026-02-12T18:28:45.6075287Z shell: /usr/bin/bash -e {0}
+2026-02-12T18:28:45.6075508Z env:
+2026-02-12T18:28:45.6075789Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:45.6076280Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-12T18:28:45.6076717Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-12T18:28:45.6077037Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-12T18:28:45.6077263Z ##[endgroup]
+2026-02-12T18:28:46.2279065Z 
+2026-02-12T18:31:06.1584564Z Running Gradle task 'assembleRelease'...                        
+2026-02-12T18:31:06.1587048Z Warning: The plugin flutter_local_notifications requires Android SDK version 35 or higher.
+2026-02-12T18:31:06.1597304Z For more information about build configuration, see https://flutter.dev/to/review-gradle-config.
+2026-02-12T18:31:38.3325639Z Warning: The plugin flutter_tts requires Android SDK version 36 or higher.
+2026-02-12T18:31:38.3351431Z For more information about build configuration, see https://flutter.dev/to/review-gradle-config.
+2026-02-12T18:32:17.7376910Z Your project is configured to compile against Android SDK 34, but the following plugin(s) require to be compiled against a higher Android SDK version:
+2026-02-12T18:32:17.7385025Z - flutter_local_notifications compiles against Android SDK 35
+2026-02-12T18:32:17.7408959Z - flutter_tts compiles against Android SDK 36
+2026-02-12T18:32:17.7413691Z Fix this issue by compiling against the highest Android SDK version (they are backward compatible).
+2026-02-12T18:32:17.7416453Z Add the following to /home/runner/work/ai-daddy/ai-daddy/android/app/build.gradle:
+2026-02-12T18:32:17.7417014Z 
+2026-02-12T18:32:17.7427298Z     android {
+2026-02-12T18:32:17.7427622Z         compileSdk = 36
+2026-02-12T18:32:17.7431145Z         ...
+2026-02-12T18:32:17.7435214Z     }
+2026-02-12T18:32:17.7438269Z 
+2026-02-12T18:32:21.9316086Z Checking the license for package Android SDK Build-Tools 30.0.3 in /usr/local/lib/android/sdk/licenses
+2026-02-12T18:32:22.0314946Z License for package Android SDK Build-Tools 30.0.3 accepted.
+2026-02-12T18:32:22.0316471Z Preparing "Install Android SDK Build-Tools 30.0.3 (revision: 30.0.3)".
+2026-02-12T18:32:23.9313820Z "Install Android SDK Build-Tools 30.0.3 (revision: 30.0.3)" ready.
+2026-02-12T18:32:23.9314668Z Installing Android SDK Build-Tools 30.0.3 in /usr/local/lib/android/sdk/build-tools/30.0.3
+2026-02-12T18:32:23.9315408Z "Install Android SDK Build-Tools 30.0.3 (revision: 30.0.3)" complete.
+2026-02-12T18:32:24.3369795Z "Install Android SDK Build-Tools 30.0.3 (revision: 30.0.3)" finished.
+2026-02-12T18:33:15.6374847Z e: Incompatible classes were found in dependencies. Remove them from the classpath or use '-Xskip-metadata-version-check' to suppress errors
+2026-02-12T18:33:15.6378006Z e: /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/META-INF/kotlin-stdlib-jdk7.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6383254Z e: /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/META-INF/kotlin-stdlib-jdk8.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6395092Z e: /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/META-INF/kotlin-stdlib.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6398497Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (47, 38): Unresolved reference: ArrayList
+2026-02-12T18:33:15.6400743Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (48, 30): Unresolved reference: HashMap
+2026-02-12T18:33:15.6403664Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (69, 14): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6406348Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6409065Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (70, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6411767Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6414579Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (71, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6417283Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6419900Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (72, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6422646Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6542792Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (73, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6545700Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6548364Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (74, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6551291Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6554111Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (79, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6556685Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6559504Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (83, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6562270Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6565167Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (84, 15): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6567553Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6570104Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (85, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6572994Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6576047Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (86, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6578997Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6581629Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (87, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6584381Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6587254Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (93, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6589986Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6591966Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (93, 33): Unresolved reference: startsWith
+2026-02-12T18:33:15.6595047Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (94, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6597620Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6600191Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (96, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6603081Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6605703Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (97, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6608383Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6611060Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (98, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6613842Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6616467Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (100, 29): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6619069Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6621664Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (101, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6624393Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6627044Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (105, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6629765Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6631751Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (110, 33): Unresolved reference: startsWith
+2026-02-12T18:33:15.6634662Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (111, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6637448Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6639511Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (111, 33): Unresolved reference: startsWith
+2026-02-12T18:33:15.6642212Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (112, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6644805Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6647381Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (113, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6649876Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6652333Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (115, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6654904Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6657298Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (117, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6659655Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6662020Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (119, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6664482Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6667039Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (121, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6669632Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6672190Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (123, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6674858Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6677785Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (125, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6680400Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6683110Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (126, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6685661Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6688464Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (128, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6691046Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6700463Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (132, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6703558Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6706224Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (137, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6708858Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6711436Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (139, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6714208Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6716570Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (140, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6719096Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6721680Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (142, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6724337Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6727324Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (144, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.6762195Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.6764407Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (148, 57): Unresolved reference: startsWith
+2026-02-12T18:33:15.6766552Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (150, 32): Unresolved reference: HashMap
+2026-02-12T18:33:15.7335243Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (155, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7385798Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7389469Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (161, 34): Unresolved reference: startsWith
+2026-02-12T18:33:15.7394120Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (162, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7444400Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7447837Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (163, 27): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7450724Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7453783Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (164, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7456648Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7459563Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (168, 14): Class 'kotlin.Deprecated' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7462516Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Deprecated.class
+2026-02-12T18:33:15.7465579Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (168, 14): Class 'kotlin.ReplaceWith' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7468824Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/ReplaceWith.class
+2026-02-12T18:33:15.7471692Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (168, 14): Class 'kotlin.DeprecationLevel' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7475003Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/DeprecationLevel.class
+2026-02-12T18:33:15.7478323Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (170, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7481280Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7483749Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (170, 33): Unresolved reference: startsWith
+2026-02-12T18:33:15.7486739Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (171, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7489683Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7492602Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (173, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7495908Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7498964Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (175, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7501877Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7504830Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (178, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7507583Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7510321Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (180, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7514036Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7517100Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (182, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7521557Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7524481Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (186, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7527246Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7529547Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (186, 33): Unresolved reference: startsWith
+2026-02-12T18:33:15.7532345Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (187, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7535184Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7537878Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (189, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7540534Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7618618Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (191, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7621273Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7624023Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (194, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7626712Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7629326Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (196, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7632031Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7634980Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (202, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7638083Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7640714Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (204, 26): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7703622Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7706562Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (205, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7709167Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7711716Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (210, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7714427Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7717071Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (212, 26): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7721671Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7724553Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (213, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7727286Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7729342Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (220, 13): Unresolved reference: synchronized
+2026-02-12T18:33:15.7732134Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (221, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7795183Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7797917Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (228, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7800664Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7803681Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (230, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7806659Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7809385Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (233, 31): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7812139Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7815331Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (236, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7818107Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7820815Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (238, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7884041Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7886954Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (241, 32): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7889679Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7892319Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (243, 32): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7895184Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7897339Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (251, 13): Unresolved reference: synchronized
+2026-02-12T18:33:15.7900184Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (252, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7903102Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7905807Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (259, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7908511Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7911519Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (261, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7976469Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7979008Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (264, 31): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7981703Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7984585Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (267, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7987276Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7990003Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (269, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.7992757Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.7995619Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (272, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8023753Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8025918Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (278, 9): Unresolved reference: synchronized
+2026-02-12T18:33:15.8028799Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (281, 48): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8031388Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8033678Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (283, 17): 'return' is not allowed here
+2026-02-12T18:33:15.8036362Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (286, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8039027Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8041965Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (291, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8044759Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8047387Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (292, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8050167Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8052757Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (296, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8158505Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8161254Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (299, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8164196Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8166960Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (300, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8169626Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8172292Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (301, 25): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8175155Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8177844Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (307, 32): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8180520Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8182583Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (313, 21): Unresolved reference: synchronized
+2026-02-12T18:33:15.8215729Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (314, 56): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8218812Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8221471Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (320, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8224383Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8227343Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (321, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8230063Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8232639Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (322, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8235754Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8238469Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (324, 28): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8241097Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8324771Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (329, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8327641Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8330316Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (330, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8333051Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8335583Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (334, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8338115Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8340718Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (335, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8343757Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8346333Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (340, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8348986Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8351955Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (346, 28): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8385003Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8387732Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (351, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8390434Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8393319Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (352, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8395990Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8398640Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (353, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8401182Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8403861Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (354, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8406377Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8408920Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (356, 28): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8411455Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8444395Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (361, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8447437Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8449964Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (363, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8452402Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8454943Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (363, 45): Unresolved reference: substring
+2026-02-12T18:33:15.8457814Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (365, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8460384Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8462822Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (366, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8465532Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8468151Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (368, 35): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8470740Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8499435Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (369, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8502102Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8504836Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (374, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8507433Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8510077Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (375, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8512748Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8515804Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (376, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8518486Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8521168Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (377, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8554481Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8557317Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (378, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8560033Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8562743Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (380, 35): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8565642Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8568345Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (381, 21): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8571072Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8573986Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (387, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8576655Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8579319Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (394, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8581976Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8614376Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (394, 36): Unresolved reference: toFloat
+2026-02-12T18:33:15.8617240Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (395, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8620089Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8622670Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (400, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8625374Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8627523Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (400, 34): Unresolved reference: toFloat
+2026-02-12T18:33:15.8630175Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (405, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8632805Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8635056Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (405, 32): Unresolved reference: toFloat
+2026-02-12T18:33:15.8637840Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (410, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8640483Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8673489Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (413, 31): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8676300Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8679039Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (414, 28): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8681856Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8684720Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (415, 42): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8687321Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8689901Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (416, 29): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8693132Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8695639Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (417, 35): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8698132Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8700732Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (418, 34): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8724117Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8726328Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (420, 28): Unresolved reference: HashMap
+2026-02-12T18:33:15.8728583Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (420, 61): Not enough information to infer type variable T
+2026-02-12T18:33:15.8731470Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (421, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8734362Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8737077Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (424, 29): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8739832Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8742535Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (429, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8745523Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8748237Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (434, 22): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8750795Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8752715Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (434, 44): Unresolved reference: toInt
+2026-02-12T18:33:15.8785898Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (437, 43): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8788958Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8791696Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (440, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8794558Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8797306Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (445, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8799874Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8802385Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (450, 22): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8805084Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8807107Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (450, 44): Unresolved reference: toInt
+2026-02-12T18:33:15.8809840Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (451, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8812513Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8855372Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (455, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8857847Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8860379Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (456, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8863023Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8865502Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (459, 28): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8868401Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8870293Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (472, 52): Unresolved reference: HashMap
+2026-02-12T18:33:15.8872185Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (474, 19): Unresolved reference: result[language]
+2026-02-12T18:33:15.8874505Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (474, 19): No set method providing array access
+2026-02-12T18:33:15.8877607Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (498, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8880295Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8913168Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (499, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8915940Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8918594Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (500, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8921249Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8924070Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (501, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8926767Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8929258Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (506, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8931600Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8934402Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (507, 19): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8937039Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8939672Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (508, 20): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8942558Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8975453Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (510, 20): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8978053Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8980275Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (514, 33): Unresolved reference: HashMap
+2026-02-12T18:33:15.8983133Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (519, 23): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8985782Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8988409Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (520, 24): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8991029Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8993799Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (524, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.8996334Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.8998879Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (525, 16): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9026045Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9028718Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (529, 15): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9031383Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9034196Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (530, 16): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9036775Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9039580Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (534, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9042111Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9044167Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (534, 28): Unresolved reference: ..
+2026-02-12T18:33:15.9046942Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (535, 22): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9049568Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9052095Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (536, 20): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9084971Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9087730Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (538, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9090417Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9093348Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (539, 20): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9096137Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9098881Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (544, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9101671Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9103977Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (544, 27): Unresolved reference: ..
+2026-02-12T18:33:15.9106722Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (546, 20): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9109481Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9112277Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (548, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9145633Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9148208Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (549, 20): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9150780Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9153123Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (554, 22): Unresolved reference: ArrayList
+2026-02-12T18:33:15.9155144Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (554, 32): Unresolved reference: HashMap
+2026-02-12T18:33:15.9157740Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (555, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9160147Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9161964Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (557, 32): Unresolved reference: HashMap
+2026-02-12T18:33:15.9164926Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (558, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9167601Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9170321Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (561, 20): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9203708Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9206393Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (563, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9208853Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9211295Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (564, 20): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9213955Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9216094Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (569, 23): Unresolved reference: ArrayList
+2026-02-12T18:33:15.9218673Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (570, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9221095Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9223904Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (571, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9226431Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9228529Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (579, 40): Unresolved reference: isEmpty
+2026-02-12T18:33:15.9231383Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (585, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9264374Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9267081Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (587, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9269633Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9272075Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (589, 16): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9274966Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9277038Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (593, 23): Unresolved reference: ArrayList
+2026-02-12T18:33:15.9279839Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (594, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9282535Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9285462Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (599, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9288440Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9291108Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (601, 16): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9324062Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9327122Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (606, 16): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9329880Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9331908Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (611, 21): Unresolved reference: HashMap
+2026-02-12T18:33:15.9335026Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (613, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9337773Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9340519Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (615, 16): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9343482Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9345595Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (619, 12): Unresolved reference: map["name"]
+2026-02-12T18:33:15.9347843Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (619, 12): No set method providing array access
+2026-02-12T18:33:15.9350088Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (620, 12): Unresolved reference: map["locale"]
+2026-02-12T18:33:15.9352219Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (620, 12): No set method providing array access
+2026-02-12T18:33:15.9384696Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (621, 12): Unresolved reference: map["quality"]
+2026-02-12T18:33:15.9386872Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (621, 12): No set method providing array access
+2026-02-12T18:33:15.9389022Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (622, 12): Unresolved reference: map["latency"]
+2026-02-12T18:33:15.9391213Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (622, 12): No set method providing array access
+2026-02-12T18:33:15.9393937Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (623, 12): Unresolved reference: map["network_required"]
+2026-02-12T18:33:15.9396149Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (623, 12): No set method providing array access
+2026-02-12T18:33:15.9398337Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (624, 12): Unresolved reference: map["features"]
+2026-02-12T18:33:15.9400533Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (624, 12): No set method providing array access
+2026-02-12T18:33:15.9403090Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (624, 42): Unresolved reference: joinToString
+2026-02-12T18:33:15.9405311Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (656, 20): Unresolved reference: HashMap
+2026-02-12T18:33:15.9408067Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (661, 16): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9410740Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9443629Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (669, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9446363Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9449041Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (683, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9451673Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9454515Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (684, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9457136Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9459762Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (690, 35): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9462385Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9465257Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (691, 35): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9468094Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9470697Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (700, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9500624Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9503818Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (701, 45): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9506532Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9509243Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (703, 45): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9511909Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9514723Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (711, 18): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9517424Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9519463Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (724, 53): Unresolved reference: apply
+2026-02-12T18:33:15.9521542Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (725, 21): Unresolved reference: put
+2026-02-12T18:33:15.9553905Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (726, 21): Unresolved reference: put
+2026-02-12T18:33:15.9556058Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (727, 21): Unresolved reference: put
+2026-02-12T18:33:15.9558757Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (730, 22): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9561403Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9564144Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (742, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9567005Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9569568Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (743, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9572073Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9574930Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (745, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9577488Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9580025Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (751, 56): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9582543Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9614747Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (763, 40): Unresolved reference: javaClass
+2026-02-12T18:33:15.9616802Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (764, 26): Unresolved reference: indices
+2026-02-12T18:33:15.9619426Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (765, 23): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9622002Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9624792Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (767, 17): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9627492Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9630113Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (770, 29): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9632730Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9635509Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (773, 23): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9663693Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9666471Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (775, 23): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9669100Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9671943Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (777, 23): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9674803Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9677403Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (796, 9): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9680000Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9682584Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (799, 13): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.2.0, expected version is 1.7.1.
+2026-02-12T18:33:15.9685432Z The class is loaded from /home/runner/.gradle/caches/transforms-3/e2a077e65aa1522458b90328728bf30a/transformed/jetified-kotlin-stdlib-2.2.20.jar!/kotlin/Unit.class
+2026-02-12T18:33:15.9687442Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (810, 32): Unresolved reference: let
+2026-02-12T18:33:15.9689498Z e: /home/runner/.pub-cache/hosted/pub.dev/flutter_tts-4.2.5/android/src/main/kotlin/com/eyedeadevelopment/fluttertts/FlutterTtsPlugin.kt: (810, 77): Unresolved reference: it
+2026-02-12T18:33:18.3337085Z 
+2026-02-12T18:33:18.3337656Z FAILURE: Build failed with an exception.
+2026-02-12T18:33:18.3338167Z 
+2026-02-12T18:33:18.3338528Z * What went wrong:
+2026-02-12T18:33:18.3343598Z Execution failed for task ':flutter_tts:compileReleaseKotlin'.
+2026-02-12T18:33:18.3354362Z > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+2026-02-12T18:33:18.3373591Z    > Compilation error. See log for more details
+2026-02-12T18:33:18.3373972Z 
+2026-02-12T18:33:18.3374087Z * Try:
+2026-02-12T18:33:18.3374459Z > Run with --stacktrace option to get the stack trace.
+2026-02-12T18:33:18.3375052Z > Run with --info or --debug option to get more log output.
+2026-02-12T18:33:18.3375585Z > Run with --scan to get full insights.
+2026-02-12T18:33:18.3375893Z 
+2026-02-12T18:33:18.3376077Z * Get more help at https://help.gradle.org
+2026-02-12T18:33:18.3376408Z 
+2026-02-12T18:33:18.3376537Z BUILD FAILED in 4m 31s
+2026-02-12T18:33:18.7597584Z Running Gradle task 'assembleRelease'...                          272.5s
+2026-02-12T18:33:18.7631269Z 
+2026-02-12T18:33:18.7638535Z ┌─ Flutter Fix ────────────────────────────────────────────────────────────────────────────────┐
+2026-02-12T18:33:18.7640300Z │ [!] Your project requires a newer version of the Kotlin Gradle plugin.                       │
+2026-02-12T18:33:18.7642073Z │ Find the latest version on https://kotlinlang.org/docs/releases.html#release-details, then   │
+2026-02-12T18:33:18.7646376Z │ update the                                                                                   │
+2026-02-12T18:33:18.7652414Z │ version number of the plugin with id "org.jetbrains.kotlin.android" in the plugins block of  │
+2026-02-12T18:33:18.7653295Z │ /home/runner/work/ai-daddy/ai-daddy/android/settings.gradle.                                 │
+2026-02-12T18:33:18.7653848Z │                                                                                              │
+2026-02-12T18:33:18.7654369Z │ Alternatively (if your project was created before Flutter 3.19), update                      │
+2026-02-12T18:33:18.7656539Z │ /home/runner/work/ai-daddy/ai-daddy/android/build.gradle                                     │
+2026-02-12T18:33:18.7658193Z │ ext.kotlin_version = '<latest-version>'                                                      │
+2026-02-12T18:33:18.7659898Z └──────────────────────────────────────────────────────────────────────────────────────────────┘
+2026-02-12T18:33:18.7714208Z Gradle task assembleRelease failed with exit code 1
+2026-02-12T18:33:18.7784949Z ##[error]Process completed with exit code 1.
+2026-02-12T18:33:18.7974124Z Post job cleanup.
+2026-02-12T18:33:18.8049574Z Post job cleanup.
+2026-02-12T18:33:18.9855825Z Post job cleanup.
+2026-02-12T18:33:19.0840570Z [command]/usr/bin/git version
+2026-02-12T18:33:19.0883780Z git version 2.52.0
+2026-02-12T18:33:19.0929538Z Temporarily overriding HOME='/home/runner/work/_temp/6ede84af-75ee-4dd4-ba5b-7629e9c93b8c' before making global git config changes
+2026-02-12T18:33:19.0930782Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-12T18:33:19.0945147Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-daddy/ai-daddy
+2026-02-12T18:33:19.0990645Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-12T18:33:19.1032304Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-12T18:33:19.1295854Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-12T18:33:19.1321083Z http.https://github.com/.extraheader
+2026-02-12T18:33:19.1334754Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-02-12T18:33:19.1369593Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-12T18:33:19.1624459Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-12T18:33:19.1662402Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-12T18:33:19.2002402Z Cleaning up orphan processes
+2026-02-12T18:33:19.2312794Z Terminate orphan process: pid (2673) (java)
+2026-02-12T18:33:19.2346382Z Terminate orphan process: pid (3099) (java)

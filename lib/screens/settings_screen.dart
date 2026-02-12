@@ -17,6 +17,7 @@ import '../screens/goal_tracking_screen.dart';
 import '../screens/habit_screen.dart';
 import '../screens/dad_report_screen.dart';
 import '../theme/app_theme.dart';
+import '../services/situational_intelligence_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   final int userId;
@@ -40,6 +41,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   double _playfulness = 0.5;
   double _mentoring = 0.5;
   bool _selfLearningEnabled = true;
+  bool _travelMode = false;
+  bool _careModeActive = false;
 
   @override
   void initState() {
@@ -50,6 +53,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _loadSettings() async {
     final user = await DatabaseHelper.instance.getUser(widget.userId);
     final prefs = await SharedPreferences.getInstance();
+    final travelActive = await SituationalIntelligenceService.isTravelMode();
+    final careActive = await SituationalIntelligenceService.isCareModeActive();
     if (user != null) {
       setState(() {
         _user = user;
@@ -62,6 +67,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             prefs.getBool('self_learning_enabled') ?? true;
         _privacyMode = prefs.getBool('privacy_mode') ?? false;
         _voiceStyle = prefs.getString('voice_style') ?? 'warm';
+        _travelMode = travelActive;
+        _careModeActive = careActive;
       });
     }
   }
@@ -223,6 +230,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   // Voice Personalization
                   _buildSectionTitle(AppLocalizations.of(context).t('voicePersonalization')),
                   _buildVoiceSelector(),
+                  const SizedBox(height: 20),
+
+                  // Situational Modes
+                  _buildSectionTitle(AppLocalizations.of(context).t('situationalModes')),
+                  _buildToggle(
+                    AppLocalizations.of(context).t('travelMode'),
+                    AppLocalizations.of(context).t('travelModeDesc'),
+                    _travelMode,
+                    (v) async {
+                      setState(() => _travelMode = v);
+                      await SituationalIntelligenceService.setTravelMode(v);
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(v
+                                ? AppLocalizations.of(context).t('travelModeOn')
+                                : AppLocalizations.of(context).t('travelModeOff')),
+                            backgroundColor: v ? AppTheme.accentBlue : AppTheme.successGreen,
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  _buildToggle(
+                    AppLocalizations.of(context).t('careMode'),
+                    AppLocalizations.of(context).t('careModeDesc'),
+                    _careModeActive,
+                    (v) async {
+                      setState(() => _careModeActive = v);
+                      if (v) {
+                        await SituationalIntelligenceService.instance
+                            .activateCareMode(_user!.nickname);
+                      } else {
+                        await SituationalIntelligenceService.instance
+                            .deactivateCareMode();
+                      }
+                    },
+                  ),
+                  // Milestone info
+                  _buildMilestoneCard(),
                   const SizedBox(height: 20),
 
                   // Premium teaser
@@ -1276,6 +1323,62 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildMilestoneCard() {
+    if (_user == null) return const SizedBox.shrink();
+    final info = SituationalIntelligenceService.getMilestoneInfo(_user!.createdAt);
+    final days = info['days'] as int;
+    final nextMilestone = info['nextMilestone'] as int;
+    final daysUntil = info['daysUntil'] as int;
+
+    return Container(
+      margin: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppTheme.navyCard,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppTheme.tokenGold.withOpacity(0.2)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: AppTheme.tokenGold.withOpacity(0.15),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.emoji_events_rounded,
+                color: AppTheme.tokenGold, size: 26),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${AppLocalizations.of(context).t('daysWithDaddy')}: $days',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.tokenGold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '${AppLocalizations.of(context).t('nextMilestone')}: $nextMilestone ${AppLocalizations.of(context).t('days')} ($daysUntil ${AppLocalizations.of(context).t('daysLeft')})',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: AppTheme.textSecondary.withOpacity(0.8),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

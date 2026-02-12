@@ -16,6 +16,7 @@ import '../services/context_awareness_service.dart';
 import '../services/memory_extraction_service.dart';
 import '../services/dad_report_service.dart';
 import '../services/daddy_lifecycle_service.dart';
+import '../services/situational_intelligence_service.dart';
 
 class ChatProvider extends ChangeNotifier {
   final DatabaseHelper _db = DatabaseHelper.instance;
@@ -23,6 +24,8 @@ class ChatProvider extends ChangeNotifier {
   final TTSService _ttsService = TTSService();
   final SelfLearningService _learning = SelfLearningService();
   final DaddyLifecycleService _lifecycle = DaddyLifecycleService.instance;
+  final SituationalIntelligenceService _situational =
+      SituationalIntelligenceService.instance;
 
   List<MessageModel> _messages = [];
   bool _isLoading = false;
@@ -71,6 +74,13 @@ class ChatProvider extends ChangeNotifier {
         _lifecycle.setupDailySchedule(userId, _currentUser!.nickname);
         _lifecycle.checkInactivityAndNotify(userId, _currentUser!.nickname);
         _lifecycle.analyzeBehaviorPatterns(userId);
+
+        // ── Situational Intelligence: milestones, love notes ──
+        _situational.initialize(
+          userId: userId,
+          nickname: _currentUser!.nickname,
+          createdAt: _currentUser!.createdAt,
+        );
       }
     }
     notifyListeners();
@@ -153,6 +163,18 @@ class ChatProvider extends ChangeNotifier {
     await EmotionalIntelligenceService.recordMoodFromChat(
         userId, moodAnalysis.score);
 
+    // ── Sick Detection → Care Mode ──
+    if (SituationalIntelligenceService.detectSickness(text)) {
+      if (!kIsWeb) {
+        await _situational.activateCareMode(_currentUser!.nickname);
+      }
+    }
+
+    // ── Emotional Support: schedule follow-up for distress ──
+    if (!kIsWeb && SituationalIntelligenceService.detectDistress(text)) {
+      await _situational.scheduleEmotionalFollowUp(_currentUser!.nickname);
+    }
+
     // ── Memory Extraction (non-blocking) ──
     if (!_privacyMode) {
       MemoryExtractionService.extractAndStore(userId, text);
@@ -221,12 +243,17 @@ class ChatProvider extends ChangeNotifier {
     // ── Build enriched system prompt ──
     String emotionalCtx = '';
     String memoryCtx = '';
+    String careModeCtx = '';
     try {
       emotionalCtx =
           await EmotionalIntelligenceService.buildEmotionalContext(userId);
       if (!_privacyMode) {
         memoryCtx =
             await MemoryExtractionService.buildMemoryPrompt(userId);
+      }
+      // Add care mode context if active
+      if (await SituationalIntelligenceService.isCareModeActive()) {
+        careModeCtx = SituationalIntelligenceService.getCareModeContext();
       }
     } catch (_) {}
 
@@ -243,7 +270,7 @@ class ChatProvider extends ChangeNotifier {
         systemPrompt: LongCatAIService.buildDaddyPrompt(
           personality: _personality,
           nickname: _currentUser!.nickname,
-          emotionalContext: emotionalCtx,
+          emotionalContext: emotionalCtx + careModeCtx,
           memoryContext: memoryCtx,
           contextAwareness: contextCtx,
           relationshipStage: stageLabel,
@@ -416,6 +443,13 @@ class ChatProvider extends ChangeNotifier {
           examTime: parsed.scheduledTime,
         );
       }
+
+      // ── Follow-up Memory: "How did it go?" 1 hour after event ──
+      await _situational.scheduleFollowUp(
+        nickname: _currentUser!.nickname,
+        eventDescription: parsed.originalText,
+        eventTime: parsed.scheduledTime,
+      );
     }
 
     // Build a dad-like confirmation message

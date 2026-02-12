@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../database/database_helper.dart';
 import '../models/check_in_log_model.dart';
 import 'notification_service.dart';
+import 'situational_intelligence_service.dart';
 
 /// DaddyLifecycleService — handles background lifecycle events:
 ///
@@ -278,6 +279,38 @@ class DaddyLifecycleService {
   /// Build personalized daily notification schedule based on
   /// learned behavior patterns. Uses 0 AI tokens.
   Future<void> setupDailySchedule(int userId, String nickname) async {
+    // ── Travel Mode: skip most daily notifications ──
+    if (await SituationalIntelligenceService.isTravelMode()) {
+      // In travel mode, only schedule 1 evening check-in
+      final now = DateTime.now();
+      var eveningTime = DateTime(now.year, now.month, now.day, 20, 0);
+      if (eveningTime.isBefore(now)) {
+        eveningTime = eveningTime.add(const Duration(days: 1));
+      }
+      final travelMsgs = [
+        'Hey $nickname. How\'s the trip going? Stay safe! ✈️',
+        'Travel check-in, $nickname. Having fun? Don\'t forget to eat!',
+        'Daddy checking in, $nickname. Enjoying the adventure? 🌍',
+      ];
+      await NotificationService.instance.scheduleNotification(
+        id: 200,
+        title: 'AI Daddy ✈️',
+        body: travelMsgs[_rng.nextInt(travelMsgs.length)],
+        scheduledTime: eveningTime,
+      );
+      // Cancel everything else in daily schedule
+      for (int i = 201; i <= 204; i++) {
+        await NotificationService.instance.cancel(i);
+      }
+      for (int i = 300; i <= 304; i++) {
+        await NotificationService.instance.cancel(i);
+      }
+      return;
+    }
+
+    // ── Care Mode: skip Dad Tasks ──
+    final careActive = await SituationalIntelligenceService.isCareModeActive();
+
     final prefs = await SharedPreferences.getInstance();
     final wakeHour = prefs.getInt('learned_wake_hour') ?? 7;
     final sleepHour = prefs.getInt('learned_sleep_hour') ?? 23;
@@ -327,20 +360,27 @@ class DaddyLifecycleService {
         scheduledTime: scheduled,
       );
     }
-    // ── 1 daily Dad Task reminder at 9 AM ──
-    final dadTaskMsgs = dadTaskTemplates(nickname);
-    dadTaskMsgs.shuffle(_rng);
-    // Cancel old extra reminders (301-304) in case they existed before
-    for (int i = 1; i < 5; i++) {
-      await NotificationService.instance.cancel(300 + i);
-    }
-    await NotificationService.instance.scheduleDailyNotification(
-      id: 300,
-      title: 'Dad Tasks 📋',
-      body: dadTaskMsgs[0],
-      hour: 9,
-      minute: 0,
-    );  }
+    // ── 1 daily Dad Task reminder at 9 AM (skip if care mode) ──
+    if (!careActive) {
+      final dadTaskMsgs = dadTaskTemplates(nickname);
+      dadTaskMsgs.shuffle(_rng);
+      // Cancel old extra reminders (301-304) in case they existed before
+      for (int i = 1; i < 5; i++) {
+        await NotificationService.instance.cancel(300 + i);
+      }
+      await NotificationService.instance.scheduleDailyNotification(
+        id: 300,
+        title: 'Dad Tasks 📋',
+        body: dadTaskMsgs[0],
+        hour: 9,
+        minute: 0,
+      );
+    } else {
+      // Care mode: cancel all Dad Task reminders
+      for (int i = 0; i < 5; i++) {
+        await NotificationService.instance.cancel(300 + i);
+      }
+    }  }
 
   // ════════════════════════════════════════════════════
   //  6. DOUBLE REMINDER SYSTEM

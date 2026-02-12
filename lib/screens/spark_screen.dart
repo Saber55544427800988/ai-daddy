@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 
@@ -359,6 +360,7 @@ class _SparkScreenState extends State<SparkScreen>
             subtitle: spark['subtitle'] as String,
             icon: spark['icon'] as IconData,
             color: spark['color'] as Color,
+            sparkKey: 'spark_$i',
           );
         }),
       ],
@@ -567,12 +569,14 @@ class _SparkActionTile extends StatefulWidget {
   final String subtitle;
   final IconData icon;
   final Color color;
+  final String sparkKey;
 
   const _SparkActionTile({
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.color,
+    required this.sparkKey,
   });
 
   @override
@@ -581,6 +585,29 @@ class _SparkActionTile extends StatefulWidget {
 
 class _SparkActionTileState extends State<_SparkActionTile> {
   bool _done = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadState();
+  }
+
+  Future<void> _loadState() async {
+    final prefs = await SharedPreferences.getInstance();
+    final today = DateTime.now().toIso8601String().substring(0, 10);
+    final key = 'spark_${widget.sparkKey}_$today';
+    final done = prefs.getBool(key) ?? false;
+    if (mounted) setState(() => _done = done);
+  }
+
+  Future<void> _toggleDone() async {
+    final newDone = !_done;
+    setState(() => _done = newDone);
+    final prefs = await SharedPreferences.getInstance();
+    final today = DateTime.now().toIso8601String().substring(0, 10);
+    final key = 'spark_${widget.sparkKey}_$today';
+    await prefs.setBool(key, newDone);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -634,7 +661,7 @@ class _SparkActionTileState extends State<_SparkActionTile> {
             ),
           ),
           GestureDetector(
-            onTap: () => setState(() => _done = !_done),
+            onTap: _toggleDone,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               width: 32,

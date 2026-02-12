@@ -405,6 +405,42 @@ class DatabaseHelper {
         where: 'id = ?', whereArgs: [id]);
   }
 
+  /// Get ALL smart reminders for a user (both pending and sent)
+  Future<List<SmartReminderModel>> getAllSmartReminders(int userId) async {
+    final db = await database;
+    final maps = await db.query(
+      'smart_reminders',
+      where: 'user_id = ?',
+      whereArgs: [userId],
+      orderBy: 'scheduled_time DESC',
+    );
+    return maps.map((m) => SmartReminderModel.fromMap(m)).toList();
+  }
+
+  /// Get ALL regular reminders for a user
+  Future<List<ReminderModel>> getAllReminders(int userId) async {
+    final db = await database;
+    final maps = await db.query(
+      'reminders',
+      where: 'user_id = ?',
+      whereArgs: [userId],
+      orderBy: 'scheduled_time DESC',
+    );
+    return maps.map((m) => ReminderModel.fromMap(m)).toList();
+  }
+
+  /// Delete a smart reminder
+  Future<int> deleteSmartReminder(int id) async {
+    final db = await database;
+    return await db.delete('smart_reminders', where: 'id = ?', whereArgs: [id]);
+  }
+
+  /// Delete a regular reminder
+  Future<int> deleteReminder(int id) async {
+    final db = await database;
+    return await db.delete('reminders', where: 'id = ?', whereArgs: [id]);
+  }
+
   // ─── MOOD LOG ──────────────────────────────────────
 
   Future<int> insertMoodLog(MoodLogModel mood) async {

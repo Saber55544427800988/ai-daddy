@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../database/database_helper.dart';
 import '../models/message_model.dart';
 import '../models/smart_reminder_model.dart';
@@ -48,6 +49,10 @@ class ChatProvider extends ChangeNotifier {
 
   /// Initialize chat for user
   Future<void> init(int userId) async {
+    // Load persisted settings
+    final prefs = await SharedPreferences.getInstance();
+    _autoReadEnabled = prefs.getBool('auto_read_enabled') ?? true;
+
     _currentUser = await _db.getUser(userId);
     if (_currentUser != null) {
       _personality = _currentUser!.dadPersonality;
@@ -456,11 +461,20 @@ class ChatProvider extends ChangeNotifier {
     return '$hour:$minute $period';
   }
 
-  void toggleAutoRead() {
+  void toggleAutoRead() async {
     _autoReadEnabled = !_autoReadEnabled;
     if (!_autoReadEnabled) {
       _ttsService.stop();
     }
+    // Persist the setting
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('auto_read_enabled', _autoReadEnabled);
+    notifyListeners();
+  }
+
+  /// Update personality without full re-init (called from Settings)
+  void updatePersonality(String newPersonality) {
+    _personality = newPersonality;
     notifyListeners();
   }
 

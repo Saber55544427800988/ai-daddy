@@ -6,10 +6,9 @@ import '../providers/mission_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import 'chat_screen.dart';
-import 'spark_screen.dart';
+import 'reminders_screen.dart';
 import 'missions_screen.dart';
 import 'settings_screen.dart';
-import 'token_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final int userId;
@@ -29,9 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _screens = [
       ChatScreen(userId: widget.userId),
-      SparkScreen(userId: widget.userId),
+      RemindersScreen(userId: widget.userId),
       MissionsScreen(userId: widget.userId),
-      TokenScreen(userId: widget.userId),
       SettingsScreen(userId: widget.userId),
     ];
 
@@ -73,37 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
               label: AppLocalizations.of(context).t('chat'),
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.auto_awesome_rounded),
-              label: AppLocalizations.of(context).t('spark'),
+              icon: const Icon(Icons.notifications_active_rounded),
+              label: AppLocalizations.of(context).t('reminders'),
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.flag_rounded),
               label: AppLocalizations.of(context).t('missions'),
-            ),
-            BottomNavigationBarItem(
-              icon: Consumer<TokenProvider>(
-                builder: (_, tp, __) {
-                  return Stack(
-                    children: [
-                      const Icon(Icons.bolt_rounded),
-                      if (tp.isLow)
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: Container(
-                            width: 8,
-                            height: 8,
-                            decoration: const BoxDecoration(
-                              color: AppTheme.dangerRed,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                    ],
-                  );
-                },
-              ),
-              label: AppLocalizations.of(context).t('tokens'),
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.settings_rounded),

@@ -31,6 +31,23 @@ class NotificationService {
 
     await _notifications.initialize(settings);
     _isInitialized = true;
+
+    // Request notification permission on Android 13+
+    await requestPermission();
+  }
+
+  /// Request notification permission (Android 13+ / API 33+)
+  Future<bool> requestPermission() async {
+    try {
+      final androidPlugin = _notifications
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>();
+      if (androidPlugin != null) {
+        final granted = await androidPlugin.requestNotificationsPermission();
+        return granted ?? false;
+      }
+    } catch (_) {}
+    return true;
   }
 
   /// Schedule a notification at a specific time
@@ -90,10 +107,15 @@ class NotificationService {
     );
   }
 
-  /// Schedule daily hidden reminders (5 per day)
+  /// Schedule daily hidden reminders (5 per day) — recurring daily
   Future<void> scheduleDailyReminders(
       String nickname, List<String> reminderTexts) async {
-    // Schedule at: 8AM, 11AM, 2PM, 5PM, 9PM
+    // Cancel old reminders first
+    for (int i = 0; i < 5; i++) {
+      await cancel(100 + i);
+    }
+
+    // Schedule at: 8AM, 11AM, 2PM, 5PM, 9PM — repeating daily
     final times = [8, 11, 14, 17, 21];
 
     for (int i = 0; i < reminderTexts.length && i < times.length; i++) {
@@ -105,13 +127,59 @@ class NotificationService {
         scheduledTime = scheduledTime.add(const Duration(days: 1));
       }
 
-      await scheduleNotification(
+      await scheduleDailyNotification(
         id: 100 + i,
         title: 'AI Daddy 💙',
         body: reminderTexts[i],
-        scheduledTime: scheduledTime,
+        hour: times[i],
+        minute: 0,
       );
     }
+  }
+
+  /// Schedule a notification that repeats daily at a specific time
+  Future<void> scheduleDailyNotification({
+    required int id,
+    required String title,
+    required String body,
+    required int hour,
+    required int minute,
+  }) async {
+    await init();
+
+    final now = tz.TZDateTime.now(tz.local);
+    var scheduledDate = tz.TZDateTime(
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      hour,
+      minute,
+    );
+
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+
+    await _notifications.zonedSchedule(
+      id,
+      title,
+      body,
+      scheduledDate,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'ai_daddy_reminders',
+          'AI Daddy Reminders',
+          channelDescription: 'Reminders and messages from AI Daddy',
+          importance: Importance.high,
+          priority: Priority.high,
+          icon: '@mipmap/ic_launcher',
+        ),
+        iOS: DarwinNotificationDetails(),
+      ),
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
   }
 
   /// Cancel all scheduled notifications

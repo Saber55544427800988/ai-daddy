@@ -7,6 +7,7 @@ import '../models/user_model.dart';
 import '../models/reminder_model.dart';
 import '../services/notification_service.dart';
 import '../providers/chat_provider.dart';
+import '../providers/token_provider.dart';
 import '../providers/locale_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../screens/analytics_dashboard_screen.dart';
@@ -142,6 +143,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       setState(() => _autoReadEnabled = v);
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.setBool('auto_read_enabled', v);
+                      // Sync to ChatProvider
+                      if (mounted) {
+                        final chat = context.read<ChatProvider>();
+                        if (chat.autoReadEnabled != v) {
+                          chat.toggleAutoRead();
+                        }
+                      }
                     },
                   ),
                   const SizedBox(height: 12),
@@ -160,6 +168,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       label: Text(AppLocalizations.of(context).t('saveSettings')),
                     ),
                   ),
+                  const SizedBox(height: 24),
+
+                  // Token status (embedded from token page)
+                  _buildSectionTitle(AppLocalizations.of(context).t('tokenStatus')),
+                  _buildEmbeddedTokenSection(),
                   const SizedBox(height: 24),
 
                   // Feature shortcuts
@@ -270,33 +283,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     value: '1.0.0',
                   ),
                   _buildInfoTile(
-                    icon: Icons.smart_toy_rounded,
-                    title: AppLocalizations.of(context).t('aiEngine'),
-                    value: 'LongCat AI',
-                  ),
-                  _buildInfoTile(
                     icon: Icons.person_rounded,
                     title: AppLocalizations.of(context).t('imYourDaddy'),
                     value: AppLocalizations.of(context).t('alwaysHere'),
                   ),
                   const SizedBox(height: 20),
 
-                  // Powered by
+                  // Made with love
                   Center(
                     child: Column(
                       children: [
                         Text(
-                          AppLocalizations.of(context).t('poweredBy'),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: AppTheme.textSecondary,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
                           AppLocalizations.of(context).t('madeWithLove'),
                           style: TextStyle(
-                            fontSize: 11,
+                            fontSize: 12,
                             color: AppTheme.textSecondary.withOpacity(0.6),
                           ),
                         ),
@@ -661,6 +661,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('check_in_hours', _checkInHours);
+
+    // Sync personality to ChatProvider so it takes effect immediately
+    if (mounted) {
+      context.read<ChatProvider>().updatePersonality(_personality);
+    }
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -1048,6 +1053,228 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 style: const TextStyle(color: AppTheme.warmOrange)),
           ),
         ],
+      ),
+    );
+  }
+
+  // ─── Embedded Token Section ─────────────────────────────────────────────
+
+  Widget _buildEmbeddedTokenSection() {
+    return Consumer<TokenProvider>(
+      builder: (context, tp, _) {
+        final l = AppLocalizations.of(context);
+        final percent = tp.percentRemaining;
+        final color = tp.isLow ? AppTheme.dangerRed : AppTheme.glowCyan;
+
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: AppTheme.navyCard,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: color.withOpacity(0.15)),
+            boxShadow: [
+              BoxShadow(
+                color: color.withOpacity(0.08),
+                blurRadius: 12,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              // Compact gauge row
+              Row(
+                children: [
+                  // Mini circular gauge
+                  SizedBox(
+                    width: 64,
+                    height: 64,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox(
+                          width: 64,
+                          height: 64,
+                          child: CircularProgressIndicator(
+                            value: percent,
+                            strokeWidth: 6,
+                            backgroundColor: color.withOpacity(0.15),
+                            color: color,
+                            strokeCap: StrokeCap.round,
+                          ),
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.bolt, size: 16, color: color),
+                            Text(
+                              '${tp.remaining}',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: color,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l.t('aiTokens'),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '${tp.remaining} / ${tp.total}',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: AppTheme.textSecondary,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        // Refill countdown
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: AppTheme.glowCyan.withOpacity(0.08),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.timer_outlined,
+                                  size: 14, color: AppTheme.glowCyan),
+                              const SizedBox(width: 4),
+                              Text(
+                                '${l.t('refillIn')} ${tp.refillCountdown}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: AppTheme.glowCyan,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              if (tp.isLow) ...[
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: AppTheme.dangerRed.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.warning_amber_rounded,
+                          color: AppTheme.dangerRed, size: 18),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          l.t('lowTokensWarning'),
+                          style: const TextStyle(
+                              fontSize: 12, color: AppTheme.dangerRed),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+
+              const SizedBox(height: 14),
+
+              // Spending mode compact
+              Row(
+                children: [
+                  Text(
+                    l.t('spendingMode'),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.white,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildMiniModeButton(
+                      tp,
+                      SpendingMode.slow,
+                      l.t('slowModeLabel'),
+                      Icons.eco_rounded,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: _buildMiniModeButton(
+                      tp,
+                      SpendingMode.fast,
+                      l.t('fastModeLabel'),
+                      Icons.flash_on_rounded,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildMiniModeButton(
+      TokenProvider tp, SpendingMode mode, String label, IconData icon) {
+    final isSelected = tp.spendingMode == mode;
+    return GestureDetector(
+      onTap: () => tp.setSpendingMode(widget.userId, mode),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? AppTheme.glowCyan.withOpacity(0.12)
+              : AppTheme.navySurface,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected ? AppTheme.glowCyan : Colors.transparent,
+            width: 1.5,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon,
+                size: 16,
+                color: isSelected ? AppTheme.glowCyan : AppTheme.textSecondary),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: isSelected ? AppTheme.glowCyan : AppTheme.textPrimary,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

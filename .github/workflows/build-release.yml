@@ -18,12 +18,12 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.41.0'
           channel: 'stable'
 
       - name: Get dependencies
@@ -107,8 +107,8 @@ jobs:
           echo "   ✅ Signed with release key (ai-daddy-release)"
           echo "   ✅ versionCode: 1"
           echo "   ✅ versionName: 1.0.0"
-          echo "   ✅ targetSdk: 34 (API 34)"
-          echo "   ✅ minSdk: 21 (Android 5.0)"
+          echo "   ✅ targetSdk: 35 (API 35 — Android 15)"
+          echo "   ✅ minSdk: 24 (Android 7.0)"
           echo "   ✅ 64-bit support: arm64-v8a included"
           echo ""
           echo "2. Permissions (all justified)"

@@ -54,7 +54,7 @@ jobs:
           EOF
 
       - name: Build Release APK
-        run: flutter build apk --release --split-per-abi
+        run: flutter build apk --release
 
       - name: Build Release AAB
         run: flutter build appbundle --release
@@ -68,17 +68,14 @@ jobs:
           ls -la build/app/outputs/bundle/release/*.aab
           echo ""
           echo "=== Verify APK Signature ==="
-          for apk in build/app/outputs/flutter-apk/*-release.apk; do
-            echo "Checking: $apk"
-            jarsigner -verify -verbose -certs "$apk" 2>&1 | head -5
-            echo "---"
-          done
+          echo "Checking: build/app/outputs/flutter-apk/app-release.apk"
+          jarsigner -verify -verbose -certs "build/app/outputs/flutter-apk/app-release.apk" 2>&1 | head -5
 
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
           name: release-apks
-          path: build/app/outputs/flutter-apk/*-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 90
 
       - name: Upload AAB artifact

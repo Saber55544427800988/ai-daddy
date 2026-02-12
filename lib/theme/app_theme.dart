@@ -76,7 +76,7 @@ class AppTheme {
         backgroundColor: glowCyan,
         foregroundColor: navyDark,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: navyCard,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

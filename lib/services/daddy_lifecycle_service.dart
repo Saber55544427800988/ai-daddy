@@ -327,19 +327,20 @@ class DaddyLifecycleService {
         scheduledTime: scheduled,
       );
     }
-    // ── 5 daily Dad Task reminders ──
+    // ── 1 daily Dad Task reminder at 9 AM ──
     final dadTaskMsgs = dadTaskTemplates(nickname);
     dadTaskMsgs.shuffle(_rng);
-    final dadTaskTimes = [9, 12, 15, 18, 20];
-    for (int i = 0; i < 5; i++) {
-      await NotificationService.instance.scheduleDailyNotification(
-        id: 300 + i,
-        title: 'Dad Tasks 📋',
-        body: dadTaskMsgs[i],
-        hour: dadTaskTimes[i],
-        minute: 0,
-      );
-    }  }
+    // Cancel old extra reminders (301-304) in case they existed before
+    for (int i = 1; i < 5; i++) {
+      await NotificationService.instance.cancel(300 + i);
+    }
+    await NotificationService.instance.scheduleDailyNotification(
+      id: 300,
+      title: 'Dad Tasks 📋',
+      body: dadTaskMsgs[0],
+      hour: 9,
+      minute: 0,
+    );  }
 
   // ════════════════════════════════════════════════════
   //  6. DOUBLE REMINDER SYSTEM

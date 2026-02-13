@@ -4,11 +4,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'providers/chat_provider.dart';
 import 'providers/token_provider.dart';
 import 'providers/mission_provider.dart';
 import 'providers/locale_provider.dart';
 import 'services/notification_service.dart';
+import 'services/foreground_service.dart';
 import 'theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/splash_screen.dart';
@@ -38,6 +40,12 @@ void main() async {
   // Initialize notifications (no-op on web via conditional import)
   try {
     await NotificationService.instance.init();
+  } catch (_) {}
+
+  // Start foreground service — keeps app alive for reminders (like WhatsApp)
+  try {
+    await AIDaddyForegroundService.instance.init();
+    await AIDaddyForegroundService.instance.start();
   } catch (_) {}
 
   // Global error handler — prevents white screen on uncaught errors
@@ -84,7 +92,9 @@ class AIDaddyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            home: const AppEntryPoint(),
+            home: const WithForegroundTask(
+              child: AppEntryPoint(),
+            ),
           );
         },
       ),

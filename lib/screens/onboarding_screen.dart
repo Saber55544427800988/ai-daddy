@@ -8,6 +8,7 @@ import '../services/notification_service.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import 'home_screen.dart';
+import 'permission_setup_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -846,8 +847,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       await prefs.setInt('user_id', userId);
 
       if (mounted) {
+        final capturedUserId = userId;
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => HomeScreen(userId: userId)),
+          MaterialPageRoute(
+            builder: (ctx) => PermissionSetupScreen(
+              onComplete: () {
+                Navigator.of(ctx).pushReplacement(
+                  MaterialPageRoute(builder: (_) => HomeScreen(userId: capturedUserId)),
+                );
+              },
+            ),
+          ),
         );
       }
     } catch (e) {

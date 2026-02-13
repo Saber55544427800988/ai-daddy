@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// In-app notification popup that slides from the right side to center.
 /// Shows a Messenger-style card with avatar, title, and message.
-/// Auto-dismisses after 5 seconds or on tap.
+/// Plays the daddy_sound chime and auto-dismisses after 5 seconds.
 class InAppNotification {
   static final InAppNotification instance = InAppNotification._();
   InAppNotification._();
@@ -13,6 +15,30 @@ class InAppNotification {
 
   OverlayEntry? _currentOverlay;
   Timer? _autoDismiss;
+  AudioPlayer? _player;
+
+  /// Play the daddy_sound notification chime.
+  Future<void> _playSound() async {
+    try {
+      _player?.dispose();
+      _player = AudioPlayer();
+      // Set audio context so it doesn't fully steal music focus
+      await _player!.setAudioContext(AudioContext(
+        android: const AudioContextAndroid(
+          audioFocus: AndroidAudioFocus.gainTransientMayDuck,
+          contentType: AndroidContentType.sonification,
+          usageType: AndroidUsageType.notification,
+        ),
+        iOS: AudioContextIOS(
+          category: AVAudioSessionCategory.ambient,
+        ),
+      ));
+      await _player!.play(AssetSource('sounds/daddy_sound.wav'));
+      debugPrint('[AI Daddy] In-app sound played');
+    } catch (e) {
+      debugPrint('[AI Daddy] In-app sound error: $e');
+    }
+  }
 
   /// Show a notification popup that slides from right to center.
   void show({
@@ -24,8 +50,31 @@ class InAppNotification {
     // Dismiss any existing notification
     dismiss();
 
+    // Play custom notification sound
+    _playSound();
+
+    // Try to show overlay — retry up to 3 times with delay if overlay isn't ready
+    _tryShowOverlay(title, body, onTap, duration, retriesLeft: 3);
+  }
+
+  void _tryShowOverlay(
+    String title,
+    String body,
+    VoidCallback? onTap,
+    Duration duration, {
+    int retriesLeft = 3,
+  }) {
     final overlay = navigatorKey.currentState?.overlay;
-    if (overlay == null) return;
+    if (overlay == null) {
+      debugPrint('[AI Daddy] Overlay null, retries=$retriesLeft');
+      if (retriesLeft > 0) {
+        Future.delayed(const Duration(milliseconds: 300), () {
+          _tryShowOverlay(title, body, onTap, duration,
+              retriesLeft: retriesLeft - 1);
+        });
+      }
+      return;
+    }
 
     _currentOverlay = OverlayEntry(
       builder: (context) => _InAppNotificationWidget(
@@ -40,6 +89,7 @@ class InAppNotification {
     );
 
     overlay.insert(_currentOverlay!);
+    debugPrint('[AI Daddy] In-app overlay shown');
 
     // Auto-dismiss after duration
     _autoDismiss = Timer(duration, dismiss);

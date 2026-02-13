@@ -50,6 +50,7 @@ dependencies:
   timezone: ^0.10.1
   android_alarm_manager_plus: ^4.0.6
   workmanager: ^0.5.2
+  audioplayers: ^6.1.0
   sqflite_common_ffi_web: ^0.4.5+4
   http: ^1.2.0
 
@@ -89,6 +90,7 @@ flutter:
   assets:
     - assets/icon/app_icon.png
     - assets/images/logo.png
+    - assets/sounds/daddy_sound.wav
 
   # To add assets to your application, add an assets section, like this:
   # assets:

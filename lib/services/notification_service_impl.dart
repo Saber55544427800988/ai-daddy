@@ -6,6 +6,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
+import '../widgets/in_app_notification.dart';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Top-level callback for android_alarm_manager_plus.
@@ -244,16 +245,24 @@ class NotificationService {
   }
 
   /// Show notification immediately — Messenger-style popup with sound.
+  /// Also shows an in-app overlay popup that slides from right to center.
   Future<void> showNotification({
     required int id,
     required String title,
     required String body,
   }) async {
     await init();
+
+    // System notification (shows even if app is in background)
     await _notifications.show(
       id, title, body,
       NotificationDetails(android: _messengerDetails(body), iOS: _ios),
     );
+
+    // In-app overlay popup (slides from side to center when app is open)
+    try {
+      InAppNotification.instance.show(title: title, body: body);
+    } catch (_) {}
   }
 
   Future<void> scheduleDailyReminders(

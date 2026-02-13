@@ -4,23 +4,36 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:workmanager/workmanager.dart';
 import 'providers/chat_provider.dart';
 import 'providers/token_provider.dart';
 import 'providers/mission_provider.dart';
 import 'providers/locale_provider.dart';
 import 'services/notification_service.dart';
-import 'services/foreground_service.dart';
 import 'theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/splash_screen.dart';
 import 'screens/language_picker_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/home_screen.dart';
+import 'widgets/in_app_notification.dart';
 
 // Web database support — conditional import
 import 'database/web_db_setup_stub.dart'
     if (dart.library.js_interop) 'database/web_db_setup.dart';
+
+/// WorkManager background callback — runs even when app is killed.
+/// This is Google's approved way to do background work (Play Store safe).
+@pragma('vm:entry-point')
+void _workmanagerCallback() {
+  Workmanager().executeTask((task, inputData) async {
+    // Re-initialize notifications in background isolate
+    try {
+      await NotificationService.instance.init();
+    } catch (_) {}
+    return true; // Task completed successfully
+  });
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,10 +55,17 @@ void main() async {
     await NotificationService.instance.init();
   } catch (_) {}
 
-  // Start foreground service — keeps app alive for reminders (like WhatsApp)
+  // Initialize WorkManager for background task scheduling (Play Store safe)
   try {
-    await AIDaddyForegroundService.instance.init();
-    await AIDaddyForegroundService.instance.start();
+    await Workmanager().initialize(_workmanagerCallback, isInDebugMode: false);
+    // Register periodic task — re-schedules daily reminders every 15 min
+    await Workmanager().registerPeriodicTask(
+      'ai_daddy_keepalive',
+      'keepAliveTask',
+      frequency: const Duration(minutes: 15),
+      constraints: Constraints(networkType: NetworkType.not_required),
+      existingWorkPolicy: ExistingWorkPolicy.keep,
+    );
   } catch (_) {}
 
   // Global error handler — prevents white screen on uncaught errors
@@ -81,6 +101,7 @@ class AIDaddyApp extends StatelessWidget {
       child: Consumer<LocaleProvider>(
         builder: (_, localeProvider, __) {
           return MaterialApp(
+            navigatorKey: InAppNotification.navigatorKey,
             title: 'AI Daddy',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
@@ -92,9 +113,7 @@ class AIDaddyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            home: const WithForegroundTask(
-              child: AppEntryPoint(),
-            ),
+            home: const AppEntryPoint(),
           );
         },
       ),

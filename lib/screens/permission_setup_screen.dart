@@ -23,6 +23,7 @@ class _PermissionSetupScreenState extends State<PermissionSetupScreen>
   late Animation<double> _fadeAnim;
   bool _notifGranted = false;
   bool _batteryOptimized = false;
+  bool _exactAlarmGranted = false;
   bool _isOemDevice = false;
   bool _requesting = false;
 
@@ -36,6 +37,7 @@ class _PermissionSetupScreenState extends State<PermissionSetupScreen>
     _fadeAnim = CurvedAnimation(parent: _animController, curve: Curves.easeOut);
     _animController.forward();
     _detectOem();
+    _checkExactAlarmPermission();
   }
 
   void _detectOem() async {
@@ -83,6 +85,26 @@ class _PermissionSetupScreenState extends State<PermissionSetupScreen>
     } catch (_) {
       // Not available on all devices — that's fine
       setState(() => _batteryOptimized = true);
+    }
+  }
+
+  Future<void> _checkExactAlarmPermission() async {
+    try {
+      final granted = await NotificationService.instance.canScheduleExactAlarms();
+      setState(() => _exactAlarmGranted = granted);
+    } catch (_) {
+      setState(() => _exactAlarmGranted = true); // Can't check = assume OK
+    }
+  }
+
+  Future<void> _requestExactAlarm() async {
+    try {
+      await NotificationService.instance.openExactAlarmSettings();
+      // Re-check after user returns (small delay for settings to apply)
+      await Future.delayed(const Duration(seconds: 2));
+      await _checkExactAlarmPermission();
+    } catch (_) {
+      setState(() => _exactAlarmGranted = true);
     }
   }
 
@@ -185,7 +207,20 @@ class _PermissionSetupScreenState extends State<PermissionSetupScreen>
                           ),
                           const SizedBox(height: 16),
 
-                          // 3. OEM-specific guidance
+                          // 3. Exact alarm permission (Android 12+)
+                          if (!_exactAlarmGranted)
+                            _buildPermissionCard(
+                              icon: Icons.alarm_rounded,
+                              title: l.t('permExactAlarmTitle'),
+                              description: l.t('permExactAlarmDesc'),
+                              buttonText: l.t('permExactAlarmBtn'),
+                              granted: false,
+                              onTap: _requestExactAlarm,
+                            ),
+                          if (!_exactAlarmGranted)
+                            const SizedBox(height: 16),
+
+                          // 4. OEM-specific guidance
                           if (_isOemDevice)
                             _buildPermissionCard(
                               icon: Icons.phone_android_rounded,

@@ -14,12 +14,14 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime scheduledTime,
+    String repeatPolicy = 'none',
   }) async {}
 
   Future<void> showNotification({
     required int id,
     required String title,
     required String body,
+    String priority = 'high',
   }) async {}
 
   Future<void> scheduleDailyReminders(
@@ -36,4 +38,16 @@ class NotificationService {
   Future<void> cancelAll() async {}
 
   Future<void> cancel(int id) async {}
+
+  Future<bool> canScheduleExactAlarms() async => false;
+
+  Future<void> openExactAlarmSettings() async {}
+
+  Future<bool> isBatteryOptimized() async => true;
+
+  Future<int> getPendingReminderCount() async => 0;
+
+  Future<bool> scheduleTestReminder() async => false;
+
+  bool get bubblesSupported => false;
 }

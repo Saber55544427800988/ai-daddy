@@ -396,15 +396,17 @@ class NotificationService {
 
   // ── Schedule ────────────────────────────────────────────────────────────
 
-  /// Schedule a notification with triple redundancy:
-  /// 1. Timer (foreground)
-  /// 2. zonedSchedule (flutter_local_notifications AlarmManager)
-  /// 3. android_alarm_manager_plus (dedicated background alarm)
+  /// Schedule a notification with QUAD redundancy:
+  /// 1. Native AlarmManager (primary — survives app kill, doze, reboot)
+  /// 2. Timer (foreground)
+  /// 3. zonedSchedule (flutter_local_notifications AlarmManager)
+  /// 4. android_alarm_manager_plus (dedicated background alarm)
   Future<void> scheduleNotification({
     required int id,
     required String title,
     required String body,
     required DateTime scheduledTime,
+    String repeatPolicy = 'none',
   }) async {
     await init();
 
@@ -422,7 +424,27 @@ class NotificationService {
     // Persist for alarm callback (survives app kill)
     await _savePending(id, title, body);
 
-    // ── METHOD 1: Timer (works while app is in memory) ──
+    final triggerTimeMs = scheduledTime.millisecondsSinceEpoch;
+
+    // ── METHOD 1 (PRIMARY): Native AlarmManager via platform channel ──
+    // This uses setExactAndAllowWhileIdle() with native SharedPreferences
+    // persistence and BootReceiver for reboot recovery. Shows notification
+    // entirely in native code — no Flutter engine needed.
+    try {
+      await _bubblePlatform.invokeMethod('scheduleNativeReminder', {
+        'requestCode': id,
+        'title': title,
+        'body': body,
+        'triggerTimeMs': triggerTimeMs,
+        'priority': 'high',
+        'repeatPolicy': repeatPolicy,
+      });
+      debugPrint('[AI Daddy] Native AlarmManager scheduled OK (primary)');
+    } catch (e) {
+      debugPrint('[AI Daddy] Native AlarmManager FAIL: $e');
+    }
+
+    // ── METHOD 2: Timer (works while app is in memory) ──
     final timer = Timer(delay, () {
       debugPrint('[AI Daddy] Timer fired id=$id');
       showNotification(id: id, title: title, body: body);
@@ -430,7 +452,7 @@ class NotificationService {
     });
     _timers.add(timer);
 
-    // ── METHOD 2: zonedSchedule (flutter_local_notifications) ──
+    // ── METHOD 3: zonedSchedule (flutter_local_notifications) ──
     final tzTime = tz.TZDateTime.from(scheduledTime, tz.local);
     debugPrint('[AI Daddy] zonedSchedule tzTime=$tzTime tz=${tz.local.name}');
     try {
@@ -461,7 +483,7 @@ class NotificationService {
       }
     }
 
-    // ── METHOD 3: android_alarm_manager_plus (survives app kill) ──
+    // ── METHOD 4: android_alarm_manager_plus (survives app kill) ──
     try {
       await AndroidAlarmManager.oneShot(
         delay,
@@ -606,6 +628,23 @@ class NotificationService {
     var d =
         tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
     if (d.isBefore(now)) d = d.add(const Duration(days: 1));
+
+    // ── PRIMARY: Native AlarmManager with daily repeat policy ──
+    try {
+      await _bubblePlatform.invokeMethod('scheduleNativeReminder', {
+        'requestCode': id,
+        'title': title,
+        'body': body,
+        'triggerTimeMs': d.millisecondsSinceEpoch,
+        'priority': 'high',
+        'repeatPolicy': 'daily',
+      });
+      debugPrint('[AI Daddy] Native daily reminder $id at $hour:$minute OK');
+    } catch (e) {
+      debugPrint('[AI Daddy] Native daily reminder FAIL: $e');
+    }
+
+    // ── FALLBACK: zonedSchedule with matchDateTimeComponents ──
     try {
       await _notifications.zonedSchedule(
         id,
@@ -629,6 +668,10 @@ class NotificationService {
     }
     _timers.clear();
     await _notifications.cancelAll();
+    // Cancel all native reminders
+    try {
+      await _bubblePlatform.invokeMethod('cancelAllNativeReminders');
+    } catch (_) {}
     // Clear persisted pending
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -642,10 +685,63 @@ class NotificationService {
     try {
       await AndroidAlarmManager.cancel(id);
     } catch (_) {}
+    // Cancel native reminder
+    try {
+      await _bubblePlatform.invokeMethod('cancelNativeReminder', {'requestCode': id});
+    } catch (_) {}
     // Cancel native bubble too
     try {
       await _bubblePlatform.invokeMethod('cancelBubble', {'id': id});
     } catch (_) {}
+  }
+
+  // ── Native scheduling diagnostics ─────────────────────────────────────
+
+  /// Check if device can schedule exact alarms (Android 12+)
+  Future<bool> canScheduleExactAlarms() async {
+    try {
+      final result = await _bubblePlatform.invokeMethod<bool>('canScheduleExactAlarms');
+      return result ?? false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// Open system exact alarm settings (Android 12+)
+  Future<void> openExactAlarmSettings() async {
+    try {
+      await _bubblePlatform.invokeMethod('openExactAlarmSettings');
+    } catch (_) {}
+  }
+
+  /// Check if app is battery optimized (bad for reminders)
+  Future<bool> isBatteryOptimized() async {
+    try {
+      final result = await _bubblePlatform.invokeMethod<bool>('isBatteryOptimized');
+      return result ?? true;
+    } catch (_) {
+      return true;
+    }
+  }
+
+  /// Get count of pending native reminders
+  Future<int> getPendingReminderCount() async {
+    try {
+      final result = await _bubblePlatform.invokeMethod<int>('getPendingReminderCount');
+      return result ?? 0;
+    } catch (_) {
+      return 0;
+    }
+  }
+
+  /// Schedule a test reminder (fires in 60 seconds) for diagnostics
+  Future<bool> scheduleTestReminder() async {
+    try {
+      final result = await _bubblePlatform.invokeMethod<bool>('scheduleTestReminder');
+      return result ?? false;
+    } catch (_) {
+      return false;
+    }
   }
 
   /// Check if the device supports bubble notifications (Android 11+).

@@ -240,8 +240,16 @@ object BubbleNotificationHelper {
 
     /**
      * Basic fallback notification when everything else fails.
+     * Used internally and by ReminderAlarmReceiver.
      */
     private fun showBasicFallback(context: Context, notifId: Int, title: String, body: String) {
+        showBasicFallbackPublic(context, notifId, title, body)
+    }
+
+    /**
+     * Public basic fallback — called by ReminderAlarmReceiver when bubble fails.
+     */
+    fun showBasicFallbackPublic(context: Context, notifId: Int, title: String, body: String) {
         try {
             val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

@@ -24,7 +24,7 @@ const _pendingPrefsKey = 'ai_daddy_pending_notifs';
 // ──────────────────────────────────────────────────────────────────────────────
 
 @pragma('vm:entry-point')
-void _alarmCallback(int alarmId) async {
+void aiDaddyAlarmCallback(int alarmId) async {
   debugPrint('[AI Daddy Alarm] fired id=$alarmId');
 
   // Try to forward to main isolate first (app in foreground)
@@ -436,7 +436,7 @@ class NotificationService {
       await AndroidAlarmManager.oneShot(
         delay,
         id,
-        _alarmCallback,
+        aiDaddyAlarmCallback,
         exact: true,
         wakeup: true,
         allowWhileIdle: true,

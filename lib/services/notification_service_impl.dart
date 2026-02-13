@@ -109,9 +109,8 @@ class NotificationService {
       channelDescription: _channelDesc,
       importance: Importance.max,
       priority: Priority.high,
-      // Custom sound — daddy_notification.wav in res/raw
+      // Use default system notification sound (custom sounds crash on some devices)
       playSound: true,
-      sound: const RawResourceAndroidNotificationSound('daddy_notification'),
       // Vibration pattern like Messenger
       enableVibration: true,
       vibrationPattern: Int64List.fromList([0, 200, 100, 200]),
@@ -136,7 +135,6 @@ class NotificationService {
     presentAlert: true,
     presentBadge: true,
     presentSound: true,
-    sound: 'daddy_notification.wav',
     threadIdentifier: 'ai_daddy_chat',
     interruptionLevel: InterruptionLevel.timeSensitive,
   );

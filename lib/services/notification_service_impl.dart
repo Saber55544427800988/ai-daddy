@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -14,6 +15,8 @@ class NotificationService {
   }
 
   bool _isInitialized = false;
+  bool _exactAlarmsGranted = false;
+  final List<Timer> _activeTimers = [];
 
   NotificationService._init();
 
@@ -76,7 +79,12 @@ class NotificationService {
               AndroidFlutterLocalNotificationsPlugin>();
       if (androidPlugin != null) {
         final granted = await androidPlugin.requestNotificationsPermission();
-        await androidPlugin.requestExactAlarmsPermission();
+        try {
+          await androidPlugin.requestExactAlarmsPermission();
+          _exactAlarmsGranted = true;
+        } catch (_) {
+          _exactAlarmsGranted = false;
+        }
         return granted ?? false;
       }
     } catch (_) {}
@@ -91,6 +99,25 @@ class NotificationService {
   }) async {
     await init();
 
+    final delay = scheduledTime.difference(DateTime.now());
+
+    // For short reminders (≤ 10 minutes), use Future.delayed + showNotification
+    // This is the most reliable approach — does NOT depend on AlarmManager.
+    if (delay.inMinutes <= 10 && delay.inSeconds > 0) {
+      final timer = Timer(delay, () {
+        showNotification(id: id, title: title, body: body);
+      });
+      _activeTimers.add(timer);
+      return;
+    }
+
+    // If time already passed, fire immediately
+    if (delay.isNegative || delay.inSeconds <= 0) {
+      await showNotification(id: id, title: title, body: body);
+      return;
+    }
+
+    // For longer reminders, use zonedSchedule
     final tzTime = tz.TZDateTime.from(scheduledTime, tz.local);
 
     // Messenger-style notification with person info
@@ -108,39 +135,87 @@ class NotificationService {
       ],
     );
 
-    await _notifications.zonedSchedule(
-      id,
-      title,
-      body,
-      tzTime,
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          'ai_daddy_messages',
-          'AI Daddy Messages',
-          channelDescription: 'Messages from AI Daddy',
-          importance: Importance.max,
-          priority: Priority.high,
-          playSound: true,
-          enableVibration: true,
-          vibrationPattern: Int64List.fromList([0, 250, 250, 250]),
-          fullScreenIntent: true,
-          category: AndroidNotificationCategory.message,
-          visibility: NotificationVisibility.public,
-          styleInformation: messagingStyle,
-          icon: '@mipmap/ic_launcher',
-          largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-          ticker: body,
-          autoCancel: true,
+    // Try exact alarm first, fall back to inexact if permission denied
+    try {
+      await _notifications.zonedSchedule(
+        id,
+        title,
+        body,
+        tzTime,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            'ai_daddy_messages',
+            'AI Daddy Messages',
+            channelDescription: 'Messages from AI Daddy',
+            importance: Importance.max,
+            priority: Priority.high,
+            playSound: true,
+            enableVibration: true,
+            vibrationPattern: Int64List.fromList([0, 250, 250, 250]),
+            fullScreenIntent: true,
+            category: AndroidNotificationCategory.message,
+            visibility: NotificationVisibility.public,
+            styleInformation: messagingStyle,
+            icon: '@mipmap/ic_launcher',
+            largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+            ticker: body,
+            autoCancel: true,
+          ),
+          iOS: const DarwinNotificationDetails(
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+            threadIdentifier: 'ai_daddy_chat',
+          ),
         ),
-        iOS: const DarwinNotificationDetails(
-          presentAlert: true,
-          presentBadge: true,
-          presentSound: true,
-          threadIdentifier: 'ai_daddy_chat',
-        ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-    );
+        androidScheduleMode: _exactAlarmsGranted
+            ? AndroidScheduleMode.exactAllowWhileIdle
+            : AndroidScheduleMode.inexactAllowWhileIdle,
+      );
+    } catch (_) {
+      // Last resort: try inexact
+      try {
+        await _notifications.zonedSchedule(
+          id,
+          title,
+          body,
+          tzTime,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              'ai_daddy_messages',
+              'AI Daddy Messages',
+              channelDescription: 'Messages from AI Daddy',
+              importance: Importance.max,
+              priority: Priority.high,
+              playSound: true,
+              enableVibration: true,
+              vibrationPattern: Int64List.fromList([0, 250, 250, 250]),
+              fullScreenIntent: true,
+              category: AndroidNotificationCategory.message,
+              visibility: NotificationVisibility.public,
+              styleInformation: messagingStyle,
+              icon: '@mipmap/ic_launcher',
+              largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+              ticker: body,
+              autoCancel: true,
+            ),
+            iOS: const DarwinNotificationDetails(
+              presentAlert: true,
+              presentBadge: true,
+              presentSound: true,
+              threadIdentifier: 'ai_daddy_chat',
+            ),
+          ),
+          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        );
+      } catch (_) {
+        // If even inexact fails, use timer as final fallback
+        final timer = Timer(delay, () {
+          showNotification(id: id, title: title, body: body);
+        });
+        _activeTimers.add(timer);
+      }
+    }
   }
 
   Future<void> showNotification({

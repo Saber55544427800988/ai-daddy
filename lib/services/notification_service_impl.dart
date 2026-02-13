@@ -1,10 +1,11 @@
-import 'dart:async';
 import 'dart:typed_data';
+import 'dart:ui';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
 
-/// Real notification service for mobile platforms (Android/iOS).
+/// Facebook Messenger-style notification service.
+/// Pop-up heads-up notifications with custom sound, works in background.
 class NotificationService {
   static final NotificationService instance = NotificationService._init();
 
@@ -15,8 +16,12 @@ class NotificationService {
   }
 
   bool _isInitialized = false;
-  bool _exactAlarmsGranted = false;
-  final List<Timer> _activeTimers = [];
+
+  /// NEW channel ID — forces Android to create a fresh channel with correct settings.
+  /// Old 'ai_daddy_messages' channel may be cached with wrong importance/sound.
+  static const _channelId = 'ai_daddy_popup';
+  static const _channelName = 'AI Daddy Notifications';
+  static const _channelDesc = 'Pop-up messages from AI Daddy';
 
   NotificationService._init();
 
@@ -24,8 +29,6 @@ class NotificationService {
     if (_isInitialized) return;
 
     tz_data.initializeTimeZones();
-
-    // Set local timezone to match device — critical for notifications
     _setLocalTimezone();
 
     const androidSettings =
@@ -45,8 +48,18 @@ class NotificationService {
       settings,
       onDidReceiveNotificationResponse: _onNotificationTap,
     );
-    _isInitialized = true;
 
+    // Delete old cached channel so Android picks up new settings
+    final androidPlugin = _notifications
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+    if (androidPlugin != null) {
+      try {
+        await androidPlugin.deleteNotificationChannel('ai_daddy_messages');
+      } catch (_) {}
+    }
+
+    _isInitialized = true;
     await requestPermission();
   }
 
@@ -55,8 +68,6 @@ class NotificationService {
     try {
       final now = DateTime.now();
       final deviceOffset = now.timeZoneOffset;
-
-      // Search timezone database for a location matching the device offset
       for (final location in tz.timeZoneDatabase.locations.values) {
         if (location.currentTimeZone.offset == deviceOffset.inMilliseconds) {
           tz.setLocalLocation(location);
@@ -64,13 +75,9 @@ class NotificationService {
         }
       }
     } catch (_) {}
-    // Fallback: use UTC if no match found
   }
 
-  /// Handle notification tap
-  static void _onNotificationTap(NotificationResponse response) {
-    // App opens when notification is tapped — no extra action needed
-  }
+  static void _onNotificationTap(NotificationResponse response) {}
 
   Future<bool> requestPermission() async {
     try {
@@ -79,18 +86,63 @@ class NotificationService {
               AndroidFlutterLocalNotificationsPlugin>();
       if (androidPlugin != null) {
         final granted = await androidPlugin.requestNotificationsPermission();
-        try {
-          await androidPlugin.requestExactAlarmsPermission();
-          _exactAlarmsGranted = true;
-        } catch (_) {
-          _exactAlarmsGranted = false;
-        }
+        await androidPlugin.requestExactAlarmsPermission();
         return granted ?? false;
       }
     } catch (_) {}
     return true;
   }
 
+  /// Messenger-style Android notification details with custom sound + heads-up popup.
+  AndroidNotificationDetails _androidDetails(String body) {
+    const person = Person(name: 'AI Daddy 💙', important: true);
+    final messagingStyle = MessagingStyleInformation(
+      person,
+      conversationTitle: 'AI Daddy',
+      groupConversation: false,
+      messages: [Message(body, DateTime.now(), person)],
+    );
+
+    return AndroidNotificationDetails(
+      _channelId,
+      _channelName,
+      channelDescription: _channelDesc,
+      importance: Importance.max,
+      priority: Priority.high,
+      // Custom sound — daddy_notification.wav in res/raw
+      playSound: true,
+      sound: const RawResourceAndroidNotificationSound('daddy_notification'),
+      // Vibration pattern like Messenger
+      enableVibration: true,
+      vibrationPattern: Int64List.fromList([0, 200, 100, 200]),
+      // Heads-up pop-up
+      fullScreenIntent: true,
+      // Messenger-style appearance
+      category: AndroidNotificationCategory.message,
+      visibility: NotificationVisibility.public,
+      styleInformation: messagingStyle,
+      icon: '@mipmap/ic_launcher',
+      largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      ticker: body,
+      autoCancel: true,
+      // Colored notification
+      color: const Color(0xFF00BFFF),
+      colorized: true,
+    );
+  }
+
+  /// iOS notification details
+  static const _iosDetails = DarwinNotificationDetails(
+    presentAlert: true,
+    presentBadge: true,
+    presentSound: true,
+    sound: 'daddy_notification.wav',
+    threadIdentifier: 'ai_daddy_chat',
+    interruptionLevel: InterruptionLevel.timeSensitive,
+  );
+
+  /// Schedule a notification at a specific time.
+  /// Uses Android AlarmManager — works even when app is closed.
   Future<void> scheduleNotification({
     required int id,
     required String title,
@@ -101,41 +153,14 @@ class NotificationService {
 
     final delay = scheduledTime.difference(DateTime.now());
 
-    // For short reminders (≤ 10 minutes), use Future.delayed + showNotification
-    // This is the most reliable approach — does NOT depend on AlarmManager.
-    if (delay.inMinutes <= 10 && delay.inSeconds > 0) {
-      final timer = Timer(delay, () {
-        showNotification(id: id, title: title, body: body);
-      });
-      _activeTimers.add(timer);
-      return;
-    }
-
     // If time already passed, fire immediately
     if (delay.isNegative || delay.inSeconds <= 0) {
       await showNotification(id: id, title: title, body: body);
       return;
     }
 
-    // For longer reminders, use zonedSchedule
     final tzTime = tz.TZDateTime.from(scheduledTime, tz.local);
 
-    // Messenger-style notification with person info
-    const person = Person(
-      name: 'AI Daddy 💙',
-      important: true,
-    );
-
-    final messagingStyle = MessagingStyleInformation(
-      person,
-      conversationTitle: 'AI Daddy',
-      groupConversation: false,
-      messages: [
-        Message(body, DateTime.now(), person),
-      ],
-    );
-
-    // Try exact alarm first, fall back to inexact if permission denied
     try {
       await _notifications.zonedSchedule(
         id,
@@ -143,37 +168,13 @@ class NotificationService {
         body,
         tzTime,
         NotificationDetails(
-          android: AndroidNotificationDetails(
-            'ai_daddy_messages',
-            'AI Daddy Messages',
-            channelDescription: 'Messages from AI Daddy',
-            importance: Importance.max,
-            priority: Priority.high,
-            playSound: true,
-            enableVibration: true,
-            vibrationPattern: Int64List.fromList([0, 250, 250, 250]),
-            fullScreenIntent: true,
-            category: AndroidNotificationCategory.message,
-            visibility: NotificationVisibility.public,
-            styleInformation: messagingStyle,
-            icon: '@mipmap/ic_launcher',
-            largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-            ticker: body,
-            autoCancel: true,
-          ),
-          iOS: const DarwinNotificationDetails(
-            presentAlert: true,
-            presentBadge: true,
-            presentSound: true,
-            threadIdentifier: 'ai_daddy_chat',
-          ),
+          android: _androidDetails(body),
+          iOS: _iosDetails,
         ),
-        androidScheduleMode: _exactAlarmsGranted
-            ? AndroidScheduleMode.exactAllowWhileIdle
-            : AndroidScheduleMode.inexactAllowWhileIdle,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       );
     } catch (_) {
-      // Last resort: try inexact
+      // Fallback: inexact alarm (still works in background, slight delay)
       try {
         await _notifications.zonedSchedule(
           id,
@@ -181,43 +182,16 @@ class NotificationService {
           body,
           tzTime,
           NotificationDetails(
-            android: AndroidNotificationDetails(
-              'ai_daddy_messages',
-              'AI Daddy Messages',
-              channelDescription: 'Messages from AI Daddy',
-              importance: Importance.max,
-              priority: Priority.high,
-              playSound: true,
-              enableVibration: true,
-              vibrationPattern: Int64List.fromList([0, 250, 250, 250]),
-              fullScreenIntent: true,
-              category: AndroidNotificationCategory.message,
-              visibility: NotificationVisibility.public,
-              styleInformation: messagingStyle,
-              icon: '@mipmap/ic_launcher',
-              largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-              ticker: body,
-              autoCancel: true,
-            ),
-            iOS: const DarwinNotificationDetails(
-              presentAlert: true,
-              presentBadge: true,
-              presentSound: true,
-              threadIdentifier: 'ai_daddy_chat',
-            ),
+            android: _androidDetails(body),
+            iOS: _iosDetails,
           ),
           androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         );
-      } catch (_) {
-        // If even inexact fails, use timer as final fallback
-        final timer = Timer(delay, () {
-          showNotification(id: id, title: title, body: body);
-        });
-        _activeTimers.add(timer);
-      }
+      } catch (_) {}
     }
   }
 
+  /// Show a notification immediately — pop-up with sound.
   Future<void> showNotification({
     required int id,
     required String title,
@@ -225,50 +199,13 @@ class NotificationService {
   }) async {
     await init();
 
-    // Messenger-style instant notification
-    const person = Person(
-      name: 'AI Daddy 💙',
-      important: true,
-    );
-
-    final messagingStyle = MessagingStyleInformation(
-      person,
-      conversationTitle: 'AI Daddy',
-      groupConversation: false,
-      messages: [
-        Message(body, DateTime.now(), person),
-      ],
-    );
-
     await _notifications.show(
       id,
       title,
       body,
       NotificationDetails(
-        android: AndroidNotificationDetails(
-          'ai_daddy_messages',
-          'AI Daddy Messages',
-          channelDescription: 'Messages from AI Daddy',
-          importance: Importance.max,
-          priority: Priority.high,
-          playSound: true,
-          enableVibration: true,
-          vibrationPattern: Int64List.fromList([0, 250, 250, 250]),
-          fullScreenIntent: true,
-          category: AndroidNotificationCategory.message,
-          visibility: NotificationVisibility.public,
-          styleInformation: messagingStyle,
-          icon: '@mipmap/ic_launcher',
-          largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-          ticker: body,
-          autoCancel: true,
-        ),
-        iOS: const DarwinNotificationDetails(
-          presentAlert: true,
-          presentBadge: true,
-          presentSound: true,
-          threadIdentifier: 'ai_daddy_chat',
-        ),
+        android: _androidDetails(body),
+        iOS: _iosDetails,
       ),
     );
   }
@@ -278,9 +215,7 @@ class NotificationService {
     for (int i = 0; i < 5; i++) {
       await cancel(100 + i);
     }
-
     final times = [8, 11, 14, 17, 21];
-
     for (int i = 0; i < reminderTexts.length && i < times.length; i++) {
       await scheduleDailyNotification(
         id: 100 + i,
@@ -303,32 +238,11 @@ class NotificationService {
 
     final now = tz.TZDateTime.now(tz.local);
     var scheduledDate = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      hour,
-      minute,
+      tz.local, now.year, now.month, now.day, hour, minute,
     );
-
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
-
-    // Messenger-style daily notification
-    const person = Person(
-      name: 'AI Daddy 💙',
-      important: true,
-    );
-
-    final messagingStyle = MessagingStyleInformation(
-      person,
-      conversationTitle: 'AI Daddy',
-      groupConversation: false,
-      messages: [
-        Message(body, DateTime.now(), person),
-      ],
-    );
 
     await _notifications.zonedSchedule(
       id,
@@ -336,30 +250,8 @@ class NotificationService {
       body,
       scheduledDate,
       NotificationDetails(
-        android: AndroidNotificationDetails(
-          'ai_daddy_messages',
-          'AI Daddy Messages',
-          channelDescription: 'Messages from AI Daddy',
-          importance: Importance.max,
-          priority: Priority.high,
-          playSound: true,
-          enableVibration: true,
-          vibrationPattern: Int64List.fromList([0, 250, 250, 250]),
-          fullScreenIntent: true,
-          category: AndroidNotificationCategory.message,
-          visibility: NotificationVisibility.public,
-          styleInformation: messagingStyle,
-          icon: '@mipmap/ic_launcher',
-          largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
-          ticker: body,
-          autoCancel: true,
-        ),
-        iOS: const DarwinNotificationDetails(
-          presentAlert: true,
-          presentBadge: true,
-          presentSound: true,
-          threadIdentifier: 'ai_daddy_chat',
-        ),
+        android: _androidDetails(body),
+        iOS: _iosDetails,
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,

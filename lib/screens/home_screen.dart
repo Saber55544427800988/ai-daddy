@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/chat_provider.dart';
 import '../providers/token_provider.dart';
 import '../providers/mission_provider.dart';
+import '../services/notification_service.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import 'chat_screen.dart';
@@ -52,6 +53,15 @@ class _HomeScreenState extends State<HomeScreen> {
       } catch (e) {
         debugPrint('MissionProvider init error: $e');
       }
+
+      // Test notification — fires 5 seconds after app opens to verify system works
+      Future.delayed(const Duration(seconds: 5), () {
+        NotificationService.instance.showNotification(
+          id: 9999,
+          title: 'AI Daddy',
+          body: 'Notifications are working! You will receive reminders here.',
+        );
+      });
     });
   }
 

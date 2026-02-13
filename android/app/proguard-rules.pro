@@ -20,6 +20,12 @@
 -keep class com.google.** { *; }
 -dontwarn com.google.**
 
+# Keep Android Alarm Manager Plus
+-keep class dev.fluttercommunity.plus.androidalarmmanager.** { *; }
+
+# Keep WorkManager
+-keep class androidx.work.** { *; }
+
 # Prevent R8 from removing needed classes
 -keep class **.R$* { *; }
 -keepclassmembers class * { @android.webkit.JavascriptInterface <methods>; }

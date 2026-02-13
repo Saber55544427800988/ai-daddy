@@ -1058,12 +1058,16 @@ class RemindersScreenState extends State<RemindersScreen>
     final id = await DatabaseHelper.instance.insertReminder(reminder);
 
     // Schedule notification (no-op on web via conditional import)
-    await NotificationService.instance.scheduleNotification(
-      id: 200 + id,
-      title: 'AI Daddy 💙',
-      body: text.trim(),
-      scheduledTime: time,
-    );
+    try {
+      await NotificationService.instance.scheduleNotification(
+        id: 200 + id,
+        title: 'AI Daddy 💙',
+        body: text.trim(),
+        scheduledTime: time,
+      );
+    } catch (e) {
+      debugPrint('[AI Daddy] Schedule error: $e');
+    }
 
     if (mounted) Navigator.pop(context);
     await _loadReminders();

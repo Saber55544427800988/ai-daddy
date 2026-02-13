@@ -64,7 +64,7 @@ void aiDaddyAlarmCallback(int alarmId) async {
       body,
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'ai_daddy_v6',
+          'ai_daddy_v7',
           'AI Daddy Messages',
           channelDescription: 'Messenger-style notifications from AI Daddy',
           importance: Importance.max,
@@ -107,7 +107,7 @@ class NotificationService {
   ReceivePort? _alarmPort;
 
   /// Channel v6 — fresh channel with custom sound
-  static const _channelId = 'ai_daddy_v6';
+  static const _channelId = 'ai_daddy_v7';
   static const _channelName = 'AI Daddy Messages';
   static const _channelDesc = 'Messenger-style notifications from AI Daddy';
   static const _customSound =
@@ -146,6 +146,7 @@ class NotificationService {
         'ai_daddy_v3',
         'ai_daddy_v4',
         'ai_daddy_v5',
+        'ai_daddy_v6',
       ]) {
         try {
           await androidPlugin.deleteNotificationChannel(old);
@@ -163,7 +164,11 @@ class NotificationService {
         showBadge: true,
         sound: _customSound,
       );
-      await androidPlugin.createNotificationChannel(channel);
+      try {
+        await androidPlugin.createNotificationChannel(channel);
+      } catch (e) {
+        debugPrint('[AI Daddy] Channel creation error: $e');
+      }
     }
 
     // Initialize android_alarm_manager_plus
@@ -502,7 +507,7 @@ class NotificationService {
           body,
           const NotificationDetails(
             android: AndroidNotificationDetails(
-              'ai_daddy_v6',
+              'ai_daddy_v7',
               'AI Daddy Messages',
               importance: Importance.max,
               priority: Priority.high,

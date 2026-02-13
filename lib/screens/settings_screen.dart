@@ -17,6 +17,7 @@ import '../screens/habit_screen.dart';
 import '../screens/dad_report_screen.dart';
 import '../theme/app_theme.dart';
 import '../services/situational_intelligence_service.dart';
+import 'privacy_policy_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   final int userId;
@@ -366,10 +367,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'Privacy Policy',
                       style: TextStyle(color: AppTheme.textPrimary, fontSize: 16),
                     ),
-                    trailing: Icon(Icons.open_in_new, color: AppTheme.textSecondary, size: 20),
+                    trailing: Icon(Icons.chevron_right, color: AppTheme.textSecondary, size: 20),
                     onTap: () {
-                      // Open privacy policy URL
-                      // TODO: Add url_launcher and open privacy policy link
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+                      );
                     },
                   ),
                   

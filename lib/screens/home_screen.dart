@@ -53,15 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
       } catch (e) {
         debugPrint('MissionProvider init error: $e');
       }
-
-      // Test notification — fires 5 seconds after app opens to verify system works
-      Future.delayed(const Duration(seconds: 5), () {
-        NotificationService.instance.showNotification(
-          id: 9999,
-          title: 'AI Daddy',
-          body: 'Notifications are working! You will receive reminders here.',
-        );
-      });
     });
   }
 

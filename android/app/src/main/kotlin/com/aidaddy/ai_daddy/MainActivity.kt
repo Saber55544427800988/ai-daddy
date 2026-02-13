@@ -39,6 +39,24 @@ class MainActivity : FlutterActivity() {
                     BubbleNotificationHelper.createBubbleChannel(applicationContext)
                     result.success(true)
                 }
+                "requestBatteryOptimization" -> {
+                    try {
+                        val pm = getSystemService(android.content.Context.POWER_SERVICE) as android.os.PowerManager
+                        if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                            val intent = android.content.Intent(
+                                android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                                android.net.Uri.parse("package:$packageName")
+                            )
+                            startActivity(intent)
+                        }
+                        result.success(true)
+                    } catch (e: Exception) {
+                        result.success(false)
+                    }
+                }
+                "getDeviceManufacturer" -> {
+                    result.success(android.os.Build.MANUFACTURER)
+                }
                 else -> result.notImplemented()
             }
         }

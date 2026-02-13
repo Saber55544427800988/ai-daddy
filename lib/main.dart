@@ -15,6 +15,7 @@ import 'l10n/app_localizations.dart';
 import 'screens/splash_screen.dart';
 import 'screens/language_picker_screen.dart';
 import 'screens/onboarding_screen.dart';
+import 'screens/permission_setup_screen.dart';
 import 'screens/home_screen.dart';
 import 'widgets/in_app_notification.dart';
 
@@ -132,6 +133,7 @@ class AppEntryPoint extends StatefulWidget {
 class _AppEntryPointState extends State<AppEntryPoint> {
   bool _splashDone = false;
   bool _languageChosen = false;
+  bool _permissionSetupDone = false;
   SharedPreferences? _prefs;
 
   @override
@@ -144,6 +146,7 @@ class _AppEntryPointState extends State<AppEntryPoint> {
     _prefs = await SharedPreferences.getInstance();
     // Check if user has already chosen a language before
     _languageChosen = _prefs!.containsKey('app_language');
+    _permissionSetupDone = _prefs!.getBool('permission_setup_done') ?? false;
     if (mounted) setState(() {});
   }
 
@@ -153,6 +156,10 @@ class _AppEntryPointState extends State<AppEntryPoint> {
 
   void _onLanguageConfirmed() {
     if (mounted) setState(() => _languageChosen = true);
+  }
+
+  void _onPermissionSetupComplete() {
+    if (mounted) setState(() => _permissionSetupDone = true);
   }
 
   @override
@@ -179,6 +186,10 @@ class _AppEntryPointState extends State<AppEntryPoint> {
     final userId = _prefs!.getInt('user_id') ?? 0;
 
     if (onboardingComplete && userId > 0) {
+      // 4. Permission setup (shown once after first onboarding)
+      if (!_permissionSetupDone) {
+        return PermissionSetupScreen(onComplete: _onPermissionSetupComplete);
+      }
       return HomeScreen(userId: userId);
     }
 

@@ -17,7 +17,7 @@ import '../screens/habit_screen.dart';
 import '../screens/dad_report_screen.dart';
 import '../theme/app_theme.dart';
 import '../services/situational_intelligence_service.dart';
-import 'privacy_policy_screen.dart';
+import 'privacy_policy_screen.dart';\nimport 'permission_setup_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   final int userId;
@@ -249,6 +249,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   // Milestone info
                   _buildMilestoneCard(),
+                  const SizedBox(height: 20),
+
+                  // Notification & Permission Settings
+                  _buildSectionTitle(AppLocalizations.of(context).t('notifSettings')),
+                  _buildNavTile(
+                    icon: Icons.notifications_active_rounded,
+                    title: AppLocalizations.of(context).t('managePermissions'),
+                    subtitle: AppLocalizations.of(context).t('notifSettingsDesc'),
+                    color: const Color(0xFF00BFFF),
+                    onTap: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setBool('permission_setup_done', false);
+                      if (mounted) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => PermissionSetupScreen(
+                              onComplete: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                   const SizedBox(height: 20),
 
                   // Premium teaser

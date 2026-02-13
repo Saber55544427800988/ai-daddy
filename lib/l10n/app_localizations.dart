@@ -430,6 +430,11 @@ class AppLocalizations {
       'noManualRemindersDesc': 'Tap the + button to add your own reminders.',
       'reminderTextHint': 'What should I remind you about?',
       'setReminder': 'Set Reminder',
+      'editReminder': 'Edit Reminder',
+      'deleteReminder': 'Delete Reminder?',
+      'delete': 'Delete',
+      'cancel': 'Cancel',
+      'saveChanges': 'Save Changes',
 
       // Token section in settings
       'tokenStatus': 'Token Status',
@@ -512,6 +517,11 @@ class AppLocalizations {
       'noManualRemindersDesc': 'اضغط على + لإضافة تذكيراتك.',
       'reminderTextHint': 'بماذا أذكرك؟',
       'setReminder': 'تعيين تذكير',
+      'editReminder': 'تعديل التذكير',
+      'deleteReminder': 'حذف التذكير؟',
+      'delete': 'حذف',
+      'cancel': 'إلغاء',
+      'saveChanges': 'حفظ التغييرات',
       'tokenStatus': 'حالة الرموز',
       'situationalModes': 'الأوضاع الظرفية',
       'travelMode': 'وضع السفر ✈️',

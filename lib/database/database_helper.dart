@@ -624,6 +624,17 @@ class DatabaseHelper {
     return await db.delete('reminders', where: 'id = ?', whereArgs: [id]);
   }
 
+  /// Update a regular reminder (text + scheduled_time)
+  Future<int> updateReminder(int id, String text, String scheduledTime) async {
+    final db = await database;
+    return await db.update(
+      'reminders',
+      {'text': text, 'scheduled_time': scheduledTime, 'sent_flag': 0},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
   // ─── MOOD LOG ──────────────────────────────────────
 
   Future<int> insertMoodLog(MoodLogModel mood) async {

@@ -396,123 +396,431 @@ class RemindersScreenState extends State<RemindersScreen>
         final time = DateTime.tryParse(r.scheduledTime);
         final isPast = time != null && time.isBefore(DateTime.now());
 
-        return Dismissible(
-          key: Key('manual_${r.id}'),
-          direction: DismissDirection.endToStart,
-          background: Container(
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.only(right: 20),
-            margin: const EdgeInsets.only(bottom: 10),
-            decoration: BoxDecoration(
-              color: AppTheme.dangerRed.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(16),
+        return Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: AppTheme.navyCard,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isPast
+                  ? AppTheme.textSecondary.withOpacity(0.1)
+                  : AppTheme.accentBlue.withOpacity(0.15),
             ),
-            child: const Icon(Icons.delete_rounded,
-                color: AppTheme.dangerRed, size: 24),
           ),
-          onDismissed: (_) {
-            if (r.id != null) _deleteManualReminder(r.id!);
-          },
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: AppTheme.navyCard,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: isPast
-                    ? AppTheme.textSecondary.withOpacity(0.1)
-                    : AppTheme.accentBlue.withOpacity(0.15),
-              ),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 42,
-                  height: 42,
-                  decoration: BoxDecoration(
-                    color: (isPast
-                            ? AppTheme.textSecondary
-                            : AppTheme.accentBlue)
-                        .withOpacity(0.12),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(Icons.notifications_rounded,
-                      color: isPast
+          child: Row(
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: (isPast
                           ? AppTheme.textSecondary
-                          : AppTheme.accentBlue,
-                      size: 20),
+                          : AppTheme.accentBlue)
+                      .withOpacity(0.12),
+                  shape: BoxShape.circle,
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: AppTheme.accentBlue.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          l.t('manualSet'),
-                          style: const TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: AppTheme.accentBlue,
-                          ),
+                child: Icon(Icons.notifications_rounded,
+                    color: isPast
+                        ? AppTheme.textSecondary
+                        : AppTheme.accentBlue,
+                    size: 20),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: AppTheme.accentBlue.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        l.t('manualSet'),
+                        style: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.accentBlue,
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        r.text,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      r.text,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: isPast
+                            ? AppTheme.textSecondary
+                            : AppTheme.white,
+                        decoration:
+                            isPast ? TextDecoration.lineThrough : null,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Icon(
+                          isPast
+                              ? Icons.check_circle_rounded
+                              : Icons.schedule_rounded,
+                          size: 14,
                           color: isPast
-                              ? AppTheme.textSecondary
-                              : AppTheme.white,
-                          decoration:
-                              isPast ? TextDecoration.lineThrough : null,
+                              ? AppTheme.successGreen
+                              : AppTheme.textSecondary,
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Icon(
-                            isPast
-                                ? Icons.check_circle_rounded
-                                : Icons.schedule_rounded,
-                            size: 14,
+                        const SizedBox(width: 4),
+                        Text(
+                          _formatDateTime(time),
+                          style: TextStyle(
+                            fontSize: 12,
                             color: isPast
                                 ? AppTheme.successGreen
                                 : AppTheme.textSecondary,
                           ),
-                          const SizedBox(width: 4),
-                          Text(
-                            _formatDateTime(time),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: isPast
-                                  ? AppTheme.successGreen
-                                  : AppTheme.textSecondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              // Edit + Delete buttons (only for manual reminders)
+              if (!isPast) ...[
+                // Edit button
+                GestureDetector(
+                  onTap: () => _showEditReminderDialog(r),
+                  child: Container(
+                    width: 34,
+                    height: 34,
+                    decoration: BoxDecoration(
+                      color: AppTheme.accentBlue.withOpacity(0.12),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.edit_rounded,
+                        color: AppTheme.accentBlue, size: 16),
                   ),
                 ),
-                if (isPast)
-                  const Icon(Icons.check_circle,
-                      color: AppTheme.successGreen, size: 20),
+                const SizedBox(width: 8),
               ],
-            ),
+              // Delete button (always visible)
+              GestureDetector(
+                onTap: () => _confirmDeleteReminder(r),
+                child: Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    color: AppTheme.dangerRed.withOpacity(0.12),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.delete_rounded,
+                      color: AppTheme.dangerRed, size: 16),
+                ),
+              ),
+              if (isPast)
+                const Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: Icon(Icons.check_circle,
+                      color: AppTheme.successGreen, size: 20),
+                ),
+            ],
           ),
         );
       },
     );
+  }
+
+  // ─── Confirm Delete Dialog ─────────────────────
+
+  void _confirmDeleteReminder(ReminderModel r) {
+    final l = AppLocalizations.of(context);
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppTheme.navyCard,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            const Icon(Icons.delete_forever_rounded,
+                color: AppTheme.dangerRed, size: 24),
+            const SizedBox(width: 8),
+            Text(l.t('deleteReminder'),
+                style: const TextStyle(color: AppTheme.white, fontSize: 18)),
+          ],
+        ),
+        content: Text(
+          '"${r.text}"',
+          style: const TextStyle(color: AppTheme.textSecondary, fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(l.t('cancel'),
+                style: const TextStyle(color: AppTheme.textSecondary)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              if (r.id != null) _deleteManualReminder(r.id!);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppTheme.dangerRed,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+            ),
+            child: Text(l.t('delete'),
+                style: const TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ─── Edit Reminder Dialog ─────────────────────
+
+  void _showEditReminderDialog(ReminderModel r) {
+    final l = AppLocalizations.of(context);
+    final textController = TextEditingController(text: r.text);
+    DateTime selectedDate =
+        DateTime.tryParse(r.scheduledTime) ?? DateTime.now().add(const Duration(hours: 1));
+    TimeOfDay selectedTime = TimeOfDay.fromDateTime(selectedDate);
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (ctx2, setModalState) {
+            return Container(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(ctx2).viewInsets.bottom,
+              ),
+              decoration: const BoxDecoration(
+                color: AppTheme.navyCard,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Handle bar
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: AppTheme.textSecondary.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Title
+                    Row(
+                      children: [
+                        const Icon(Icons.edit_rounded,
+                            color: AppTheme.accentBlue, size: 24),
+                        const SizedBox(width: 10),
+                        Text(
+                          l.t('editReminder'),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Reminder text
+                    TextField(
+                      controller: textController,
+                      style: const TextStyle(color: AppTheme.white),
+                      maxLines: 2,
+                      decoration: InputDecoration(
+                        hintText: l.t('reminderTextHint'),
+                        hintStyle: TextStyle(
+                            color: AppTheme.textSecondary.withOpacity(0.6)),
+                        filled: true,
+                        fillColor: AppTheme.navySurface,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          borderSide: BorderSide.none,
+                        ),
+                        prefixIcon: const Icon(Icons.edit_rounded,
+                            color: AppTheme.accentBlue),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Date picker
+                    GestureDetector(
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: ctx2,
+                          initialDate: selectedDate,
+                          firstDate: DateTime.now(),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365)),
+                          builder: (_, child) {
+                            return Theme(
+                              data: ThemeData.dark().copyWith(
+                                colorScheme: const ColorScheme.dark(
+                                  primary: AppTheme.glowCyan,
+                                  surface: AppTheme.navyCard,
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        );
+                        if (date != null) {
+                          setModalState(() {
+                            selectedDate = DateTime(
+                              date.year,
+                              date.month,
+                              date.day,
+                              selectedTime.hour,
+                              selectedTime.minute,
+                            );
+                          });
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: AppTheme.navySurface,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.calendar_today_rounded,
+                                color: AppTheme.glowCyan, size: 20),
+                            const SizedBox(width: 12),
+                            Text(
+                              '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                              style: const TextStyle(
+                                  fontSize: 15, color: AppTheme.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    // Time picker
+                    GestureDetector(
+                      onTap: () async {
+                        final time = await showTimePicker(
+                          context: ctx2,
+                          initialTime: selectedTime,
+                          builder: (_, child) {
+                            return Theme(
+                              data: ThemeData.dark().copyWith(
+                                colorScheme: const ColorScheme.dark(
+                                  primary: AppTheme.glowCyan,
+                                  surface: AppTheme.navyCard,
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        );
+                        if (time != null) {
+                          setModalState(() {
+                            selectedTime = time;
+                            selectedDate = DateTime(
+                              selectedDate.year,
+                              selectedDate.month,
+                              selectedDate.day,
+                              time.hour,
+                              time.minute,
+                            );
+                          });
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: AppTheme.navySurface,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.access_time_rounded,
+                                color: AppTheme.glowCyan, size: 20),
+                            const SizedBox(width: 12),
+                            Text(
+                              selectedTime.format(ctx2),
+                              style: const TextStyle(
+                                  fontSize: 15, color: AppTheme.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Save button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: ElevatedButton.icon(
+                        onPressed: () => _updateManualReminder(
+                            r.id!, textController.text, selectedDate),
+                        icon: const Icon(Icons.check_rounded),
+                        label: Text(
+                          l.t('saveChanges'),
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppTheme.accentBlue,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _updateManualReminder(int id, String text, DateTime time) async {
+    if (text.trim().isEmpty) return;
+
+    // Cancel old notification
+    await NotificationService.instance.cancel(200 + id);
+
+    // Update in database
+    await DatabaseHelper.instance
+        .updateReminder(id, text.trim(), time.toIso8601String());
+
+    // Re-schedule notification
+    await NotificationService.instance.scheduleNotification(
+      id: 200 + id,
+      title: 'AI Daddy 💙',
+      body: text.trim(),
+      scheduledTime: time,
+    );
+
+    if (mounted) Navigator.pop(context);
+    await _loadReminders();
   }
 
   // ─── Add Reminder Dialog ─────────────────────

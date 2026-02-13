@@ -31,16 +31,32 @@ jobs:
 
       - name: Generate signing keystore
         run: |
-          keytool -genkey -v \
-            -keystore android/app/upload-keystore.jks \
-            -storetype JKS \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -alias ai-daddy-release \
-            -storepass "AiDaddy2026!Secure" \
-            -keypass "AiDaddy2026!Secure" \
-            -dname "CN=AI Daddy, OU=Mobile, O=AI Daddy, L=Unknown, ST=Unknown, C=US"
+          if [ -n "${{ secrets.KEYSTORE_BASE64 }}" ]; then
+            echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/upload-keystore.jks
+            echo "Using stored keystore from secrets"
+          else
+            keytool -genkey -v \
+              -keystore android/app/upload-keystore.jks \
+              -storetype JKS \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -alias ai-daddy-release \
+              -storepass "AiDaddy2026!Secure" \
+              -keypass "AiDaddy2026!Secure" \
+              -dname "CN=AI Daddy, OU=Mobile, O=AI Daddy, L=Unknown, ST=Unknown, C=US"
+            echo "Generated new keystore"
+          fi
+          # Output fingerprint for verification
+          keytool -list -v -keystore android/app/upload-keystore.jks -storepass "AiDaddy2026!Secure" -alias ai-daddy-release | grep SHA1
+
+      - name: Upload keystore as artifact (for secret setup)
+        if: ${{ !secrets.KEYSTORE_BASE64 }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: signing-keystore
+          path: android/app/upload-keystore.jks
+          retention-days: 1
 
       - name: Create key.properties
         run: |

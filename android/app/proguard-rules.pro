@@ -26,6 +26,15 @@
 # Keep WorkManager
 -keep class androidx.work.** { *; }
 
+# Keep AndroidX Core for bubble notifications
+-keep class androidx.core.app.** { *; }
+-keep class androidx.core.content.pm.** { *; }
+-keep class androidx.core.graphics.drawable.** { *; }
+
+# Keep Bubble classes
+-keep class com.aidaddy.ai_daddy.BubbleNotificationHelper { *; }
+-keep class com.aidaddy.ai_daddy.BubbleActivity { *; }
+
 # Prevent R8 from removing needed classes
 -keep class **.R$* { *; }
 -keepclassmembers class * { @android.webkit.JavascriptInterface <methods>; }

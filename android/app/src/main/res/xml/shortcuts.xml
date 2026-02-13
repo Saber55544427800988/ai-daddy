@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="ai_daddy_chat"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/app_name"
+        android:shortcutLongLabel="@string/app_name"
+        android:icon="@mipmap/ic_launcher">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.aidaddy.ai_daddy"
+            android:targetClass="com.aidaddy.ai_daddy.MainActivity" />
+        <categories android:name="com.android.voicemail.SHARE_TARGET" />
+    </shortcut>
+</shortcuts>

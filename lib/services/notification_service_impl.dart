@@ -6,6 +6,7 @@ import 'dart:ui';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -17,6 +18,7 @@ import '../widgets/in_app_notification.dart';
 // ──────────────────────────────────────────────────────────────────────────────
 const _alarmPortName = 'ai_daddy_alarm_port';
 const _pendingPrefsKey = 'ai_daddy_pending_notifs';
+const _bubbleChannelName = 'com.aidaddy.ai_daddy/bubble';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Top-level callback for android_alarm_manager_plus.
@@ -64,7 +66,7 @@ void aiDaddyAlarmCallback(int alarmId) async {
       body,
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'ai_daddy_v8',
+          'ai_daddy_v9',
           'AI Daddy Messages',
           channelDescription: 'Messenger-style notifications from AI Daddy',
           importance: Importance.max,
@@ -105,9 +107,13 @@ class NotificationService {
   bool _isInitialized = false;
   final List<Timer> _timers = [];
   ReceivePort? _alarmPort;
+  bool? _bubblesSupported;
 
-  /// Channel v6 — fresh channel with custom sound
-  static const _channelId = 'ai_daddy_v8';
+  /// Platform channel for native bubble notifications
+  static const _bubblePlatform = MethodChannel(_bubbleChannelName);
+
+  /// Channel v9 — fresh channel with bubble support
+  static const _channelId = 'ai_daddy_v9';
   static const _channelName = 'AI Daddy Messages';
   static const _channelDesc = 'Messenger-style notifications from AI Daddy';
   static const _customSound =
@@ -148,6 +154,7 @@ class NotificationService {
         'ai_daddy_v5',
         'ai_daddy_v6',
         'ai_daddy_v7',
+        'ai_daddy_v8',
       ]) {
         try {
           await androidPlugin.deleteNotificationChannel(old);
@@ -181,6 +188,23 @@ class NotificationService {
 
     // Set up ReceivePort for alarm callbacks from background isolate
     _setupAlarmPort();
+
+    // Check if device supports bubble notifications
+    try {
+      _bubblesSupported = await _bubblePlatform.invokeMethod<bool>('areBubblesSupported');
+      debugPrint('[AI Daddy] Bubbles supported: $_bubblesSupported');
+    } catch (e) {
+      _bubblesSupported = false;
+      debugPrint('[AI Daddy] Bubble check error: $e');
+    }
+
+    // Initialize bubble channel on native side
+    try {
+      await _bubblePlatform.invokeMethod('createBubbleChannel');
+      debugPrint('[AI Daddy] Native bubble channel created');
+    } catch (e) {
+      debugPrint('[AI Daddy] Native bubble channel error: $e');
+    }
 
     _isInitialized = true;
     await requestPermission();
@@ -456,34 +480,55 @@ class NotificationService {
 
   // ── Show notification ───────────────────────────────────────────────────
 
-  /// Show notification immediately — system notification + in-app overlay.
-  /// Uses MessagingStyle first, falls back to simple on failure.
+  /// Show notification immediately with bubble support.
+  /// Priority chain:
+  ///   1. Native Bubble (Android 11+ chat head) ← primary
+  ///   2. MessagingStyle heads-up (fancy chat look) ← fallback
+  ///   3. Simple heads-up notification ← fallback
+  ///   4. Ultra-bare notification ← last resort
+  /// Plus: in-app slide overlay with sound (always attempted)
   Future<void> showNotification({
     required int id,
     required String title,
     required String body,
+    String priority = 'high',
   }) async {
     await init();
-    debugPrint('[AI Daddy] showNotification id=$id body=$body');
+    debugPrint('[AI Daddy] showNotification id=$id body=$body priority=$priority');
 
-    // --- System notification ---
     bool systemShown = false;
 
-    // Try MessagingStyle (fancy chat look)
+    // ── METHOD 1: Native Bubble notification (Android 11+) ──
     try {
-      await _notifications.show(
-        id,
-        title,
-        body,
-        NotificationDetails(android: _messengerDetails(body), iOS: _ios),
-      );
+      await _bubblePlatform.invokeMethod('showBubble', {
+        'id': id,
+        'title': title,
+        'body': body,
+        'priority': priority,
+      });
       systemShown = true;
-      debugPrint('[AI Daddy] MessagingStyle OK');
+      debugPrint('[AI Daddy] Bubble notification OK');
     } catch (e) {
-      debugPrint('[AI Daddy] MessagingStyle FAIL: $e');
+      debugPrint('[AI Daddy] Bubble FAIL: $e');
     }
 
-    // Fallback: simple notification (always works)
+    // ── METHOD 2: MessagingStyle heads-up (fancy chat look) ──
+    if (!systemShown) {
+      try {
+        await _notifications.show(
+          id,
+          title,
+          body,
+          NotificationDetails(android: _messengerDetails(body), iOS: _ios),
+        );
+        systemShown = true;
+        debugPrint('[AI Daddy] MessagingStyle OK');
+      } catch (e) {
+        debugPrint('[AI Daddy] MessagingStyle FAIL: $e');
+      }
+    }
+
+    // ── METHOD 3: Simple heads-up notification ──
     if (!systemShown) {
       try {
         await _notifications.show(
@@ -499,7 +544,7 @@ class NotificationService {
       }
     }
 
-    // Ultra-fallback: bare minimum (no custom sound, no extras)
+    // ── METHOD 4: Ultra-bare fallback ──
     if (!systemShown) {
       try {
         await _notifications.show(
@@ -508,7 +553,7 @@ class NotificationService {
           body,
           const NotificationDetails(
             android: AndroidNotificationDetails(
-              'ai_daddy_v8',
+              'ai_daddy_v9',
               'AI Daddy Messages',
               importance: Importance.max,
               priority: Priority.high,
@@ -522,7 +567,7 @@ class NotificationService {
       }
     }
 
-    // --- In-app overlay popup (slides from side to center) ---
+    // ── In-app overlay popup (slides from side to center with sound) ──
     try {
       InAppNotification.instance.show(title: title, body: body);
     } catch (e) {
@@ -597,5 +642,12 @@ class NotificationService {
     try {
       await AndroidAlarmManager.cancel(id);
     } catch (_) {}
+    // Cancel native bubble too
+    try {
+      await _bubblePlatform.invokeMethod('cancelBubble', {'id': id});
+    } catch (_) {}
   }
+
+  /// Check if the device supports bubble notifications (Android 11+).
+  bool get bubblesSupported => _bubblesSupported ?? false;
 }

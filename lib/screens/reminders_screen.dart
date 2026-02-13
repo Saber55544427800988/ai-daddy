@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import '../database/database_helper.dart';
 import '../models/smart_reminder_model.dart';
@@ -241,7 +240,9 @@ class RemindersScreenState extends State<RemindersScreen>
             child: const Icon(Icons.delete_rounded,
                 color: AppTheme.dangerRed, size: 24),
           ),
-          onDismissed: (_) => _deleteSmartReminder(r.id!),
+          onDismissed: (_) {
+            if (r.id != null) _deleteSmartReminder(r.id!);
+          },
           child: Container(
             margin: const EdgeInsets.only(bottom: 10),
             padding: const EdgeInsets.all(14),
@@ -409,7 +410,9 @@ class RemindersScreenState extends State<RemindersScreen>
             child: const Icon(Icons.delete_rounded,
                 color: AppTheme.dangerRed, size: 24),
           ),
-          onDismissed: (_) => _deleteManualReminder(r.id!),
+          onDismissed: (_) {
+            if (r.id != null) _deleteManualReminder(r.id!);
+          },
           child: Container(
             margin: const EdgeInsets.only(bottom: 10),
             padding: const EdgeInsets.all(14),
@@ -746,15 +749,13 @@ class RemindersScreenState extends State<RemindersScreen>
 
     final id = await DatabaseHelper.instance.insertReminder(reminder);
 
-    // Schedule notification (mobile only)
-    if (!kIsWeb) {
-      await NotificationService.instance.scheduleNotification(
-        id: 200 + id,
-        title: 'AI Daddy 💙',
-        body: text.trim(),
-        scheduledTime: time,
-      );
-    }
+    // Schedule notification (no-op on web via conditional import)
+    await NotificationService.instance.scheduleNotification(
+      id: 200 + id,
+      title: 'AI Daddy 💙',
+      body: text.trim(),
+      scheduledTime: time,
+    );
 
     if (mounted) Navigator.pop(context);
     await _loadReminders();
@@ -766,10 +767,8 @@ class RemindersScreenState extends State<RemindersScreen>
   }
 
   Future<void> _deleteManualReminder(int id) async {
-    // Cancel the scheduled notification
-    if (!kIsWeb) {
-      await NotificationService.instance.cancel(200 + id);
-    }
+    // Cancel the scheduled notification (no-op on web)
+    await NotificationService.instance.cancel(200 + id);
     await DatabaseHelper.instance.deleteReminder(id);
     await _loadReminders();
   }

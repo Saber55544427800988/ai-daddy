@@ -125,7 +125,7 @@ class MemoryExtractionService {
       if (mem.content.toLowerCase() == lowerContent) return;
       if (_similarity(mem.content.toLowerCase(), lowerContent) > 0.6) {
         // Update mention count for similar existing memory
-        await db.touchMemory(mem.id!);
+        if (mem.id != null) await db.touchMemory(mem.id!);
         return;
       }
     }

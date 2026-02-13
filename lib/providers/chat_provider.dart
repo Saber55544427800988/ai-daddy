@@ -1,15 +1,14 @@
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../database/database_helper.dart';
 import '../models/message_model.dart';
 import '../models/smart_reminder_model.dart';
 import '../models/ai_token_model.dart';
 import '../models/user_model.dart';
 import '../models/user_profile_model.dart';
+import '../models/user_emotional_profile.dart';
 import '../models/dad_report_model.dart';
 import '../services/ai_engine.dart';
 import '../services/longcat_ai_service.dart';
-import '../services/tts_service.dart';
 import '../services/self_learning_service.dart';
 import '../services/emotional_intelligence_service.dart';
 import '../services/context_awareness_service.dart';
@@ -17,19 +16,31 @@ import '../services/memory_extraction_service.dart';
 import '../services/dad_report_service.dart';
 import '../services/daddy_lifecycle_service.dart';
 import '../services/situational_intelligence_service.dart';
+import '../services/care_thread_engine.dart';
+import '../services/emotional_state_engine.dart';
+import '../services/user_emotional_model_service.dart';
+import '../services/attachment_system.dart';
+import '../services/memory_weight_system.dart';
+import '../services/behavior_adaptation_engine.dart';
 
 class ChatProvider extends ChangeNotifier {
   final DatabaseHelper _db = DatabaseHelper.instance;
   final AIEngine _aiEngine = AIEngine();
-  final TTSService _ttsService = TTSService();
   final SelfLearningService _learning = SelfLearningService();
   final DaddyLifecycleService _lifecycle = DaddyLifecycleService.instance;
   final SituationalIntelligenceService _situational =
       SituationalIntelligenceService.instance;
+  final CareThreadEngine _careEngine = CareThreadEngine.instance;
+  final EmotionalStateEngine _emotionalState = EmotionalStateEngine.instance;
+  final UserEmotionalModelService _emotionalModel =
+      UserEmotionalModelService.instance;
+  final AttachmentSystem _attachment = AttachmentSystem.instance;
+  final MemoryWeightSystem _memoryWeights = MemoryWeightSystem.instance;
+  final BehaviorAdaptationEngine _behaviorEngine =
+      BehaviorAdaptationEngine.instance;
 
   List<MessageModel> _messages = [];
   bool _isLoading = false;
-  bool _autoReadEnabled = true;
   bool _privacyMode = false;
   UserModel? _currentUser;
   AITokenModel? _tokens;
@@ -42,7 +53,6 @@ class ChatProvider extends ChangeNotifier {
 
   List<MessageModel> get messages => _messages;
   bool get isLoading => _isLoading;
-  bool get autoReadEnabled => _autoReadEnabled;
   bool get privacyMode => _privacyMode;
   UserModel? get currentUser => _currentUser;
   AITokenModel? get tokens => _tokens;
@@ -52,14 +62,12 @@ class ChatProvider extends ChangeNotifier {
 
   /// Initialize chat for user
   Future<void> init(int userId) async {
-    // Load persisted settings
-    final prefs = await SharedPreferences.getInstance();
-    _autoReadEnabled = prefs.getBool('auto_read_enabled') ?? true;
-
     _currentUser = await _db.getUser(userId);
     if (_currentUser != null) {
+      // Run database migrations for new tables
+      await _db.runMigrations();
       _personality = _currentUser!.dadPersonality;
-      await _db.resetTokensIfNeeded(userId);
+      // Token initialization is handled by TokenProvider
       _tokens = await _db.getTokens(userId);
       _learnedProfile = await _db.getUserProfile(userId);
       _totalInteractions = await _db.getTotalInteractions(userId);
@@ -68,20 +76,28 @@ class ChatProvider extends ChangeNotifier {
       // Check if weekly report is due
       _checkWeeklyReport(userId);
 
-      // ── Lifecycle: record app open, setup daily schedule, check inactivity ──
-      _lifecycle.recordAppOpen(userId);
-      if (!kIsWeb) {
-        _lifecycle.setupDailySchedule(userId, _currentUser!.nickname);
-        _lifecycle.checkInactivityAndNotify(userId, _currentUser!.nickname);
-        _lifecycle.analyzeBehaviorPatterns(userId);
+      // ── Initialize emotional architecture ──
+      await _emotionalState.loadState(userId);
+      await _emotionalModel.getProfile(userId);
+      await _attachment.getScore(userId);
+      await _behaviorEngine.getStats(userId);
 
-        // ── Situational Intelligence: milestones, love notes ──
-        _situational.initialize(
-          userId: userId,
-          nickname: _currentUser!.nickname,
-          createdAt: _currentUser!.createdAt,
-        );
-      }
+      // ── Lifecycle: record app open, setup daily schedule, check inactivity ──
+      _lifecycle.recordAppOpen(userId).then((_) {}, onError: (_) {});
+      _attachment.recordAppOpen(userId).then((_) {}, onError: (_) {});
+      _lifecycle.setupDailySchedule(userId, _currentUser!.nickname).then((_) {}, onError: (_) {});
+      _lifecycle.checkInactivityAndNotify(userId, _currentUser!.nickname).then((_) {}, onError: (_) {});
+      _lifecycle.analyzeBehaviorPatterns(userId).then((_) {}, onError: (_) {});
+
+      // ── Situational Intelligence: milestones, love notes ──
+      _situational.initialize(
+        userId: userId,
+        nickname: _currentUser!.nickname,
+        createdAt: _currentUser!.createdAt,
+      ).then((_) {}, onError: (_) {});
+
+      // ── Detect sleep pattern ──
+      _emotionalModel.detectSleepPattern(userId).then((_) {}, onError: (_) {});
     }
     notifyListeners();
   }
@@ -111,13 +127,14 @@ class ChatProvider extends ChangeNotifier {
   /// Send a user message and get AI response
   Future<void> sendMessage(String text) async {
     if (_currentUser == null || text.trim().isEmpty) return;
-
-    final userId = _currentUser!.id!;
+    final uid = _currentUser!.id;
+    if (uid == null) return;
+    final userId = uid;
     final now = DateTime.now();
 
     // ── Retroactive reinforcement: mark previous AI turn as "replied" ──
     final sentiment = _learning.sentimentScore(text);
-    await _learning.recordReply(userId, sentiment >= 0);
+    try { await _learning.recordReply(userId, sentiment >= 0); } catch (_) {}
 
     // Track response time (seconds since last user message)
     final responseTimeSec = _lastUserMessageTime != null
@@ -128,56 +145,94 @@ class ChatProvider extends ChangeNotifier {
     // ── Emotional Intelligence: analyze mood ──
     final moodAnalysis = EmotionalIntelligenceService.analyzeMood(text);
 
+    // ── Advanced Emotional Architecture Updates ──
+    UserEmotionalProfile? profile;
+    try {
+      // Update user emotional profile with sentiment
+      profile = await _emotionalModel.updateMood(userId, sentiment);
+      // Update attachment based on message
+      await _attachment.processMessage(userId, text);
+      // Update emotional openness
+      await _emotionalModel.updateOpenness(userId, text);
+      // Record message for behavior tracking
+      await _behaviorEngine.recordMessage(userId, text, sentiment);
+    } catch (e) {
+      debugPrint('Emotional architecture update error: $e');
+    }
+
+    // ── Protective Instinct Detection ──
+    try {
+      if (EmotionalStateEngine.shouldTriggerProtection(text)) {
+        await _emotionalState.transitionState(
+          userId: userId,
+          moodScore: profile?.currentMoodScore ?? 0.0,
+          careThreadType: 'emotion',
+          careThreadIntensity: 'high',
+        );
+      }
+    } catch (_) {}
+
     // ── Crisis Detection ──
     if (moodAnalysis.isCrisis) {
-      final crisisResponse =
-          EmotionalIntelligenceService.getCrisisResponse(_currentUser!.nickname);
-      final crisisMsg = MessageModel(
-        userId: userId,
-        text: crisisResponse,
-        senderType: SenderType.ai,
-        timestamp: DateTime.now().toIso8601String(),
-        engagementScore: 1.0,
-      );
-      // Save user message first
-      final userMsg = MessageModel(
-        userId: userId,
-        text: text.trim(),
-        senderType: SenderType.user,
-        timestamp: now.toIso8601String(),
-      );
-      await _db.insertMessage(userMsg);
-      _messages.add(userMsg);
-      await _db.insertMessage(crisisMsg);
-      _messages.add(crisisMsg);
-      await EmotionalIntelligenceService.recordMoodFromChat(
-          userId, moodAnalysis.score);
-      notifyListeners();
-      if (_autoReadEnabled) {
-        await _ttsService.speak(crisisResponse, personality: 'caring');
+      try {
+        final crisisResponse =
+            EmotionalIntelligenceService.getCrisisResponse(_currentUser!.nickname);
+        final crisisMsg = MessageModel(
+          userId: userId,
+          text: crisisResponse,
+          senderType: SenderType.ai,
+          timestamp: DateTime.now().toIso8601String(),
+          engagementScore: 1.0,
+        );
+        // Save user message first
+        final userMsg = MessageModel(
+          userId: userId,
+          text: text.trim(),
+          senderType: SenderType.user,
+          timestamp: now.toIso8601String(),
+        );
+        await _db.insertMessage(userMsg);
+        _messages.add(userMsg);
+        await _db.insertMessage(crisisMsg);
+        _messages.add(crisisMsg);
+        await EmotionalIntelligenceService.recordMoodFromChat(
+            userId, moodAnalysis.score);
+        notifyListeners();
+      } catch (e) {
+        debugPrint('Crisis handling error: $e');
       }
       return;
     }
 
     // ── Record mood from chat ──
-    await EmotionalIntelligenceService.recordMoodFromChat(
-        userId, moodAnalysis.score);
+    try {
+      await EmotionalIntelligenceService.recordMoodFromChat(
+          userId, moodAnalysis.score);
+    } catch (_) {}
 
-    // ── Sick Detection → Care Mode ──
-    if (SituationalIntelligenceService.detectSickness(text)) {
-      if (!kIsWeb) {
-        await _situational.activateCareMode(_currentUser!.nickname);
+    // ── Care Thread Engine: detect situations + schedule reminders ──
+    try {
+      final feedback = await _careEngine.processMessage(
+        userId, text, _currentUser!.nickname,
+      );
+      if (feedback != null) {
+        final sysMsg = MessageModel(
+          userId: userId,
+          text: feedback,
+          senderType: SenderType.ai,
+          timestamp: DateTime.now().toIso8601String(),
+        );
+        await _db.insertMessage(sysMsg);
+        _messages.add(sysMsg);
+        notifyListeners();
       }
-    }
-
-    // ── Emotional Support: schedule follow-up for distress ──
-    if (!kIsWeb && SituationalIntelligenceService.detectDistress(text)) {
-      await _situational.scheduleEmotionalFollowUp(_currentUser!.nickname);
-    }
+      // Also check escalation on existing threads
+      await _careEngine.checkEscalation(userId, _currentUser!.nickname);
+    } catch (_) {}
 
     // ── Memory Extraction (non-blocking) ──
     if (!_privacyMode) {
-      MemoryExtractionService.extractAndStore(userId, text);
+      MemoryExtractionService.extractAndStore(userId, text).then((_) {}, onError: (_) {});
     }
 
     // Create user message
@@ -226,6 +281,8 @@ class ChatProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
+    try {
+
     // Refresh learned profile before generation
     _learnedProfile = await _db.getUserProfile(userId);
     _totalInteractions = await _db.getTotalInteractions(userId);
@@ -243,19 +300,30 @@ class ChatProvider extends ChangeNotifier {
     // ── Build enriched system prompt ──
     String emotionalCtx = '';
     String memoryCtx = '';
-    String careModeCtx = '';
-    try {
-      emotionalCtx =
-          await EmotionalIntelligenceService.buildEmotionalContext(userId);
-      if (!_privacyMode) {
-        memoryCtx =
-            await MemoryExtractionService.buildMemoryPrompt(userId);
-      }
-      // Add care mode context if active
-      if (await SituationalIntelligenceService.isCareModeActive()) {
-        careModeCtx = SituationalIntelligenceService.getCareModeContext();
-      }
-    } catch (_) {}
+    String careThreadCtx = '';
+    String emotionalStateCtx = '';
+    String emotionalModelCtx = '';
+    String attachmentCtx = '';
+    String behaviorCtx = '';
+    String weightedMemoryCtx = '';
+    try { emotionalCtx = await EmotionalIntelligenceService.buildEmotionalContext(userId); } catch (_) {}
+    if (!_privacyMode) {
+      try { memoryCtx = await MemoryExtractionService.buildMemoryPrompt(userId); } catch (_) {}
+      try { weightedMemoryCtx = await _memoryWeights.buildWeightedMemoryContext(userId); } catch (_) {}
+    }
+    try { careThreadCtx = await _careEngine.buildCareContext(userId); } catch (_) {}
+    try { emotionalStateCtx = _emotionalState.buildStateContext(userId); } catch (_) {}
+    try { emotionalModelCtx = await _emotionalModel.buildEmotionalModelContext(userId); } catch (_) {}
+    try { attachmentCtx = await _attachment.buildAttachmentContext(userId); } catch (_) {}
+    try { behaviorCtx = await _behaviorEngine.buildBehaviorContext(userId); } catch (_) {}
+    // Periodically recalculate memory weights (every 10 messages)
+    if (_totalInteractions % 10 == 0) {
+      _memoryWeights.recalculateWeights(userId).then((_) {}, onError: (_) {});
+    }
+    // Periodically run weekly adaptation (every 50 interactions)
+    if (_totalInteractions % 50 == 0) {
+      _behaviorEngine.weeklyAdapt(userId).then((_) {}, onError: (_) {});
+    }
 
     final contextCtx = ContextAwarenessService.buildContextPrompt();
     final relationshipStage =
@@ -270,9 +338,15 @@ class ChatProvider extends ChangeNotifier {
         systemPrompt: LongCatAIService.buildDaddyPrompt(
           personality: _personality,
           nickname: _currentUser!.nickname,
-          emotionalContext: emotionalCtx + careModeCtx,
+          emotionalContext: emotionalCtx,
           memoryContext: memoryCtx,
           contextAwareness: contextCtx,
+          careThreadContext: careThreadCtx,
+          emotionalStateContext: emotionalStateCtx,
+          emotionalModelContext: emotionalModelCtx,
+          attachmentContext: attachmentCtx,
+          behaviorContext: behaviorCtx,
+          weightedMemoryContext: weightedMemoryCtx,
           relationshipStage: stageLabel,
           totalInteractions: _totalInteractions,
         ),
@@ -299,7 +373,7 @@ class ChatProvider extends ChangeNotifier {
     }
 
     // ── Late-night escalation: schedule sleep reminders (0 tokens) ──
-    if (ContextAwarenessService.isLateNight() && !kIsWeb) {
+    if (ContextAwarenessService.isLateNight()) {
       final now = DateTime.now();
       if (now.hour >= 23 || now.hour < 3) {
         _lifecycle.scheduleLateNightEscalation(
@@ -333,50 +407,65 @@ class ChatProvider extends ChangeNotifier {
       _tokens = await _db.getTokens(userId);
     }
 
-    _isLoading = false;
-    notifyListeners();
+    // ── Post-response emotional state transition ──
+    try {
+      final activeThreads = await _careEngine.getActiveThreads(userId);
+      await _emotionalState.transitionState(
+        userId: userId,
+        moodScore: profile?.currentMoodScore ?? 0.0,
+        careThreadType: activeThreads.isNotEmpty ? activeThreads.first.type : null,
+        careThreadIntensity: activeThreads.isNotEmpty ? activeThreads.first.intensity : null,
+      );
+    } catch (e) {
+      debugPrint('Post-response state transition error: $e');
+    }
 
     // ── Surprise moment (5% chance) ──
-    final surprise = DadReportService.generateSurpriseMoment(
-        _currentUser!.nickname, _totalInteractions);
-    if (surprise != null) {
-      await Future.delayed(const Duration(seconds: 2));
-      final surpriseMsg = MessageModel(
-        userId: userId,
-        text: surprise,
-        senderType: SenderType.ai,
-        timestamp: DateTime.now().toIso8601String(),
-      );
-      await _db.insertMessage(surpriseMsg);
-      _messages.add(surpriseMsg);
-      notifyListeners();
-    }
+    try {
+      final surprise = DadReportService.generateSurpriseMoment(
+          _currentUser!.nickname, _totalInteractions);
+      if (surprise != null) {
+        await Future.delayed(const Duration(seconds: 2));
+        final surpriseMsg = MessageModel(
+          userId: userId,
+          text: surprise,
+          senderType: SenderType.ai,
+          timestamp: DateTime.now().toIso8601String(),
+        );
+        await _db.insertMessage(surpriseMsg);
+        _messages.add(surpriseMsg);
+        notifyListeners();
+      }
+    } catch (_) {}
 
     // ── Record interaction for self-learning ──
-    final detectedIntent = _aiEngine.detectIntent(text.toLowerCase().trim());
-    await _learning.recordInteraction(
-      userId: userId,
-      toneUsed: _learnedProfile?.bestTone ?? _personality,
-      intentDetected: detectedIntent,
-      userMessageLength: text.length,
-      responseTimeSeconds: responseTimeSec,
-      sentimentScore: sentiment,
-      engagementScore: engScore,
-    );
+    try {
+      final detectedIntent = _aiEngine.detectIntent(text.toLowerCase().trim());
+      await _learning.recordInteraction(
+        userId: userId,
+        toneUsed: _learnedProfile?.bestTone ?? _personality,
+        intentDetected: detectedIntent,
+        userMessageLength: text.length,
+        responseTimeSeconds: responseTimeSec,
+        sentimentScore: sentiment,
+        engagementScore: engScore,
+      );
 
-    // Quick reinforcement update (every message)
-    await _learning.quickUpdate(userId);
+      // Quick reinforcement update (every message)
+      await _learning.quickUpdate(userId);
 
-    // Auto-read response
-    if (_autoReadEnabled) {
-      await _ttsService.speak(response, personality: _personality);
+      // Deep analysis every 10 messages
+      final msgCount = await _db.getMessageCount(userId, days: 1);
+      if (msgCount % 10 == 0) {
+        await _learning.analyzeAndAdapt(userId);
+        _learnedProfile = await _db.getUserProfile(userId);
+      }
+    } catch (e) {
+      debugPrint('Self-learning record error: $e');
     }
-
-    // Deep analysis every 10 messages
-    final msgCount = await _db.getMessageCount(userId, days: 1);
-    if (msgCount % 10 == 0) {
-      await _learning.analyzeAndAdapt(userId);
-      _learnedProfile = await _db.getUserProfile(userId);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
@@ -424,33 +513,31 @@ class ChatProvider extends ChangeNotifier {
     );
     final reminderId = await _db.insertSmartReminder(reminder);
 
-    // Schedule notification (mobile only)
-    if (!kIsWeb) {
-      // Double reminder: 30min + 5min before the event
-      await _lifecycle.scheduleDoubleReminder(
-        baseId: 500 + reminderId * 10,
-        nickname: _currentUser!.nickname,
-        eventDescription: parsed.originalText,
-        eventTime: parsed.scheduledTime,
-      );
+    // Schedule notification (no-op on web via conditional import)
+    // Double reminder: 30min + 5min before the event
+    await _lifecycle.scheduleDoubleReminder(
+      baseId: 500 + reminderId * 10,
+      nickname: _currentUser!.nickname,
+      eventDescription: parsed.originalText,
+      eventTime: parsed.scheduledTime,
+    );
 
-      // If it's an exam/study event, also schedule multi-day reminders
-      if (parsed.eventType == 'study') {
-        await _lifecycle.scheduleExamReminders(
-          baseId: 600 + reminderId * 10,
-          nickname: _currentUser!.nickname,
-          examDescription: parsed.originalText,
-          examTime: parsed.scheduledTime,
-        );
-      }
-
-      // ── Follow-up Memory: "How did it go?" 1 hour after event ──
-      await _situational.scheduleFollowUp(
+    // If it's an exam/study event, also schedule multi-day reminders
+    if (parsed.eventType == 'study') {
+      await _lifecycle.scheduleExamReminders(
+        baseId: 600 + reminderId * 10,
         nickname: _currentUser!.nickname,
-        eventDescription: parsed.originalText,
-        eventTime: parsed.scheduledTime,
+        examDescription: parsed.originalText,
+        examTime: parsed.scheduledTime,
       );
     }
+
+    // ── Follow-up Memory: "How did it go?" 1 hour after event ──
+    await _situational.scheduleFollowUp(
+      nickname: _currentUser!.nickname,
+      eventDescription: parsed.originalText,
+      eventTime: parsed.scheduledTime,
+    );
 
     // Build a dad-like confirmation message
     final nickname = _currentUser!.nickname;
@@ -480,10 +567,6 @@ class ChatProvider extends ChangeNotifier {
     _messages.add(confirmMsg);
     notifyListeners();
 
-    // Auto-read the confirmation aloud
-    if (_autoReadEnabled) {
-      await _ttsService.speak(confirmText, personality: _personality);
-    }
   }
 
   String _formatTime(DateTime time) {
@@ -493,37 +576,20 @@ class ChatProvider extends ChangeNotifier {
     return '$hour:$minute $period';
   }
 
-  void toggleAutoRead() async {
-    _autoReadEnabled = !_autoReadEnabled;
-    if (!_autoReadEnabled) {
-      _ttsService.stop();
-    }
-    // Persist the setting
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('auto_read_enabled', _autoReadEnabled);
-    notifyListeners();
-  }
-
   /// Update personality without full re-init (called from Settings)
   void updatePersonality(String newPersonality) {
     _personality = newPersonality;
     notifyListeners();
   }
 
-  Future<void> stopSpeaking() async {
-    await _ttsService.stop();
-  }
-
   Future<void> refreshTokens() async {
     if (_currentUser == null) return;
-    await _db.resetTokensIfNeeded(_currentUser!.id!);
-    _tokens = await _db.getTokens(_currentUser!.id!);
-    notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    _ttsService.dispose();
-    super.dispose();
+    final uid = _currentUser!.id;
+    if (uid == null) return;
+    try {
+      await _db.resetTokensIfNeeded(uid);
+      _tokens = await _db.getTokens(uid);
+      notifyListeners();
+    } catch (_) {}
   }
 }

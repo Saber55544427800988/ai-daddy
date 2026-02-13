@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../database/database_helper.dart';
@@ -837,12 +836,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
       await DatabaseHelper.instance.initTokens(userId);
 
-      if (!kIsWeb) {
-        await NotificationService.instance.scheduleDailyReminders(
-          nickname,
-          ReminderModel.defaultReminderTexts(nickname),
-        );
-      }
+      await NotificationService.instance.scheduleDailyReminders(
+        nickname,
+        ReminderModel.defaultReminderTexts(nickname),
+      );
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('onboarding_complete', true);

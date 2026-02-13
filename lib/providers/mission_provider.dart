@@ -20,18 +20,20 @@ class MissionProvider extends ChangeNotifier {
   double get levelProgress => (_totalXP % xpToNextLevel) / xpToNextLevel;
 
   Future<void> init(int userId) async {
-    _missions = await _db.getMissions();
-    _todayLogs = await _db.getTodayMissionLogs(userId);
+    try {
+      _missions = await _db.getMissions();
+      _todayLogs = await _db.getTodayMissionLogs(userId);
 
-    // Calculate total XP from all completed missions
-    final completedCount = await _db.getCompletedMissionCount(userId);
-    _totalXP = completedCount * 50;
-    _level = (_totalXP ~/ 200) + 1;
+      // Calculate total XP from all completed missions
+      final completedCount = await _db.getCompletedMissionCount(userId);
+      _totalXP = completedCount * 50;
+      _level = (_totalXP ~/ 200) + 1;
 
-    // Initialize today's missions if not exists
-    if (_todayLogs.isEmpty) {
-      await _initTodayMissions(userId);
-    }
+      // Initialize today's missions if not exists
+      if (_todayLogs.isEmpty) {
+        await _initTodayMissions(userId);
+      }
+    } catch (_) {}
 
     notifyListeners();
   }

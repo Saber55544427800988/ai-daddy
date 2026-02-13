@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
@@ -23,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<Offset> _textSlide;
   late Animation<double> _pulseScale;
   late Animation<double> _loadingOpacity;
+  Timer? _sequenceTimer;
 
   @override
   void initState() {
@@ -79,20 +81,32 @@ class _SplashScreenState extends State<SplashScreen>
     _startSequence();
   }
 
-  Future<void> _startSequence() async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    _logoController.forward();
-    await Future.delayed(const Duration(milliseconds: 800));
-    _textController.forward();
-    await Future.delayed(const Duration(milliseconds: 500));
-    _loadingController.forward();
-    // Hold splash for a moment then proceed
-    await Future.delayed(const Duration(milliseconds: 1800));
-    if (mounted) widget.onFinished();
+  void _startSequence() {
+    _scheduleNext(const Duration(milliseconds: 300), () {
+      _logoController.forward();
+      _scheduleNext(const Duration(milliseconds: 800), () {
+        _textController.forward();
+        _scheduleNext(const Duration(milliseconds: 500), () {
+          _loadingController.forward();
+          _scheduleNext(const Duration(milliseconds: 1800), () {
+            if (mounted) widget.onFinished();
+          });
+        });
+      });
+    });
+  }
+
+  void _scheduleNext(Duration delay, VoidCallback action) {
+    _sequenceTimer?.cancel();
+    _sequenceTimer = Timer(delay, () {
+      if (!mounted) return;
+      action();
+    });
   }
 
   @override
   void dispose() {
+    _sequenceTimer?.cancel();
     _logoController.dispose();
     _textController.dispose();
     _pulseController.dispose();

@@ -16,9 +16,11 @@ class TokenProvider extends ChangeNotifier {
       _tokens?.spendingMode ?? SpendingMode.slow;
 
   Future<void> init(int userId) async {
-    await _db.initTokens(userId);
-    await _db.resetTokensIfNeeded(userId);
-    _tokens = await _db.getTokens(userId);
+    try {
+      await _db.initTokens(userId);
+      await _db.resetTokensIfNeeded(userId);
+      _tokens = await _db.getTokens(userId);
+    } catch (_) {}
     notifyListeners();
   }
 

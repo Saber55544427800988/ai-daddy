@@ -36,6 +36,18 @@ class DaddyLifecycleService {
         'Up and at \'em, $nickname. Today is yours.',
         'Good morning. Drink water. Eat. Then conquer.',
         'Hey $nickname, hope you rested well. Be great today.',
+        'Wakey wakey, $nickname. Fresh start. Make it count.',
+        'Morning sunshine. Let\'s make today better than yesterday.',
+        'Another day to be great, $nickname. Start strong.',
+        'Good morning champ. Remember - breakfast is not optional.',
+        'Hey $nickname. Slept well? Good. Now fuel up and go.',
+        'Morning! Start hydrated, start fed, start strong.',
+        'New morning, $nickname. Show this day who\'s boss.',
+        'Rise up, champ. The world\'s waiting for you.',
+        'Morning $nickname. Daddy\'s proud of you already.',
+        'Good morning. You\'ve got what it takes today.',
+        'Hey champ. Breakfast, water, then dominate.',
+        'Morning $nickname. Small wins start with waking up.',
       ];
 
   /// Meal reminder templates (0 AI tokens)
@@ -46,6 +58,18 @@ class DaddyLifecycleService {
         'Don\'t forget to eat, $nickname. Daddy worries.',
         'Quick check — have you eaten? Do it now.',
         'Your body needs fuel, $nickname. Eat something good.',
+        'Meal time, $nickname. Step away from work and eat.',
+        'Hey champ. Can\'t run on empty. Grab some food.',
+        'Quick reminder: skipping meals isn\'t an option.',
+        '$nickname, pause whatever you\'re doing. Eat first.',
+        'Time to refuel, champ. Get something in your stomach.',
+        'Eating is not negotiable, $nickname. Do it.',
+        'Hey, when\'s the last time you ate? Fix that.',
+        'Body\'s asking for food, $nickname. Listen to it.',
+        'You know the drill — take a break and eat.',
+        '$nickname, food break. Now. Then back to it.',
+        'Real talk: have you eaten today? Seriously.',
+        'Stop. Eat. Then continue being awesome.',
       ];
 
   /// Hydration reminders (0 AI tokens)
@@ -54,6 +78,16 @@ class DaddyLifecycleService {
         'Hey. Water break. Now.',
         'Stay hydrated, champ. Grab some water.',
         '$nickname, when was your last glass of water?',
+        'Quick hydration check. Drink up.',
+        'Water time, $nickname. Keep that body running right.',
+        'Hey champ. Glass of water. Right now.',
+        'Hydration reminder: your body needs it.',
+        '$nickname, pause for 30 seconds. Drink water.',
+        'When\'d you last drink water? Fix that now.',
+        'Quick one: grab water. You\'ll thank me later.',
+        'Stay sharp, stay hydrated. Drink up, $nickname.',
+        'Water break, champ. Small habit, big impact.',
+        'Dehydration makes everything harder. Drink.',
       ];
 
   /// Evening wind-down templates (0 AI tokens)
@@ -62,6 +96,18 @@ class DaddyLifecycleService {
         'Evening, champ. Slow down. You did enough today.',
         '$nickname, take a breath. The day is ending. You did well.',
         'Time to wind down, $nickname. You earned it.',
+        'Day\'s almost done. How you holding up, champ?',
+        'Evening check-in, $nickname. You did good today.',
+        'Time to ease off the gas, $nickname. Relax a bit.',
+        'Hey. End of day. You made it. Proud of you.',
+        '$nickname, put the work down. You deserve rest.',
+        'Evening, champ. Did you do your best? Then that\'s enough.',
+        'Day\'s winding down. So should you, $nickname.',
+        'Quick evening check. You okay? Need anything?',
+        'Hey $nickname. Long day? Take a breath.',
+        'Evening reminder: you did enough. Rest now.',
+        'Time to shift gears, champ. Work\'s over.',
+        '$nickname, how are you feeling tonight?',
       ];
   /// Dad Task reminder templates (0 AI tokens)
   static List<String> dadTaskTemplates(String nickname) => [

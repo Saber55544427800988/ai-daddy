@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
 import '../models/personality_model.dart';
 import '../models/message_model.dart';
@@ -26,6 +27,99 @@ class DatabaseHelper {
     if (_database != null) return _database!;
     _database = await _initDB('ai_daddy.db');
     return _database!;
+  }
+
+  /// Run migrations for new tables (safe to call multiple times)
+  Future<void> runMigrations() async {
+    final db = await database;
+    // care_threads table — added for Care Thread Engine
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS care_threads (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        type TEXT NOT NULL,
+        sub_type TEXT DEFAULT '',
+        status TEXT DEFAULT 'active',
+        intensity TEXT DEFAULT 'medium',
+        escalation_level INTEGER DEFAULT 0,
+        follow_up_count INTEGER DEFAULT 0,
+        ignored_count INTEGER DEFAULT 0,
+        start_time TEXT NOT NULL,
+        end_time TEXT,
+        last_follow_up TEXT,
+        trigger_message TEXT,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      )
+    ''');
+
+    // Emotional State Log — AI Daddy's internal state transitions
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS emotional_state_log (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        state TEXT NOT NULL DEFAULT 'calm',
+        previous_state TEXT DEFAULT 'calm',
+        trigger TEXT DEFAULT '',
+        state_intensity REAL DEFAULT 0.5,
+        timestamp TEXT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      )
+    ''');
+
+    // User Emotional Profile — dynamic emotional model per user
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS user_emotional_profile (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL UNIQUE,
+        baseline_mood REAL DEFAULT 0.0,
+        current_mood_score REAL DEFAULT 0.0,
+        stress_count_24h INTEGER DEFAULT 0,
+        loneliness_count_7d INTEGER DEFAULT 0,
+        sleep_pattern TEXT DEFAULT 'unknown',
+        health_incidents_30d INTEGER DEFAULT 0,
+        emotional_openness REAL DEFAULT 0.3,
+        attachment_score INTEGER DEFAULT 20,
+        last_mood_update TEXT DEFAULT '',
+        mood_trend TEXT DEFAULT 'stable',
+        recent_moods TEXT DEFAULT '[]',
+        support_mode_active INTEGER DEFAULT 0,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      )
+    ''');
+
+    // Memory Weights — emotional weight per stored memory
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS memory_weights (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        memory_id INTEGER NOT NULL,
+        memory_type TEXT DEFAULT 'preference',
+        emotional_weight INTEGER DEFAULT 5,
+        recency_score REAL DEFAULT 1.0,
+        frequency_score REAL DEFAULT 0.0,
+        last_calculated TEXT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (memory_id) REFERENCES dad_memories(id)
+      )
+    ''');
+
+    // Behavior Stats — user behavioral preferences for adaptation
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS behavior_stats (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL UNIQUE,
+        preferred_msg_length REAL DEFAULT 60.0,
+        preferred_strictness REAL DEFAULT 0.4,
+        preferred_reminder_timing TEXT DEFAULT 'adaptive',
+        emotional_sensitivity REAL DEFAULT 0.5,
+        reminder_response_rate REAL DEFAULT 0.5,
+        conversation_depth REAL DEFAULT 0.3,
+        inactivity_days INTEGER DEFAULT 0,
+        last_adaptation TEXT DEFAULT '',
+        weekly_trends TEXT DEFAULT '{}',
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      )
+    ''');
   }
 
   Future<Database> _initDB(String fileName) async {
@@ -276,6 +370,95 @@ class DatabaseHelper {
       )
     ''');
 
+    // Care Thread Engine — persistent care situation tracking
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS care_threads (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        type TEXT NOT NULL,
+        sub_type TEXT DEFAULT '',
+        status TEXT DEFAULT 'active',
+        intensity TEXT DEFAULT 'medium',
+        escalation_level INTEGER DEFAULT 0,
+        follow_up_count INTEGER DEFAULT 0,
+        ignored_count INTEGER DEFAULT 0,
+        start_time TEXT NOT NULL,
+        end_time TEXT,
+        last_follow_up TEXT,
+        trigger_message TEXT,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      )
+    ''');
+
+    // Emotional State Log — AI internal state transitions
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS emotional_state_log (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        state TEXT NOT NULL DEFAULT 'calm',
+        previous_state TEXT DEFAULT 'calm',
+        trigger TEXT DEFAULT '',
+        state_intensity REAL DEFAULT 0.5,
+        timestamp TEXT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      )
+    ''');
+
+    // User Emotional Profile — dynamic emotional model per user
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS user_emotional_profile (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL UNIQUE,
+        baseline_mood REAL DEFAULT 0.0,
+        current_mood_score REAL DEFAULT 0.0,
+        stress_count_24h INTEGER DEFAULT 0,
+        loneliness_count_7d INTEGER DEFAULT 0,
+        sleep_pattern TEXT DEFAULT 'unknown',
+        health_incidents_30d INTEGER DEFAULT 0,
+        emotional_openness REAL DEFAULT 0.3,
+        attachment_score INTEGER DEFAULT 20,
+        last_mood_update TEXT DEFAULT '',
+        mood_trend TEXT DEFAULT 'stable',
+        recent_moods TEXT DEFAULT '[]',
+        support_mode_active INTEGER DEFAULT 0,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      )
+    ''');
+
+    // Memory Weights — emotional weight per stored memory
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS memory_weights (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        memory_id INTEGER NOT NULL,
+        memory_type TEXT DEFAULT 'preference',
+        emotional_weight INTEGER DEFAULT 5,
+        recency_score REAL DEFAULT 1.0,
+        frequency_score REAL DEFAULT 0.0,
+        last_calculated TEXT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (memory_id) REFERENCES dad_memories(id)
+      )
+    ''');
+
+    // Behavior Stats — user behavioral preferences for adaptation
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS behavior_stats (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL UNIQUE,
+        preferred_msg_length REAL DEFAULT 60.0,
+        preferred_strictness REAL DEFAULT 0.4,
+        preferred_reminder_timing TEXT DEFAULT 'adaptive',
+        emotional_sensitivity REAL DEFAULT 0.5,
+        reminder_response_rate REAL DEFAULT 0.5,
+        conversation_depth REAL DEFAULT 0.3,
+        inactivity_days INTEGER DEFAULT 0,
+        last_adaptation TEXT DEFAULT '',
+        weekly_trends TEXT DEFAULT '{}',
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      )
+    ''');
+
     // Insert default personalities
     for (final p in PersonalityModel.defaultPersonalities()) {
       await db.insert('personality', p.toMap());
@@ -522,18 +705,61 @@ class DatabaseHelper {
 
   // ─── AI TOKENS ────────────────────────────────────
 
+  // Helper methods for web token persistence
+  Future<void> _saveTokensToPrefs(AITokenModel tokens) async {
+    if (!kIsWeb) return;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('token_user_id', tokens.userId);
+    await prefs.setInt('token_total', tokens.totalTokens);
+    await prefs.setInt('token_spent', tokens.spentTokens);
+    await prefs.setString('token_last_reset', tokens.lastReset);
+    await prefs.setString('token_spending_mode', tokens.spendingMode.name);
+  }
+
+  Future<AITokenModel?> _loadTokensFromPrefs(int userId) async {
+    if (!kIsWeb) return null;
+    final prefs = await SharedPreferences.getInstance();
+    final storedUserId = prefs.getInt('token_user_id');
+    if (storedUserId != userId) return null;
+    
+    return AITokenModel(
+      userId: userId,
+      totalTokens: prefs.getInt('token_total') ?? 5000,
+      spentTokens: prefs.getInt('token_spent') ?? 0,
+      lastReset: prefs.getString('token_last_reset') ?? DateTime.now().toIso8601String(),
+      spendingMode: SpendingMode.values.firstWhere(
+        (m) => m.name == prefs.getString('token_spending_mode'),
+        orElse: () => SpendingMode.slow,
+      ),
+    );
+  }
+
   Future<void> initTokens(int userId) async {
+    // On web, try to restore from SharedPreferences first
+    if (kIsWeb) {
+      final stored = await _loadTokensFromPrefs(userId);
+      if (stored != null) {
+        // Already initialized, save to DB
+        final db = await database;
+        await db.insert(
+          'ai_tokens',
+          stored.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+        return;
+      }
+    }
+
     final db = await database;
     final existing = await db.query('ai_tokens',
         where: 'user_id = ?', whereArgs: [userId]);
     if (existing.isEmpty) {
-      await db.insert(
-        'ai_tokens',
-        AITokenModel(
-          userId: userId,
-          lastReset: DateTime.now().toIso8601String(),
-        ).toMap(),
+      final newTokens = AITokenModel(
+        userId: userId,
+        lastReset: DateTime.now().toIso8601String(),
       );
+      await db.insert('ai_tokens', newTokens.toMap());
+      if (kIsWeb) await _saveTokensToPrefs(newTokens);
     }
   }
 
@@ -542,7 +768,10 @@ class DatabaseHelper {
     final maps = await db.query('ai_tokens',
         where: 'user_id = ?', whereArgs: [userId]);
     if (maps.isEmpty) return null;
-    return AITokenModel.fromMap(maps.first);
+    final tokens = AITokenModel.fromMap(maps.first);
+    // Save to SharedPreferences on web for persistence across reloads
+    if (kIsWeb) await _saveTokensToPrefs(tokens);
+    return tokens;
   }
 
   Future<void> spendTokens(int userId, int amount) async {
@@ -551,6 +780,11 @@ class DatabaseHelper {
       'UPDATE ai_tokens SET spent_tokens = spent_tokens + ? WHERE user_id = ?',
       [amount, userId],
     );
+    // Update SharedPreferences on web
+    if (kIsWeb) {
+      final tokens = await getTokens(userId);
+      if (tokens != null) await _saveTokensToPrefs(tokens);
+    }
   }
 
   Future<void> earnTokens(int userId, int amount) async {
@@ -559,6 +793,11 @@ class DatabaseHelper {
       'UPDATE ai_tokens SET spent_tokens = MAX(0, spent_tokens - ?) WHERE user_id = ?',
       [amount, userId],
     );
+    // Update SharedPreferences on web
+    if (kIsWeb) {
+      final tokens = await getTokens(userId);
+      if (tokens != null) await _saveTokensToPrefs(tokens);
+    }
   }
 
   Future<void> resetTokensIfNeeded(int userId) async {
@@ -578,6 +817,11 @@ class DatabaseHelper {
         where: 'user_id = ?',
         whereArgs: [userId],
       );
+      // Update SharedPreferences on web
+      if (kIsWeb) {
+        final updatedTokens = await getTokens(userId);
+        if (updatedTokens != null) await _saveTokensToPrefs(updatedTokens);
+      }
     }
   }
 
@@ -589,6 +833,11 @@ class DatabaseHelper {
       where: 'user_id = ?',
       whereArgs: [userId],
     );
+    // Update SharedPreferences on web
+    if (kIsWeb) {
+      final tokens = await getTokens(userId);
+      if (tokens != null) await _saveTokensToPrefs(tokens);
+    }
   }
 
   // ─── USER PROFILE ─────────────────────────────────

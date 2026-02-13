@@ -26,9 +26,18 @@ class _HabitScreenState extends State<HabitScreen> {
   }
 
   Future<void> _loadHabits() async {
-    final userId = context.read<ChatProvider>().currentUser?.id ?? 1;
-    _habits = await _db.getHabits(userId);
-    setState(() => _loading = false);
+    try {
+      final user = context.read<ChatProvider>().currentUser;
+      if (user == null || user.id == null) {
+        if (mounted) setState(() => _loading = false);
+        return;
+      }
+      final userId = user.id!;
+      _habits = await _db.getHabits(userId);
+      if (mounted) setState(() => _loading = false);
+    } catch (_) {
+      if (mounted) setState(() => _loading = false);
+    }
   }
 
   @override
@@ -181,8 +190,9 @@ class _HabitScreenState extends State<HabitScreen> {
   }
 
   Future<void> _completeHabit(HabitModel habit) async {
+    if (habit.id == null) return;
     await _db.completeHabitToday(habit.id!);
-    _loadHabits();
+    if (mounted) _loadHabits();
   }
 
   Color _strengthColor(String strength) {

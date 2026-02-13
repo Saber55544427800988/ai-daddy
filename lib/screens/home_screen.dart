@@ -36,10 +36,22 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     // Initialize providers
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ChatProvider>().init(widget.userId);
-      context.read<TokenProvider>().init(widget.userId);
-      context.read<MissionProvider>().init(widget.userId);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        await context.read<ChatProvider>().init(widget.userId);
+      } catch (e) {
+        debugPrint('ChatProvider init error: $e');
+      }
+      try {
+        await context.read<TokenProvider>().init(widget.userId);
+      } catch (e) {
+        debugPrint('TokenProvider init error: $e');
+      }
+      try {
+        await context.read<MissionProvider>().init(widget.userId);
+      } catch (e) {
+        debugPrint('MissionProvider init error: $e');
+      }
     });
   }
 

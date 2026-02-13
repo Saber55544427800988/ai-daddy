@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +31,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String _personality = 'caring';
   double _checkInHours = 6;
   bool _notificationsEnabled = true;
-  bool _autoReadEnabled = true;
   bool _privacyMode = false;
   String _voiceStyle = 'warm';
 
@@ -62,7 +60,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _checkInHours = prefs.getDouble('check_in_hours') ?? 6;
         _notificationsEnabled =
             prefs.getBool('notifications_enabled') ?? true;
-        _autoReadEnabled = prefs.getBool('auto_read_enabled') ?? true;
         _selfLearningEnabled =
             prefs.getBool('self_learning_enabled') ?? true;
         _privacyMode = prefs.getBool('privacy_mode') ?? false;
@@ -130,33 +127,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       setState(() => _notificationsEnabled = v);
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.setBool('notifications_enabled', v);
-                      if (!kIsWeb) {
-                        if (v) {
-                          await NotificationService.instance
-                              .scheduleDailyReminders(
-                            _user!.nickname,
-                            ReminderModel.defaultReminderTexts(_user!.nickname),
-                          );
-                        } else {
-                          await NotificationService.instance.cancelAll();
-                        }
-                      }
-                    },
-                  ),
-                  _buildToggle(
-                    AppLocalizations.of(context).t('autoReadVoice'),
-                    AppLocalizations.of(context).t('autoReadVoiceDesc'),
-                    _autoReadEnabled,
-                    (v) async {
-                      setState(() => _autoReadEnabled = v);
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.setBool('auto_read_enabled', v);
-                      // Sync to ChatProvider
-                      if (mounted) {
-                        final chat = context.read<ChatProvider>();
-                        if (chat.autoReadEnabled != v) {
-                          chat.toggleAutoRead();
-                        }
+                      if (v) {
+                        await NotificationService.instance
+                            .scheduleDailyReminders(
+                          _user!.nickname,
+                          ReminderModel.defaultReminderTexts(_user!.nickname),
+                        );
+                      } else {
+                        await NotificationService.instance.cancelAll();
                       }
                     },
                   ),
@@ -330,6 +308,84 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: AppLocalizations.of(context).t('appVersion'),
                     value: '1.0.0',
                   ),
+                  
+                  // Important Disclaimer
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.orange.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 24),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Important Notice',
+                                style: TextStyle(
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                'AI Daddy provides emotional support but is NOT a substitute for professional mental health care, medical advice, or crisis intervention.',
+                                style: TextStyle(
+                                  color: AppTheme.textSecondary,
+                                  fontSize: 12,
+                                  height: 1.4,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'In crisis? Call 988 (US) or emergency services (911)',
+                                style: TextStyle(
+                                  color: Colors.red.shade300,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  
+                  ListTile(
+                    leading: Icon(Icons.privacy_tip_outlined, color: AppTheme.glowCyan),
+                    title: Text(
+                      'Privacy Policy',
+                      style: TextStyle(color: AppTheme.textPrimary, fontSize: 16),
+                    ),
+                    trailing: Icon(Icons.open_in_new, color: AppTheme.textSecondary, size: 20),
+                    onTap: () {
+                      // Open privacy policy URL
+                      // TODO: Add url_launcher and open privacy policy link
+                    },
+                  ),
+                  
+                  ListTile(
+                    leading: Icon(Icons.description_outlined, color: AppTheme.glowCyan),
+                    title: Text(
+                      'Terms of Service',
+                      style: TextStyle(color: AppTheme.textPrimary, fontSize: 16),
+                    ),
+                    trailing: Icon(Icons.open_in_new, color: AppTheme.textSecondary, size: 20),
+                    onTap: () {
+                      // Open terms of service URL
+                      // TODO: Add url_launcher and open terms link
+                    },
+                  ),
+                  
                   _buildInfoTile(
                     icon: Icons.person_rounded,
                     title: AppLocalizations.of(context).t('imYourDaddy'),
@@ -1330,9 +1386,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildMilestoneCard() {
     if (_user == null) return const SizedBox.shrink();
     final info = SituationalIntelligenceService.getMilestoneInfo(_user!.createdAt);
-    final days = info['days'] as int;
-    final nextMilestone = info['nextMilestone'] as int;
-    final daysUntil = info['daysUntil'] as int;
+    final days = (info['days'] as int?) ?? 0;
+    final nextMilestone = (info['nextMilestone'] as int?) ?? 0;
+    final daysUntil = (info['daysUntil'] as int?) ?? 0;
 
     return Container(
       margin: const EdgeInsets.only(top: 12),

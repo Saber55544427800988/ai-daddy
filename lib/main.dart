@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -15,22 +15,35 @@ import 'screens/language_picker_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/home_screen.dart';
 
-// Web database support
-import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
-import 'package:sqflite/sqflite.dart';
+// Web database support — conditional import
+import 'database/web_db_setup_stub.dart'
+    if (dart.library.js_interop) 'database/web_db_setup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize web database factory
-  if (kIsWeb) {
-    databaseFactory = databaseFactoryFfiWeb;
+  // Initialize web database factory (only runs real code on web)
+  try {
+    setupWebDatabase();
+  } catch (e) {
+    debugPrint('Web database factory init error: $e');
   }
 
-  // Notifications only on mobile
-  if (!kIsWeb) {
+  // Initialize notifications (no-op on web via conditional import)
+  try {
     await NotificationService.instance.init();
-  }
+  } catch (_) {}
+
+  // Global error handler — prevents white screen on uncaught errors
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+  };
+
+  // Catch uncaught async errors globally
+  PlatformDispatcher.instance.onError = (error, stack) {
+    debugPrint('Uncaught error: $error');
+    return true; // Handled — don't crash
+  };
 
   runApp(const AIDaddyApp());
 }

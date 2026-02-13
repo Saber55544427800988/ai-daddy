@@ -106,22 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
-          // Voice toggle
-          Consumer<ChatProvider>(
-            builder: (_, chat, __) {
-              return IconButton(
-                onPressed: chat.toggleAutoRead,
-                icon: Icon(
-                  chat.autoReadEnabled
-                      ? Icons.volume_up_rounded
-                      : Icons.volume_off_rounded,
-                  color: chat.autoReadEnabled
-                      ? AppTheme.glowCyan
-                      : AppTheme.textSecondary,
-                ),
-              );
-            },
-          ),
+
           // Token badge
           Consumer<TokenProvider>(
             builder: (_, tp, __) {

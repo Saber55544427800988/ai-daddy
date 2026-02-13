@@ -27,9 +27,18 @@ class _GoalTrackingScreenState extends State<GoalTrackingScreen> {
   }
 
   Future<void> _loadGoals() async {
-    final userId = context.read<ChatProvider>().currentUser?.id ?? 1;
-    _goals = await _db.getGoals(userId);
-    setState(() => _loading = false);
+    try {
+      final user = context.read<ChatProvider>().currentUser;
+      if (user == null || user.id == null) {
+        if (mounted) setState(() => _loading = false);
+        return;
+      }
+      final userId = user.id!;
+      _goals = await _db.getGoals(userId);
+      if (mounted) setState(() => _loading = false);
+    } catch (_) {
+      if (mounted) setState(() => _loading = false);
+    }
   }
 
   @override

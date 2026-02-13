@@ -32,13 +32,22 @@ class _MemoryVaultScreenState extends State<MemoryVaultScreen> {
   }
 
   Future<void> _loadMemories() async {
-    final userId = context.read<ChatProvider>().currentUser?.id ?? 1;
-    if (_filter == 'all') {
-      _memories = await _db.getDadMemories(userId);
-    } else {
-      _memories = await _db.getDadMemoriesByCategory(userId, _filter);
+    try {
+      final user = context.read<ChatProvider>().currentUser;
+      if (user == null || user.id == null) {
+        if (mounted) setState(() => _loading = false);
+        return;
+      }
+      final userId = user.id!;
+      if (_filter == 'all') {
+        _memories = await _db.getDadMemories(userId);
+      } else {
+        _memories = await _db.getDadMemoriesByCategory(userId, _filter);
+      }
+      if (mounted) setState(() => _loading = false);
+    } catch (_) {
+      if (mounted) setState(() => _loading = false);
     }
-    setState(() => _loading = false);
   }
 
   @override
@@ -151,7 +160,9 @@ class _MemoryVaultScreenState extends State<MemoryVaultScreen> {
         child: const Icon(Icons.delete, color: Colors.redAccent),
       ),
       onDismissed: (_) async {
-        await _db.deleteDadMemory(memory.id!);
+        if (memory.id != null) {
+          await _db.deleteDadMemory(memory.id!);
+        }
         _loadMemories();
       },
       child: Container(

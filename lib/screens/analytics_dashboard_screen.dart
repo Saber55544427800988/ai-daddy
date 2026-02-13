@@ -41,35 +41,46 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen> {
   }
 
   Future<void> _loadData() async {
-    final chat = context.read<ChatProvider>();
-    final userId = chat.currentUser?.id ?? 1;
+    try {
+      final chat = context.read<ChatProvider>();
+      final user = chat.currentUser;
+      if (user == null || user.id == null) {
+        if (mounted) setState(() => _loading = false);
+        return;
+      }
+      final userId = user.id!;
 
-    final results = await Future.wait([
-      _db.getMessagesPerDay(userId, days: 7),
-      _db.getMoodPerDay(userId, days: 7),
-      EmotionalIntelligenceService.getAverageMood(userId),
-      EmotionalIntelligenceService.getMoodTrend(userId),
-      _db.getMessageCount(userId, days: 30),
-      _db.getTotalInteractions(userId),
-      _db.getCompletedMissionCount(userId),
-      _db.getEngagementByTone(userId),
-      _db.getIntentFrequency(userId),
-    ]);
+      final results = await Future.wait([
+        _db.getMessagesPerDay(userId, days: 7),
+        _db.getMoodPerDay(userId, days: 7),
+        EmotionalIntelligenceService.getAverageMood(userId),
+        EmotionalIntelligenceService.getMoodTrend(userId),
+        _db.getMessageCount(userId, days: 30),
+        _db.getTotalInteractions(userId),
+        _db.getCompletedMissionCount(userId),
+        _db.getEngagementByTone(userId),
+        _db.getIntentFrequency(userId),
+      ]);
 
-    setState(() {
-      _messagesPerDay = results[0] as Map<String, int>;
-      _moodPerDay = results[1] as Map<String, double>;
-      _avgMood = results[2] as double;
-      _moodTrend = results[3] as String;
-      _totalMessages = results[4] as int;
-      _totalInteractions = results[5] as int;
-      _completedMissions = results[6] as int;
-      _engagementByTone = results[7] as Map<String, double>;
-      _intentFrequency = results[8] as Map<String, int>;
-      _relationshipStage = RelationshipStage.getStage(_totalInteractions);
-      _relationshipProgress = RelationshipStage.getProgress(_totalInteractions);
-      _loading = false;
-    });
+      if (!mounted) return;
+
+      setState(() {
+        _messagesPerDay = (results[0] as Map<String, int>?) ?? {};
+        _moodPerDay = (results[1] as Map<String, double>?) ?? {};
+        _avgMood = (results[2] as double?) ?? 3.0;
+        _moodTrend = (results[3] as String?) ?? 'stable';
+        _totalMessages = (results[4] as int?) ?? 0;
+        _totalInteractions = (results[5] as int?) ?? 0;
+        _completedMissions = (results[6] as int?) ?? 0;
+        _engagementByTone = (results[7] as Map<String, double>?) ?? {};
+        _intentFrequency = (results[8] as Map<String, int>?) ?? {};
+        _relationshipStage = RelationshipStage.getStage(_totalInteractions);
+        _relationshipProgress = RelationshipStage.getProgress(_totalInteractions);
+        _loading = false;
+      });
+    } catch (_) {
+      if (mounted) setState(() => _loading = false);
+    }
   }
 
   @override
@@ -291,9 +302,10 @@ class _AnalyticsDashboardScreenState extends State<AnalyticsDashboardScreen> {
   }
 
   Widget _buildActivityChartCard() {
-    final maxMsgs = _messagesPerDay.values.isEmpty
+    final rawMax = _messagesPerDay.values.isEmpty
         ? 1
         : _messagesPerDay.values.reduce((a, b) => a > b ? a : b);
+    final maxMsgs = rawMax < 1 ? 1 : rawMax;
 
     return _chartCard(
       title: AppLocalizations.of(context).t('chatActivity7Days'),

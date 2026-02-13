@@ -17,7 +17,8 @@ import '../screens/habit_screen.dart';
 import '../screens/dad_report_screen.dart';
 import '../theme/app_theme.dart';
 import '../services/situational_intelligence_service.dart';
-import 'privacy_policy_screen.dart';\nimport 'permission_setup_screen.dart';
+import 'privacy_policy_screen.dart';
+import 'permission_setup_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   final int userId;

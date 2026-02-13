@@ -1,0 +1,512 @@
+﻿2026-02-13T18:24:13.5469359Z Current runner version: '2.331.0'
+2026-02-13T18:24:13.5494478Z ##[group]Runner Image Provisioner
+2026-02-13T18:24:13.5495243Z Hosted Compute Agent
+2026-02-13T18:24:13.5495754Z Version: 20260123.484
+2026-02-13T18:24:13.5496580Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+2026-02-13T18:24:13.5497382Z Build Date: 2026-01-23T19:41:17Z
+2026-02-13T18:24:13.5498049Z Worker ID: {b9e185ca-f072-4d6b-8df9-7780558c6c63}
+2026-02-13T18:24:13.5498776Z Azure Region: northcentralus
+2026-02-13T18:24:13.5499290Z ##[endgroup]
+2026-02-13T18:24:13.5500790Z ##[group]Operating System
+2026-02-13T18:24:13.5501349Z Ubuntu
+2026-02-13T18:24:13.5501808Z 24.04.3
+2026-02-13T18:24:13.5502227Z LTS
+2026-02-13T18:24:13.5502671Z ##[endgroup]
+2026-02-13T18:24:13.5503101Z ##[group]Runner Image
+2026-02-13T18:24:13.5503612Z Image: ubuntu-24.04
+2026-02-13T18:24:13.5504120Z Version: 20260209.23.1
+2026-02-13T18:24:13.5505203Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260209.23/images/ubuntu/Ubuntu2404-Readme.md
+2026-02-13T18:24:13.5506691Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260209.23
+2026-02-13T18:24:13.5507510Z ##[endgroup]
+2026-02-13T18:24:13.5508470Z ##[group]GITHUB_TOKEN Permissions
+2026-02-13T18:24:13.5510784Z Contents: read
+2026-02-13T18:24:13.5511283Z Metadata: read
+2026-02-13T18:24:13.5511738Z Packages: read
+2026-02-13T18:24:13.5512227Z ##[endgroup]
+2026-02-13T18:24:13.5514267Z Secret source: Actions
+2026-02-13T18:24:13.5515114Z Prepare workflow directory
+2026-02-13T18:24:13.5841003Z Prepare all required actions
+2026-02-13T18:24:13.5881556Z Getting action download info
+2026-02-13T18:24:13.9721454Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-02-13T18:24:14.1091394Z Download action repository 'actions/setup-java@v4' (SHA:c1e323688fd81a25caa38c78aa6df2d33d3e20d9)
+2026-02-13T18:24:14.6806995Z Download action repository 'subosito/flutter-action@v2' (SHA:fd55f4c5af5b953cc57a2be44cb082c8f6635e8e)
+2026-02-13T18:24:14.9881921Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-02-13T18:24:15.2075597Z Getting action download info
+2026-02-13T18:24:15.3586978Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-02-13T18:24:15.5212505Z Complete job name: Build APK & AAB
+2026-02-13T18:24:15.5959685Z ##[group]Run actions/checkout@v4
+2026-02-13T18:24:15.5960817Z with:
+2026-02-13T18:24:15.5961526Z   repository: Saber55544427800988/ai-daddy
+2026-02-13T18:24:15.5962741Z   token: ***
+2026-02-13T18:24:15.5963412Z   ssh-strict: true
+2026-02-13T18:24:15.5964099Z   ssh-user: git
+2026-02-13T18:24:15.5964789Z   persist-credentials: true
+2026-02-13T18:24:15.5965579Z   clean: true
+2026-02-13T18:24:15.5966296Z   sparse-checkout-cone-mode: true
+2026-02-13T18:24:15.5967294Z   fetch-depth: 1
+2026-02-13T18:24:15.5967990Z   fetch-tags: false
+2026-02-13T18:24:15.5968699Z   show-progress: true
+2026-02-13T18:24:15.5969401Z   lfs: false
+2026-02-13T18:24:15.5970083Z   submodules: false
+2026-02-13T18:24:15.5970785Z   set-safe-directory: true
+2026-02-13T18:24:15.5971788Z ##[endgroup]
+2026-02-13T18:24:15.7030179Z Syncing repository: Saber55544427800988/ai-daddy
+2026-02-13T18:24:15.7032596Z ##[group]Getting Git version info
+2026-02-13T18:24:15.7033766Z Working directory is '/home/runner/work/ai-daddy/ai-daddy'
+2026-02-13T18:24:15.7035415Z [command]/usr/bin/git version
+2026-02-13T18:24:15.7036202Z git version 2.52.0
+2026-02-13T18:24:15.7045886Z ##[endgroup]
+2026-02-13T18:24:15.7059957Z Temporarily overriding HOME='/home/runner/work/_temp/c31d803f-bc1d-473c-9a4f-f9dc97c5f1ff' before making global git config changes
+2026-02-13T18:24:15.7062423Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-13T18:24:15.7073897Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-daddy/ai-daddy
+2026-02-13T18:24:15.7117562Z Deleting the contents of '/home/runner/work/ai-daddy/ai-daddy'
+2026-02-13T18:24:15.7121279Z ##[group]Initializing the repository
+2026-02-13T18:24:15.7125493Z [command]/usr/bin/git init /home/runner/work/ai-daddy/ai-daddy
+2026-02-13T18:24:15.7230817Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-13T18:24:15.7232497Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-13T18:24:15.7234059Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-13T18:24:15.7235769Z hint: call:
+2026-02-13T18:24:15.7236502Z hint:
+2026-02-13T18:24:15.7237715Z hint: 	git config --global init.defaultBranch <name>
+2026-02-13T18:24:15.7238681Z hint:
+2026-02-13T18:24:15.7239594Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-13T18:24:15.7241173Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-13T18:24:15.7242429Z hint:
+2026-02-13T18:24:15.7243059Z hint: 	git branch -m <name>
+2026-02-13T18:24:15.7243808Z hint:
+2026-02-13T18:24:15.7244784Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-13T18:24:15.7246739Z Initialized empty Git repository in /home/runner/work/ai-daddy/ai-daddy/.git/
+2026-02-13T18:24:15.7249892Z [command]/usr/bin/git remote add origin https://github.com/Saber55544427800988/ai-daddy
+2026-02-13T18:24:15.7282361Z ##[endgroup]
+2026-02-13T18:24:15.7283729Z ##[group]Disabling automatic garbage collection
+2026-02-13T18:24:15.7285431Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-13T18:24:15.7313519Z ##[endgroup]
+2026-02-13T18:24:15.7315505Z ##[group]Setting up auth
+2026-02-13T18:24:15.7322021Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-13T18:24:15.7351154Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-13T18:24:15.7644916Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-13T18:24:15.7673231Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-13T18:24:15.7853950Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-13T18:24:15.7883212Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-13T18:24:15.8077528Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-13T18:24:15.8110366Z ##[endgroup]
+2026-02-13T18:24:15.8111715Z ##[group]Fetching the repository
+2026-02-13T18:24:15.8118563Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +887461dc3dc21d2be57fb325599a5a45e291e9a4:refs/remotes/origin/main
+2026-02-13T18:24:21.2106056Z From https://github.com/Saber55544427800988/ai-daddy
+2026-02-13T18:24:21.2107281Z  * [new ref]         887461dc3dc21d2be57fb325599a5a45e291e9a4 -> origin/main
+2026-02-13T18:24:21.2132084Z ##[endgroup]
+2026-02-13T18:24:21.2132763Z ##[group]Determining the checkout info
+2026-02-13T18:24:21.2135023Z ##[endgroup]
+2026-02-13T18:24:21.2139442Z [command]/usr/bin/git sparse-checkout disable
+2026-02-13T18:24:21.2492773Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-13T18:24:21.2519482Z ##[group]Checking out the ref
+2026-02-13T18:24:21.2523315Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-02-13T18:24:21.8691028Z Switched to a new branch 'main'
+2026-02-13T18:24:21.8691603Z branch 'main' set up to track 'origin/main'.
+2026-02-13T18:24:21.8732387Z ##[endgroup]
+2026-02-13T18:24:21.8766208Z [command]/usr/bin/git log -1 --format=%H
+2026-02-13T18:24:21.8787496Z 887461dc3dc21d2be57fb325599a5a45e291e9a4
+2026-02-13T18:24:21.9016218Z ##[group]Run actions/setup-java@v4
+2026-02-13T18:24:21.9016967Z with:
+2026-02-13T18:24:21.9017175Z   distribution: temurin
+2026-02-13T18:24:21.9017371Z   java-version: 17
+2026-02-13T18:24:21.9017560Z   java-package: jdk
+2026-02-13T18:24:21.9017750Z   check-latest: false
+2026-02-13T18:24:21.9017939Z   server-id: github
+2026-02-13T18:24:21.9018132Z   server-username: GITHUB_ACTOR
+2026-02-13T18:24:21.9018362Z   server-password: GITHUB_TOKEN
+2026-02-13T18:24:21.9018587Z   overwrite-settings: true
+2026-02-13T18:24:21.9018788Z   job-status: success
+2026-02-13T18:24:21.9019147Z   token: ***
+2026-02-13T18:24:21.9019324Z ##[endgroup]
+2026-02-13T18:24:22.0914643Z ##[group]Installed distributions
+2026-02-13T18:24:22.1294503Z Resolved Java 17.0.18+8 from tool-cache
+2026-02-13T18:24:22.1295097Z Setting Java 17.0.18+8 as the default
+2026-02-13T18:24:22.1307704Z Creating toolchains.xml for JDK version 17 from temurin
+2026-02-13T18:24:22.1379118Z Writing to /home/runner/.m2/toolchains.xml
+2026-02-13T18:24:22.1379597Z 
+2026-02-13T18:24:22.1379734Z Java configuration:
+2026-02-13T18:24:22.1380779Z   Distribution: temurin
+2026-02-13T18:24:22.1381233Z   Version: 17.0.18+8
+2026-02-13T18:24:22.1381978Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.1382470Z 
+2026-02-13T18:24:22.1382992Z ##[endgroup]
+2026-02-13T18:24:22.1400406Z Creating settings.xml with server-id: github
+2026-02-13T18:24:22.1404593Z Writing to /home/runner/.m2/settings.xml
+2026-02-13T18:24:22.1625232Z ##[group]Run subosito/flutter-action@v2
+2026-02-13T18:24:22.1625517Z with:
+2026-02-13T18:24:22.1625705Z   flutter-version: 3.24.0
+2026-02-13T18:24:22.1625931Z   channel: stable
+2026-02-13T18:24:22.1626112Z   cache: true
+2026-02-13T18:24:22.1626288Z   architecture: X64
+2026-02-13T18:24:22.1626652Z   pub-cache-path: default
+2026-02-13T18:24:22.1626867Z   dry-run: false
+2026-02-13T18:24:22.1627131Z   git-source: https://github.com/flutter/flutter.git
+2026-02-13T18:24:22.1627406Z env:
+2026-02-13T18:24:22.1627664Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.1628114Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.1628456Z ##[endgroup]
+2026-02-13T18:24:22.1720746Z ##[group]Run chmod +x "$GITHUB_ACTION_PATH/setup.sh"
+2026-02-13T18:24:22.1721215Z [36;1mchmod +x "$GITHUB_ACTION_PATH/setup.sh"[0m
+2026-02-13T18:24:22.1757364Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-02-13T18:24:22.1757743Z env:
+2026-02-13T18:24:22.1758026Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.1758458Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.1758783Z ##[endgroup]
+2026-02-13T18:24:22.1897053Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh -p \
+2026-02-13T18:24:22.1897420Z [36;1m$GITHUB_ACTION_PATH/setup.sh -p \[0m
+2026-02-13T18:24:22.1897691Z [36;1m  -n '3.24.0' \[0m
+2026-02-13T18:24:22.1897896Z [36;1m  -f '' \[0m
+2026-02-13T18:24:22.1898092Z [36;1m  -a 'X64' \[0m
+2026-02-13T18:24:22.1898287Z [36;1m  -k '' \[0m
+2026-02-13T18:24:22.1898465Z [36;1m  -c '' \[0m
+2026-02-13T18:24:22.1898631Z [36;1m  -l '' \[0m
+2026-02-13T18:24:22.1898820Z [36;1m  -d 'default' \[0m
+2026-02-13T18:24:22.1899133Z [36;1m  -g 'https://github.com/flutter/flutter.git' \[0m
+2026-02-13T18:24:22.1899416Z [36;1m  stable[0m
+2026-02-13T18:24:22.1929835Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-02-13T18:24:22.1930159Z env:
+2026-02-13T18:24:22.1930440Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.1930880Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.1931214Z ##[endgroup]
+2026-02-13T18:24:22.3465126Z ##[group]Run actions/cache@v4
+2026-02-13T18:24:22.3465353Z with:
+2026-02-13T18:24:22.3465583Z   path: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-13T18:24:22.3466004Z   key: flutter-linux-stable-3.24.0-x64-80c2e84975bbd28ecf5f8d4bd4ca5a2490bfc819
+2026-02-13T18:24:22.3466770Z   enableCrossOsArchive: false
+2026-02-13T18:24:22.3467009Z   fail-on-cache-miss: false
+2026-02-13T18:24:22.3467215Z   lookup-only: false
+2026-02-13T18:24:22.3467410Z   save-always: false
+2026-02-13T18:24:22.3467591Z env:
+2026-02-13T18:24:22.3467866Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.3468305Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:22.3468642Z ##[endgroup]
+2026-02-13T18:24:22.5991233Z Cache hit for: flutter-linux-stable-3.24.0-x64-80c2e84975bbd28ecf5f8d4bd4ca5a2490bfc819
+2026-02-13T18:24:23.7148867Z Received 125829120 of 802020499 (15.7%), 119.8 MBs/sec
+2026-02-13T18:24:24.7155991Z Received 297795584 of 802020499 (37.1%), 141.8 MBs/sec
+2026-02-13T18:24:25.7218255Z Received 473956352 of 802020499 (59.1%), 150.5 MBs/sec
+2026-02-13T18:24:26.7167076Z Received 671088640 of 802020499 (83.7%), 159.8 MBs/sec
+2026-02-13T18:24:27.4863118Z Received 802020499 of 802020499 (100.0%), 160.2 MBs/sec
+2026-02-13T18:24:27.4865598Z Cache Size: ~765 MB (802020499 B)
+2026-02-13T18:24:27.4990311Z [command]/usr/bin/tar -xf /home/runner/work/_temp/cf42bdd4-92bb-4241-8ca9-187c4575cade/cache.tzst -P -C /home/runner/work/ai-daddy/ai-daddy --use-compress-program unzstd
+2026-02-13T18:24:29.6974303Z Cache restored successfully
+2026-02-13T18:24:29.9133484Z Cache restored from key: flutter-linux-stable-3.24.0-x64-80c2e84975bbd28ecf5f8d4bd4ca5a2490bfc819
+2026-02-13T18:24:30.0050327Z ##[group]Run actions/cache@v4
+2026-02-13T18:24:30.0050564Z with:
+2026-02-13T18:24:30.0050760Z   path: /home/runner/.pub-cache
+2026-02-13T18:24:30.0051432Z   key: flutter-pub-linux-stable-3.24.0-x64-80c2e84975bbd28ecf5f8d4bd4ca5a2490bfc819-83dee5d6053d1e5f1e70bf2b890e3ed78821c87bafba88eb333558e2f6c19fcc
+2026-02-13T18:24:30.0052113Z   enableCrossOsArchive: false
+2026-02-13T18:24:30.0052334Z   fail-on-cache-miss: false
+2026-02-13T18:24:30.0052551Z   lookup-only: false
+2026-02-13T18:24:30.0052745Z   save-always: false
+2026-02-13T18:24:30.0052917Z env:
+2026-02-13T18:24:30.0053208Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:30.0053645Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:30.0053980Z ##[endgroup]
+2026-02-13T18:24:30.2771788Z Cache hit for: flutter-pub-linux-stable-3.24.0-x64-80c2e84975bbd28ecf5f8d4bd4ca5a2490bfc819-83dee5d6053d1e5f1e70bf2b890e3ed78821c87bafba88eb333558e2f6c19fcc
+2026-02-13T18:24:30.9758986Z Received 50017810 of 50017810 (100.0%), 82.8 MBs/sec
+2026-02-13T18:24:30.9759538Z Cache Size: ~48 MB (50017810 B)
+2026-02-13T18:24:30.9786725Z [command]/usr/bin/tar -xf /home/runner/work/_temp/6a2ad4fc-1afb-414c-8533-f98d574eff52/cache.tzst -P -C /home/runner/work/ai-daddy/ai-daddy --use-compress-program unzstd
+2026-02-13T18:24:31.3732104Z Cache restored successfully
+2026-02-13T18:24:31.3867406Z Cache restored from key: flutter-pub-linux-stable-3.24.0-x64-80c2e84975bbd28ecf5f8d4bd4ca5a2490bfc819-83dee5d6053d1e5f1e70bf2b890e3ed78821c87bafba88eb333558e2f6c19fcc
+2026-02-13T18:24:31.3949398Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh \
+2026-02-13T18:24:31.3949747Z [36;1m$GITHUB_ACTION_PATH/setup.sh \[0m
+2026-02-13T18:24:31.3950016Z [36;1m  -n '3.24.0' \[0m
+2026-02-13T18:24:31.3950232Z [36;1m  -a 'x64' \[0m
+2026-02-13T18:24:31.3950520Z [36;1m  -c '/opt/hostedtoolcache/flutter/stable-3.24.0-x64' \[0m
+2026-02-13T18:24:31.3950868Z [36;1m  -d '/home/runner/.pub-cache' \[0m
+2026-02-13T18:24:31.3951107Z [36;1m  stable[0m
+2026-02-13T18:24:31.3978845Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-02-13T18:24:31.3979176Z env:
+2026-02-13T18:24:31.3979479Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:31.3979918Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:31.3980265Z ##[endgroup]
+2026-02-13T18:24:31.5342159Z ##[group]Run keytool -genkey -v \
+2026-02-13T18:24:31.5342466Z [36;1mkeytool -genkey -v \[0m
+2026-02-13T18:24:31.5342754Z [36;1m  -keystore android/app/upload-keystore.jks \[0m
+2026-02-13T18:24:31.5343199Z [36;1m  -storetype JKS \[0m
+2026-02-13T18:24:31.5343428Z [36;1m  -keyalg RSA \[0m
+2026-02-13T18:24:31.5343660Z [36;1m  -keysize 2048 \[0m
+2026-02-13T18:24:31.5343878Z [36;1m  -validity 10000 \[0m
+2026-02-13T18:24:31.5344108Z [36;1m  -alias ai-daddy-release \[0m
+2026-02-13T18:24:31.5344428Z [36;1m  -storepass "AiDaddy2026!Secure" \[0m
+2026-02-13T18:24:31.5344702Z [36;1m  -keypass "AiDaddy2026!Secure" \[0m
+2026-02-13T18:24:31.5345059Z [36;1m  -dname "CN=AI Daddy, OU=Mobile, O=AI Daddy, L=Unknown, ST=Unknown, C=US"[0m
+2026-02-13T18:24:31.5373833Z shell: /usr/bin/bash -e {0}
+2026-02-13T18:24:31.5374095Z env:
+2026-02-13T18:24:31.5374387Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:31.5374900Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:31.5375329Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-13T18:24:31.5375662Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-13T18:24:31.5375902Z ##[endgroup]
+2026-02-13T18:24:34.4974700Z Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days
+2026-02-13T18:24:34.4981342Z 	for: CN=AI Daddy, OU=Mobile, O=AI Daddy, L=Unknown, ST=Unknown, C=US
+2026-02-13T18:24:34.5030107Z [Storing android/app/upload-keystore.jks]
+2026-02-13T18:24:34.8089851Z 
+2026-02-13T18:24:34.8090283Z Warning:
+2026-02-13T18:24:34.8091357Z The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore android/app/upload-keystore.jks -destkeystore android/app/upload-keystore.jks -deststoretype pkcs12".
+2026-02-13T18:24:34.8223336Z ##[group]Run cat > android/key.properties << EOF
+2026-02-13T18:24:34.8223703Z [36;1mcat > android/key.properties << EOF[0m
+2026-02-13T18:24:34.8223981Z [36;1mstorePassword=AiDaddy2026!Secure[0m
+2026-02-13T18:24:34.8224249Z [36;1mkeyPassword=AiDaddy2026!Secure[0m
+2026-02-13T18:24:34.8224518Z [36;1mkeyAlias=ai-daddy-release[0m
+2026-02-13T18:24:34.8224787Z [36;1mstoreFile=../app/upload-keystore.jks[0m
+2026-02-13T18:24:34.8225040Z [36;1mEOF[0m
+2026-02-13T18:24:34.8252661Z shell: /usr/bin/bash -e {0}
+2026-02-13T18:24:34.8252915Z env:
+2026-02-13T18:24:34.8253216Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:34.8253653Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:34.8254082Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-13T18:24:34.8254405Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-13T18:24:34.8254642Z ##[endgroup]
+2026-02-13T18:24:34.8332894Z ##[group]Run flutter pub get
+2026-02-13T18:24:34.8333165Z [36;1mflutter pub get[0m
+2026-02-13T18:24:34.8359199Z shell: /usr/bin/bash -e {0}
+2026-02-13T18:24:34.8359447Z env:
+2026-02-13T18:24:34.8359735Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:34.8360200Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:34.8360628Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-13T18:24:34.8360952Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-13T18:24:34.8361194Z ##[endgroup]
+2026-02-13T18:24:35.8855748Z 
+2026-02-13T18:24:35.8867552Z   ╔════════════════════════════════════════════════════════════════════════════╗
+2026-02-13T18:24:35.8868475Z   ║                 Welcome to Flutter! - https://flutter.dev                  ║
+2026-02-13T18:24:35.8869167Z   ║                                                                            ║
+2026-02-13T18:24:35.8870165Z   ║ The Flutter tool uses Google Analytics to anonymously report feature usage ║
+2026-02-13T18:24:35.8871026Z   ║ statistics and basic crash reports. This data is used to help improve      ║
+2026-02-13T18:24:35.8871840Z   ║ Flutter tools over time.                                                   ║
+2026-02-13T18:24:35.8872886Z   ║                                                                            ║
+2026-02-13T18:24:35.8873598Z   ║ Flutter tool analytics are not sent on the very first run. To disable      ║
+2026-02-13T18:24:35.8874738Z   ║ reporting, type 'flutter config --no-analytics'. To display the current    ║
+2026-02-13T18:24:35.8898655Z   ║ setting, type 'flutter config'. If you opt out of analytics, an opt-out    ║
+2026-02-13T18:24:35.8899584Z   ║ event will be sent, and then no further information will be sent by the    ║
+2026-02-13T18:24:35.8900372Z   ║ Flutter tool.                                                              ║
+2026-02-13T18:24:35.8901064Z   ║                                                                            ║
+2026-02-13T18:24:35.8901840Z   ║ By downloading the Flutter SDK, you agree to the Google Terms of Service.  ║
+2026-02-13T18:24:35.8902743Z   ║ The Google Privacy Policy describes how data is handled in this service.   ║
+2026-02-13T18:24:35.8903438Z   ║                                                                            ║
+2026-02-13T18:24:35.8903906Z   ║ Moreover, Flutter includes the Dart SDK, which may send usage metrics and  ║
+2026-02-13T18:24:35.8904396Z   ║ crash reports to Google.                                                   ║
+2026-02-13T18:24:35.8904804Z   ║                                                                            ║
+2026-02-13T18:24:35.8905229Z   ║ Read about data we send with crash reports:                                ║
+2026-02-13T18:24:35.8905737Z   ║ https://flutter.dev/to/crash-reporting                                     ║
+2026-02-13T18:24:35.8906173Z   ║                                                                            ║
+2026-02-13T18:24:35.8906737Z   ║ See Google's privacy policy:                                               ║
+2026-02-13T18:24:35.8907226Z   ║ https://policies.google.com/privacy                                        ║
+2026-02-13T18:24:35.8907657Z   ║                                                                            ║
+2026-02-13T18:24:35.8908124Z   ║ To disable animations in this tool, use                                    ║
+2026-02-13T18:24:35.8908621Z   ║ 'flutter config --no-cli-animations'.                                      ║
+2026-02-13T18:24:35.8909111Z   ╚════════════════════════════════════════════════════════════════════════════╝
+2026-02-13T18:24:35.8909346Z 
+2026-02-13T18:24:36.1776107Z Resolving dependencies...
+2026-02-13T18:24:36.8250739Z Downloading packages...
+2026-02-13T18:24:38.2781718Z + android_alarm_manager_plus 4.0.8 (5.0.0 available)
+2026-02-13T18:24:38.2782360Z   async 2.11.0 (2.13.0 available)
+2026-02-13T18:24:38.2782785Z + audioplayers 6.4.0 (6.5.1 available)
+2026-02-13T18:24:38.2783600Z + audioplayers_android 5.2.0 (5.2.1 available)
+2026-02-13T18:24:38.2784075Z + audioplayers_darwin 6.2.0 (6.3.0 available)
+2026-02-13T18:24:38.2784523Z + audioplayers_linux 4.2.0 (4.2.1 available)
+2026-02-13T18:24:38.2785043Z + audioplayers_platform_interface 7.1.0 (7.1.1 available)
+2026-02-13T18:24:38.2785587Z + audioplayers_web 5.1.0 (5.1.1 available)
+2026-02-13T18:24:38.2786057Z + audioplayers_windows 4.2.0 (4.2.1 available)
+2026-02-13T18:24:38.2786655Z   boolean_selector 2.1.1 (2.1.2 available)
+2026-02-13T18:24:38.2787081Z   characters 1.3.0 (1.4.1 available)
+2026-02-13T18:24:38.2787496Z   checked_yaml 2.0.3 (2.0.4 available)
+2026-02-13T18:24:38.2787916Z   clock 1.1.1 (1.1.2 available)
+2026-02-13T18:24:38.2788327Z   collection 1.18.0 (1.19.1 available)
+2026-02-13T18:24:38.2788763Z   dev_build 1.1.1+8 (1.1.3+1 available)
+2026-02-13T18:24:38.2789147Z   fake_async 1.3.1 (1.3.3 available)
+2026-02-13T18:24:38.2789573Z   ffi 2.1.3 (2.2.0 available)
+2026-02-13T18:24:38.2789988Z   flutter_lints 4.0.0 (6.0.0 available)
+2026-02-13T18:24:38.2790487Z   flutter_local_notifications 19.5.0 (20.1.0 available)
+2026-02-13T18:24:38.2791079Z   flutter_local_notifications_linux 6.0.0 (7.0.0 available)
+2026-02-13T18:24:38.2791847Z   flutter_local_notifications_platform_interface 9.1.0 (10.0.0 available)
+2026-02-13T18:24:38.2792675Z   flutter_local_notifications_windows 1.0.3 (2.0.1 available)
+2026-02-13T18:24:38.2793209Z   google_fonts 6.3.0 (8.0.1 available)
+2026-02-13T18:24:38.2793607Z   http_parser 4.0.2 (4.1.2 available)
+2026-02-13T18:24:38.2794004Z   intl 0.19.0 (0.20.2 available)
+2026-02-13T18:24:38.2794399Z   json_annotation 4.9.0 (4.10.0 available)
+2026-02-13T18:24:38.2794848Z   leak_tracker 10.0.5 (11.0.2 available)
+2026-02-13T18:24:38.2795337Z   leak_tracker_flutter_testing 3.0.5 (3.0.10 available)
+2026-02-13T18:24:38.2795865Z   leak_tracker_testing 3.0.1 (3.0.2 available)
+2026-02-13T18:24:38.2796510Z   lints 4.0.0 (6.1.0 available)
+2026-02-13T18:24:38.2796894Z   matcher 0.12.16+1 (0.12.18 available)
+2026-02-13T18:24:38.2797390Z   material_color_utilities 0.11.1 (0.13.0 available)
+2026-02-13T18:24:38.2797879Z   meta 1.15.0 (1.18.1 available)
+2026-02-13T18:24:38.2798265Z   path 1.9.0 (1.9.1 available)
+2026-02-13T18:24:38.2798721Z   path_provider_android 2.2.15 (2.2.22 available)
+2026-02-13T18:24:38.2799266Z   path_provider_foundation 2.4.1 (2.6.0 available)
+2026-02-13T18:24:38.2799757Z   petitparser 6.0.2 (7.0.1 available)
+2026-02-13T18:24:38.2800199Z   process_run 1.2.2+1 (1.3.0 available)
+2026-02-13T18:24:38.2800690Z   shared_preferences 2.5.3 (2.5.4 available)
+2026-02-13T18:24:38.2801240Z   shared_preferences_android 2.4.7 (2.4.20 available)
+2026-02-13T18:24:38.2801855Z   shared_preferences_foundation 2.5.4 (2.5.6 available)
+2026-02-13T18:24:38.2802337Z   source_span 1.10.0 (1.10.2 available)
+2026-02-13T18:24:38.2802764Z   sqflite 2.4.1 (2.4.2 available)
+2026-02-13T18:24:38.2803168Z   sqflite_android 2.4.0 (2.4.2+2 available)
+2026-02-13T18:24:38.2803655Z   sqflite_common 2.5.4+6 (2.5.6 available)
+2026-02-13T18:24:38.2804065Z   sqflite_common_ffi 2.3.4+4 (2.4.0+2 available)
+2026-02-13T18:24:38.2804535Z   sqflite_common_ffi_web 0.4.5+4 (1.1.1 available)
+2026-02-13T18:24:38.2805004Z   sqflite_darwin 2.4.1+1 (2.4.2 available)
+2026-02-13T18:24:38.2805444Z   sqlite3 2.9.4 (3.1.5 available)
+2026-02-13T18:24:38.2805836Z   stack_trace 1.11.1 (1.12.1 available)
+2026-02-13T18:24:38.2806299Z   stream_channel 2.1.2 (2.1.4 available)
+2026-02-13T18:24:38.2806920Z   string_scanner 1.2.0 (1.4.1 available)
+2026-02-13T18:24:38.2807335Z   synchronized 3.3.0+3 (3.4.0 available)
+2026-02-13T18:24:38.2807718Z   term_glyph 1.2.1 (1.2.2 available)
+2026-02-13T18:24:38.2808103Z   test_api 0.7.2 (0.7.9 available)
+2026-02-13T18:24:38.2808503Z   timezone 0.10.1 (0.11.0 available)
+2026-02-13T18:24:38.2808936Z   vector_math 2.1.4 (2.2.0 available)
+2026-02-13T18:24:38.2809355Z   vm_service 14.2.4 (15.0.2 available)
+2026-02-13T18:24:38.2809750Z + workmanager 0.5.2 (0.9.0+3 available)
+2026-02-13T18:24:38.2810210Z   xml 6.5.0 (6.6.1 available)
+2026-02-13T18:24:38.2810808Z Changed 9 dependencies!
+2026-02-13T18:24:38.2821275Z 60 packages have newer versions incompatible with dependency constraints.
+2026-02-13T18:24:38.2821904Z Try `flutter pub outdated` for more information.
+2026-02-13T18:24:38.6905427Z ##[group]Run flutter analyze --no-fatal-infos --no-fatal-warnings || true
+2026-02-13T18:24:38.6905964Z [36;1mflutter analyze --no-fatal-infos --no-fatal-warnings || true[0m
+2026-02-13T18:24:38.6933744Z shell: /usr/bin/bash -e {0}
+2026-02-13T18:24:38.6934009Z env:
+2026-02-13T18:24:38.6934319Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:38.6934774Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:38.6935206Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-13T18:24:38.6935537Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-13T18:24:38.6935790Z ##[endgroup]
+2026-02-13T18:24:53.5091336Z Analyzing ai-daddy...                                           
+2026-02-13T18:24:53.5096659Z 
+2026-02-13T18:24:53.5115709Z warning • Two keys in a map literal shouldn't be equal • lib/l10n/app_localizations.dart:435:7 • equal_keys_in_map
+2026-02-13T18:24:53.5117373Z warning • Two keys in a map literal shouldn't be equal • lib/l10n/app_localizations.dart:436:7 • equal_keys_in_map
+2026-02-13T18:24:53.5119141Z warning • Two keys in a map literal shouldn't be equal • lib/l10n/app_localizations.dart:568:7 • equal_keys_in_map
+2026-02-13T18:24:53.5120542Z warning • Two keys in a map literal shouldn't be equal • lib/l10n/app_localizations.dart:569:7 • equal_keys_in_map
+2026-02-13T18:24:53.5121984Z warning • Unused import: '../services/notification_service.dart' • lib/screens/home_screen.dart:6:8 • unused_import
+2026-02-13T18:24:53.5123515Z    info • Don't use 'BuildContext's across async gaps • lib/screens/home_screen.dart:47:15 • use_build_context_synchronously
+2026-02-13T18:24:53.5125043Z    info • Don't use 'BuildContext's across async gaps • lib/screens/home_screen.dart:52:15 • use_build_context_synchronously
+2026-02-13T18:24:53.5126855Z    info • Use 'const' with the constructor to improve performance • lib/screens/permission_setup_screen.dart:386:13 • prefer_const_constructors
+2026-02-13T18:24:53.5128771Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:176:11 • prefer_const_constructors
+2026-02-13T18:24:53.5130531Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:178:11 • prefer_const_constructors
+2026-02-13T18:24:53.5132341Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:180:20 • prefer_const_constructors
+2026-02-13T18:24:53.5134139Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:187:11 • prefer_const_constructors
+2026-02-13T18:24:53.5135928Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:189:20 • prefer_const_constructors
+2026-02-13T18:24:53.5137844Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:202:20 • prefer_const_constructors
+2026-02-13T18:24:53.5139901Z    info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/screens/privacy_policy_screen.dart:204:25 • prefer_const_literals_to_create_immutables
+2026-02-13T18:24:53.5141944Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:205:17 • prefer_const_constructors
+2026-02-13T18:24:53.5143802Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:207:17 • prefer_const_constructors
+2026-02-13T18:24:53.5145598Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:209:26 • prefer_const_constructors
+2026-02-13T18:24:53.5147565Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:242:28 • prefer_const_constructors
+2026-02-13T18:24:53.5149632Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:267:20 • prefer_const_constructors
+2026-02-13T18:24:53.5151482Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:279:21 • prefer_const_constructors
+2026-02-13T18:24:53.5153347Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:279:39 • prefer_const_constructors
+2026-02-13T18:24:53.5155259Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:283:32 • prefer_const_constructors
+2026-02-13T18:24:53.5157182Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:303:21 • prefer_const_constructors
+2026-02-13T18:24:53.5159019Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:303:39 • prefer_const_constructors
+2026-02-13T18:24:53.5160878Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:307:32 • prefer_const_constructors
+2026-02-13T18:24:53.5162667Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:346:11 • prefer_const_constructors
+2026-02-13T18:24:53.5164655Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:348:20 • prefer_const_constructors
+2026-02-13T18:24:53.5166588Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:362:11 • prefer_const_constructors
+2026-02-13T18:24:53.5168351Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:364:20 • prefer_const_constructors
+2026-02-13T18:24:53.5170187Z    info • Use 'const' with the constructor to improve performance • lib/screens/privacy_policy_screen.dart:382:29 • prefer_const_constructors
+2026-02-13T18:24:53.5171924Z   error • Expected a method, getter, setter or operator declaration • lib/screens/settings_screen.dart:20:37 • expected_executable
+2026-02-13T18:24:53.5173838Z    info • An uninitialized variable should have an explicit type annotation • lib/screens/settings_screen.dart:20:38 • prefer_typing_uninitialized_variables
+2026-02-13T18:24:53.5175328Z   error • Expected to find ';' • lib/screens/settings_screen.dart:20:38 • expected_token
+2026-02-13T18:24:53.5177076Z   error • Variables must be declared using the keywords 'const', 'final', 'var' or a type name • lib/screens/settings_screen.dart:20:38 • missing_const_final_var_or_type
+2026-02-13T18:24:53.5178940Z   error • Expected a method, getter, setter or operator declaration • lib/screens/settings_screen.dart:20:46 • expected_executable
+2026-02-13T18:24:53.5180281Z   error • Unexpected text ';' • lib/screens/settings_screen.dart:20:76 • unexpected_token
+2026-02-13T18:24:53.5181969Z    info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/screens/settings_screen.dart:224:46 • use_build_context_synchronously
+2026-02-13T18:24:53.5184216Z    info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/screens/settings_screen.dart:227:55 • use_build_context_synchronously
+2026-02-13T18:24:53.5186536Z    info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/screens/settings_screen.dart:228:55 • use_build_context_synchronously
+2026-02-13T18:24:53.5188715Z    info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/screens/settings_screen.dart:266:27 • use_build_context_synchronously
+2026-02-13T18:24:53.5190804Z   error • The method 'PermissionSetupScreen' isn't defined for the type '_SettingsScreenState' • lib/screens/settings_screen.dart:268:45 • undefined_method
+2026-02-13T18:24:53.5192732Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:351:25 • prefer_const_constructors
+2026-02-13T18:24:53.5194758Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:357:31 • prefer_const_constructors
+2026-02-13T18:24:53.5196613Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:359:40 • prefer_const_constructors
+2026-02-13T18:24:53.5198360Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:366:31 • prefer_const_constructors
+2026-02-13T18:24:53.5200109Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:368:40 • prefer_const_constructors
+2026-02-13T18:24:53.5201822Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:391:30 • prefer_const_constructors
+2026-02-13T18:24:53.5203546Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:392:28 • prefer_const_constructors
+2026-02-13T18:24:53.5205249Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:394:30 • prefer_const_constructors
+2026-02-13T18:24:53.5207074Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:396:31 • prefer_const_constructors
+2026-02-13T18:24:53.5209164Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:406:30 • prefer_const_constructors
+2026-02-13T18:24:53.5210864Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:407:28 • prefer_const_constructors
+2026-02-13T18:24:53.5212618Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:409:30 • prefer_const_constructors
+2026-02-13T18:24:53.5214335Z    info • Use 'const' with the constructor to improve performance • lib/screens/settings_screen.dart:411:31 • prefer_const_constructors
+2026-02-13T18:24:53.5216868Z    info • The import of 'dart:typed_data' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/foundation.dart' • lib/services/notification_service_impl.dart:4:8 • unnecessary_import
+2026-02-13T18:24:53.5219905Z    info • The import of 'package:flutter/foundation.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/widgets/in_app_notification.dart:3:8 • unnecessary_import
+2026-02-13T18:24:53.5221398Z 
+2026-02-13T18:24:53.5285064Z 57 issues found. (ran in 14.1s)
+2026-02-13T18:24:53.5365178Z ##[group]Run flutter build apk --release
+2026-02-13T18:24:53.5365681Z [36;1mflutter build apk --release[0m
+2026-02-13T18:24:53.5409099Z shell: /usr/bin/bash -e {0}
+2026-02-13T18:24:53.5409483Z env:
+2026-02-13T18:24:53.5409957Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:53.5410726Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+2026-02-13T18:24:53.5411558Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.24.0-x64
+2026-02-13T18:24:53.5412132Z   PUB_CACHE: /home/runner/.pub-cache
+2026-02-13T18:24:53.5412549Z ##[endgroup]
+2026-02-13T18:24:54.1325993Z 
+2026-02-13T18:30:02.5975068Z Running Gradle task 'assembleRelease'...                        
+2026-02-13T18:30:02.5976064Z Checking the license for package Android SDK Platform 33 in /usr/local/lib/android/sdk/licenses
+2026-02-13T18:30:02.5979225Z License for package Android SDK Platform 33 accepted.
+2026-02-13T18:30:02.5980381Z Preparing "Install Android SDK Platform 33 (revision 3)".
+2026-02-13T18:30:05.2832755Z "Install Android SDK Platform 33 (revision 3)" ready.
+2026-02-13T18:30:05.2833858Z Installing Android SDK Platform 33 in /usr/local/lib/android/sdk/platforms/android-33
+2026-02-13T18:30:05.2835229Z "Install Android SDK Platform 33 (revision 3)" complete.
+2026-02-13T18:30:05.6834085Z "Install Android SDK Platform 33 (revision 3)" finished.
+2026-02-13T18:30:58.4937968Z lib/screens/settings_screen.dart:20:37: Error: Expected a declaration, but got '\'.
+2026-02-13T18:30:58.4939504Z import 'privacy_policy_screen.dart';\nimport 'permission_setup_screen.dart';
+2026-02-13T18:30:58.4940453Z                                     ^
+2026-02-13T18:30:58.4941664Z lib/screens/settings_screen.dart:20:38: Error: Variables must be declared using the keywords 'const', 'final', 'var' or a type name.
+2026-02-13T18:30:58.4943034Z Try adding the name of the type of the variable or the keyword 'var'.
+2026-02-13T18:30:58.4944088Z import 'privacy_policy_screen.dart';\nimport 'permission_setup_screen.dart';
+2026-02-13T18:30:58.4944949Z                                      ^^^^^^^
+2026-02-13T18:30:58.4945758Z lib/screens/settings_screen.dart:20:38: Error: Expected ';' after this.
+2026-02-13T18:30:58.4946957Z import 'privacy_policy_screen.dart';\nimport 'permission_setup_screen.dart';
+2026-02-13T18:30:58.4947807Z                                      ^^^^^^^
+2026-02-13T18:30:58.4958271Z lib/screens/settings_screen.dart:20:46: Error: Expected a declaration, but got ''permission_setup_screen.dart''.
+2026-02-13T18:30:58.4959298Z import 'privacy_policy_screen.dart';\nimport 'permission_setup_screen.dart';
+2026-02-13T18:30:58.4962438Z                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-02-13T18:30:58.4963025Z lib/screens/settings_screen.dart:20:76: Error: Unexpected token ';'.
+2026-02-13T18:30:58.4963865Z import 'privacy_policy_screen.dart';\nimport 'permission_setup_screen.dart';
+2026-02-13T18:30:58.4964651Z                                                                            ^
+2026-02-13T18:31:02.8832957Z lib/screens/settings_screen.dart:268:45: Error: The method 'PermissionSetupScreen' isn't defined for the class '_SettingsScreenState'.
+2026-02-13T18:31:02.8835284Z  - '_SettingsScreenState' is from 'package:ai_daddy/screens/settings_screen.dart' ('lib/screens/settings_screen.dart').
+2026-02-13T18:31:02.8837848Z Try correcting the name to the name of an existing method, or defining a method named 'PermissionSetupScreen'.
+2026-02-13T18:31:02.8838876Z                             builder: (_) => PermissionSetupScreen(
+2026-02-13T18:31:02.8839552Z                                             ^^^^^^^^^^^^^^^^^^^^^
+2026-02-13T18:31:06.7848687Z Target kernel_snapshot_program failed: Exception
+2026-02-13T18:31:06.7849413Z 
+2026-02-13T18:31:06.7849560Z 
+2026-02-13T18:31:06.7849946Z FAILURE: Build failed with an exception.
+2026-02-13T18:31:06.7850609Z 
+2026-02-13T18:31:06.7850994Z * What went wrong:
+2026-02-13T18:31:06.7853135Z Execution failed for task ':app:compileFlutterBuildRelease'.
+2026-02-13T18:31:06.7854189Z > Process 'command '/opt/hostedtoolcache/flutter/stable-3.24.0-x64/bin/flutter'' finished with non-zero exit value 1
+2026-02-13T18:31:06.7854939Z 
+2026-02-13T18:31:06.7855068Z * Try:
+2026-02-13T18:31:06.7858073Z > Run with --stacktrace option to get the stack trace.
+2026-02-13T18:31:06.7858754Z > Run with --info or --debug option to get more log output.
+2026-02-13T18:31:06.7859315Z > Run with --scan to get full insights.
+2026-02-13T18:31:06.7859838Z > Get more help at https://help.gradle.org.
+2026-02-13T18:31:06.7860182Z 
+2026-02-13T18:31:06.7860322Z BUILD FAILED in 6m 12s
+2026-02-13T18:31:07.2379903Z Running Gradle task 'assembleRelease'...                          373.1s
+2026-02-13T18:31:07.2423382Z Gradle task assembleRelease failed with exit code 1
+2026-02-13T18:31:07.2486995Z ##[error]Process completed with exit code 1.
+2026-02-13T18:31:07.2642356Z Post job cleanup.
+2026-02-13T18:31:07.2699199Z Post job cleanup.
+2026-02-13T18:31:07.4403320Z Post job cleanup.
+2026-02-13T18:31:07.5324028Z [command]/usr/bin/git version
+2026-02-13T18:31:07.5359599Z git version 2.52.0
+2026-02-13T18:31:07.5405539Z Temporarily overriding HOME='/home/runner/work/_temp/d04072a1-b722-4201-bd5d-eb5f5295226c' before making global git config changes
+2026-02-13T18:31:07.5406833Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-13T18:31:07.5413657Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-daddy/ai-daddy
+2026-02-13T18:31:07.5464651Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-13T18:31:07.5496260Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-13T18:31:07.5695995Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-13T18:31:07.5719071Z http.https://github.com/.extraheader
+2026-02-13T18:31:07.5731229Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-02-13T18:31:07.5762053Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-13T18:31:07.5955705Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-13T18:31:07.5985763Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-13T18:31:07.6270215Z Cleaning up orphan processes
+2026-02-13T18:31:07.6541273Z Terminate orphan process: pid (2683) (java)
+2026-02-13T18:31:07.6581799Z Terminate orphan process: pid (3013) (java)

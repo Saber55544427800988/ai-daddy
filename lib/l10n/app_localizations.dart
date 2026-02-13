@@ -432,8 +432,6 @@ class AppLocalizations {
       'setReminder': 'Set Reminder',
       'editReminder': 'Edit Reminder',
       'deleteReminder': 'Delete Reminder?',
-      'delete': 'Delete',
-      'cancel': 'Cancel',
       'saveChanges': 'Save Changes',
 
       // Token section in settings
@@ -565,8 +563,6 @@ class AppLocalizations {
       'setReminder': 'تعيين تذكير',
       'editReminder': 'تعديل التذكير',
       'deleteReminder': 'حذف التذكير؟',
-      'delete': 'حذف',
-      'cancel': 'إلغاء',
       'saveChanges': 'حفظ التغييرات',
       'tokenStatus': 'حالة الرموز',
       'situationalModes': 'الأوضاع الظرفية',

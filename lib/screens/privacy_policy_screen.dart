@@ -7,10 +7,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.bgDark,
+      backgroundColor: AppTheme.navyDark,
       appBar: AppBar(
         title: const Text('Privacy Policy'),
-        backgroundColor: AppTheme.bgCard,
+        backgroundColor: AppTheme.navyCard,
         foregroundColor: AppTheme.textPrimary,
         elevation: 0,
       ),
@@ -167,7 +167,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppTheme.bgCard,
+        color: AppTheme.navyCard,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppTheme.glowCyan.withOpacity(0.3)),
       ),
@@ -226,7 +226,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppTheme.bgCard,
+          color: AppTheme.navyCard,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -338,7 +338,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.bgCard,
+        color: AppTheme.navyCard,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

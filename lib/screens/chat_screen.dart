@@ -106,47 +106,6 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
-
-          // Token badge
-          Consumer<TokenProvider>(
-            builder: (_, tp, __) {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: tp.isLow
-                      ? AppTheme.dangerRed.withOpacity(0.15)
-                      : AppTheme.glowCyan.withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: tp.isLow
-                        ? AppTheme.dangerRed.withOpacity(0.3)
-                        : AppTheme.glowCyan.withOpacity(0.2),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.bolt, size: 14,
-                        color: tp.isLow
-                            ? AppTheme.dangerRed
-                            : AppTheme.tokenGold),
-                    const SizedBox(width: 4),
-                    Text(
-                      '${tp.remaining}',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: tp.isLow
-                            ? AppTheme.dangerRed
-                            : AppTheme.tokenGold,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
         ],
       ),
     );

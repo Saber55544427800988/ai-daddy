@@ -5,7 +5,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
 
 /// Facebook Messenger-style notification service.
-/// Pop-up heads-up notifications with custom sound, works in background.
+/// Heads-up pop-up notifications with sound, works even when app is closed.
 class NotificationService {
   static final NotificationService instance = NotificationService._init();
 
@@ -17,11 +17,11 @@ class NotificationService {
 
   bool _isInitialized = false;
 
-  /// NEW channel ID — forces Android to create a fresh channel with correct settings.
-  /// Old 'ai_daddy_messages' channel may be cached with wrong importance/sound.
-  static const _channelId = 'ai_daddy_popup';
-  static const _channelName = 'AI Daddy Notifications';
-  static const _channelDesc = 'Pop-up messages from AI Daddy';
+  /// Unique channel ID — v3 to force fresh channel creation with correct settings.
+  /// Android caches channel settings, so old channels keep old (broken) config.
+  static const _channelId = 'ai_daddy_v3';
+  static const _channelName = 'AI Daddy Messages';
+  static const _channelDesc = 'Pop-up notifications from AI Daddy';
 
   NotificationService._init();
 
@@ -49,21 +49,32 @@ class NotificationService {
       onDidReceiveNotificationResponse: _onNotificationTap,
     );
 
-    // Delete old cached channel so Android picks up new settings
+    // Delete ALL old cached channels so Android uses fresh settings
     final androidPlugin = _notifications
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>();
     if (androidPlugin != null) {
-      try {
-        await androidPlugin.deleteNotificationChannel('ai_daddy_messages');
-      } catch (_) {}
+      try { await androidPlugin.deleteNotificationChannel('ai_daddy_messages'); } catch (_) {}
+      try { await androidPlugin.deleteNotificationChannel('ai_daddy_popup'); } catch (_) {}
+
+      // Explicitly create the channel with MAX importance — this is the KEY
+      // to getting heads-up pop-up notifications on Android.
+      const channel = AndroidNotificationChannel(
+        _channelId,
+        _channelName,
+        description: _channelDesc,
+        importance: Importance.max,
+        playSound: true,
+        enableVibration: true,
+        showBadge: true,
+      );
+      await androidPlugin.createNotificationChannel(channel);
     }
 
     _isInitialized = true;
     await requestPermission();
   }
 
-  /// Set tz.local to the device's actual timezone
   void _setLocalTimezone() {
     try {
       final now = DateTime.now();
@@ -93,9 +104,9 @@ class NotificationService {
     return true;
   }
 
-  /// Messenger-style Android notification details with custom sound + heads-up popup.
+  /// Build Android notification details — Messenger-style heads-up popup.
   AndroidNotificationDetails _androidDetails(String body) {
-    const person = Person(name: 'AI Daddy 💙', important: true);
+    const person = Person(name: 'AI Daddy \u{1f499}', important: true);
     final messagingStyle = MessagingStyleInformation(
       person,
       conversationTitle: 'AI Daddy',
@@ -109,14 +120,11 @@ class NotificationService {
       channelDescription: _channelDesc,
       importance: Importance.max,
       priority: Priority.high,
-      // Use default system notification sound (custom sounds crash on some devices)
       playSound: true,
-      // Vibration pattern like Messenger
       enableVibration: true,
       vibrationPattern: Int64List.fromList([0, 200, 100, 200]),
-      // Heads-up pop-up
+      // fullScreenIntent makes notification appear as heads-up popup
       fullScreenIntent: true,
-      // Messenger-style appearance
       category: AndroidNotificationCategory.message,
       visibility: NotificationVisibility.public,
       styleInformation: messagingStyle,
@@ -124,13 +132,11 @@ class NotificationService {
       largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
       ticker: body,
       autoCancel: true,
-      // Colored notification
       color: const Color(0xFF00BFFF),
       colorized: true,
     );
   }
 
-  /// iOS notification details
   static const _iosDetails = DarwinNotificationDetails(
     presentAlert: true,
     presentBadge: true,
@@ -140,7 +146,7 @@ class NotificationService {
   );
 
   /// Schedule a notification at a specific time.
-  /// Uses Android AlarmManager — works even when app is closed.
+  /// Uses Android AlarmManager — works even when app is closed/killed.
   Future<void> scheduleNotification({
     required int id,
     required String title,
@@ -165,46 +171,35 @@ class NotificationService {
         title,
         body,
         tzTime,
-        NotificationDetails(
-          android: _androidDetails(body),
-          iOS: _iosDetails,
-        ),
+        NotificationDetails(android: _androidDetails(body), iOS: _iosDetails),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       );
     } catch (_) {
-      // Fallback: inexact alarm (still works in background, slight delay)
       try {
         await _notifications.zonedSchedule(
           id,
           title,
           body,
           tzTime,
-          NotificationDetails(
-            android: _androidDetails(body),
-            iOS: _iosDetails,
-          ),
+          NotificationDetails(android: _androidDetails(body), iOS: _iosDetails),
           androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         );
       } catch (_) {}
     }
   }
 
-  /// Show a notification immediately — pop-up with sound.
+  /// Show a notification immediately — heads-up popup with sound.
   Future<void> showNotification({
     required int id,
     required String title,
     required String body,
   }) async {
     await init();
-
     await _notifications.show(
       id,
       title,
       body,
-      NotificationDetails(
-        android: _androidDetails(body),
-        iOS: _iosDetails,
-      ),
+      NotificationDetails(android: _androidDetails(body), iOS: _iosDetails),
     );
   }
 
@@ -217,7 +212,7 @@ class NotificationService {
     for (int i = 0; i < reminderTexts.length && i < times.length; i++) {
       await scheduleDailyNotification(
         id: 100 + i,
-        title: 'AI Daddy 💙',
+        title: 'AI Daddy \u{1f499}',
         body: reminderTexts[i],
         hour: times[i],
         minute: 0,
@@ -233,7 +228,6 @@ class NotificationService {
     required int minute,
   }) async {
     await init();
-
     final now = tz.TZDateTime.now(tz.local);
     var scheduledDate = tz.TZDateTime(
       tz.local, now.year, now.month, now.day, hour, minute,
@@ -241,16 +235,12 @@ class NotificationService {
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
-
     await _notifications.zonedSchedule(
       id,
       title,
       body,
       scheduledDate,
-      NotificationDetails(
-        android: _androidDetails(body),
-        iOS: _iosDetails,
-      ),
+      NotificationDetails(android: _androidDetails(body), iOS: _iosDetails),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
     );

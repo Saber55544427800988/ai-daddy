@@ -82,13 +82,13 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _startSequence() {
-    _scheduleNext(const Duration(milliseconds: 300), () {
+    _scheduleNext(const Duration(milliseconds: 200), () {
       _logoController.forward();
-      _scheduleNext(const Duration(milliseconds: 800), () {
+      _scheduleNext(const Duration(milliseconds: 500), () {
         _textController.forward();
-        _scheduleNext(const Duration(milliseconds: 500), () {
+        _scheduleNext(const Duration(milliseconds: 300), () {
           _loadingController.forward();
-          _scheduleNext(const Duration(milliseconds: 1800), () {
+          _scheduleNext(const Duration(milliseconds: 500), () {
             if (mounted) widget.onFinished();
           });
         });

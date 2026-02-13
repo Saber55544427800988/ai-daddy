@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'providers/chat_provider.dart';
 import 'providers/token_provider.dart';
 import 'providers/mission_provider.dart';
@@ -28,6 +29,11 @@ void main() async {
   } catch (e) {
     debugPrint('Web database factory init error: $e');
   }
+
+  // Initialize AndroidAlarmManager for background notification scheduling
+  try {
+    await AndroidAlarmManager.initialize();
+  } catch (_) {}
 
   // Initialize notifications (no-op on web via conditional import)
   try {

@@ -367,13 +367,14 @@ class AIEngine {
       'thirty': 30, 'forty': 40, 'fifty': 50,
     };
 
-    // "in X minutes/hours" or "X minutes/hours later" — supports word numbers
+    // "in X minutes/hours" or "for X minutes" or "X minutes/hours later" or bare "X minutes" — supports word numbers
     final numWords = wordToNum.keys.join('|');
     final inDurationRegex = RegExp(
-      '(?:in\\s+)(\\d+|$numWords)\\s*(minutes?|mins?|hours?|hrs?)'
+      '(?:(?:in|for)\\s+)(\\d+|$numWords)\\s*(minutes?|mins?|hours?|hrs?|seconds?|secs?)'
       '|(\\d+|$numWords)\\s*(minutes?|mins?|hours?|hrs?)\\s+(?:later|from now)'
-      '|(?:in\\s+)?half\\s+(?:an?\\s+)?hour\\s*(?:later|from\\s*now)?'
-      '|(?:in\\s+)an?\\s+hour\\s*(?:later|from\\s*now)?',
+      '|(?:(?:in|for)\\s+)?half\\s+(?:an?\\s+)?hour\\s*(?:later|from\\s*now)?'
+      '|(?:(?:in|for)\\s+)an?\\s+hour\\s*(?:later|from\\s*now)?'
+      '|(\\d+|$numWords)\\s*(minutes?|mins?|hours?|hrs?|seconds?|secs?)',
       caseSensitive: false,
     );
     final durationMatch = inDurationRegex.firstMatch(lower);
@@ -465,9 +466,9 @@ class AIEngine {
     DateTime scheduledTime = DateTime.now();
 
     if (durationMatch != null) {
-      // "in 30 minutes" / "five minutes later" / "half an hour"
-      final numStr = durationMatch.group(1) ?? durationMatch.group(3);
-      final unitStr = durationMatch.group(2) ?? durationMatch.group(4) ?? '';
+      // "in 30 minutes" / "five minutes later" / "half an hour" / bare "5 minutes"
+      final numStr = durationMatch.group(1) ?? durationMatch.group(3) ?? durationMatch.group(5);
+      final unitStr = durationMatch.group(2) ?? durationMatch.group(4) ?? durationMatch.group(6) ?? '';
       if (numStr == null) {
         // "half an hour" or "an hour" pattern
         final matchText = durationMatch.group(0) ?? '';
@@ -480,6 +481,8 @@ class AIEngine {
         final amount = int.tryParse(numStr) ?? wordToNum[numStr.toLowerCase()] ?? 0;
         if (unitStr.startsWith('h')) {
           scheduledTime = scheduledTime.add(Duration(hours: amount));
+        } else if (unitStr.startsWith('s')) {
+          scheduledTime = scheduledTime.add(Duration(seconds: amount));
         } else {
           scheduledTime = scheduledTime.add(Duration(minutes: amount));
         }

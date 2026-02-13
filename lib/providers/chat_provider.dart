@@ -513,14 +513,24 @@ class ChatProvider extends ChangeNotifier {
     );
     final reminderId = await _db.insertSmartReminder(reminder);
 
-    // Schedule notification (no-op on web via conditional import)
-    // Double reminder: 30min + 5min before the event
-    await _lifecycle.scheduleDoubleReminder(
-      baseId: 500 + reminderId * 10,
-      nickname: _currentUser!.nickname,
-      eventDescription: parsed.originalText,
-      eventTime: parsed.scheduledTime,
+    // Schedule notification AT the event time (the main reminder)
+    await NotificationService.instance.scheduleNotification(
+      id: 500 + reminderId * 10 + 2,
+      title: 'AI Daddy ⏰',
+      body: 'Hey ${_currentUser!.nickname}! Time\'s up — ${parsed.originalText}',
+      scheduledTime: parsed.scheduledTime,
     );
+
+    // Also schedule early reminders if event is far enough in the future
+    final minutesUntil = parsed.scheduledTime.difference(DateTime.now()).inMinutes;
+    if (minutesUntil > 35) {
+      await _lifecycle.scheduleDoubleReminder(
+        baseId: 500 + reminderId * 10,
+        nickname: _currentUser!.nickname,
+        eventDescription: parsed.originalText,
+        eventTime: parsed.scheduledTime,
+      );
+    }
 
     // If it's an exam/study event, also schedule multi-day reminders
     if (parsed.eventType == 'study') {
@@ -570,7 +580,8 @@ class ChatProvider extends ChangeNotifier {
   }
 
   String _formatTime(DateTime time) {
-    final hour = time.hour > 12 ? time.hour - 12 : time.hour;
+    int hour = time.hour % 12;
+    if (hour == 0) hour = 12;
     final period = time.hour >= 12 ? 'PM' : 'AM';
     final minute = time.minute.toString().padLeft(2, '0');
     return '$hour:$minute $period';

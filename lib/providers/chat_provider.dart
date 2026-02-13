@@ -15,6 +15,7 @@ import '../services/context_awareness_service.dart';
 import '../services/memory_extraction_service.dart';
 import '../services/dad_report_service.dart';
 import '../services/daddy_lifecycle_service.dart';
+import '../services/notification_service.dart';
 import '../services/situational_intelligence_service.dart';
 import '../services/care_thread_engine.dart';
 import '../services/emotional_state_engine.dart';

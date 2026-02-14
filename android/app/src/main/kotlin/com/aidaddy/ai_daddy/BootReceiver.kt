@@ -1,4 +1,4 @@
-package com.aidaddy.app
+package com.aidaddy.ai_daddy
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,7 +6,7 @@ import android.content.Intent
 import android.util.Log
 
 /**
- * BootReceiver â€?reschedules ALL saved reminders after device reboot.
+ * BootReceiver â€” reschedules ALL saved reminders after device reboot.
  *
  * Android clears all AlarmManager alarms on reboot. This receiver:
  *   1. Loads all saved reminders from native SharedPreferences
@@ -42,7 +42,7 @@ class BootReceiver : BroadcastReceiver() {
             }
             else -> {
                 Log.w(TAG, "Unexpected action: $action")
-                // Still try to reschedule â€?better safe than sorry
+                // Still try to reschedule â€” better safe than sorry
                 rescheduleAllReminders(context)
             }
         }

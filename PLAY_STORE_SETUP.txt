@@ -7,7 +7,7 @@ Last Updated: February 14, 2026
 1. APP IDENTITY
 ============================================================
 App Name:           AI Daddy
-Package Name:       com.aidaddy.app
+Package Name:       com.aidaddy.ai_daddy
 Default Language:   English (en-US)
 Category:           Lifestyle (or Parenting)
 Current Version:    1.0.1+3 (versionCode=3)
@@ -119,7 +119,7 @@ Android targetSdk:  35
 Android minSdk:     24
 Java (CI):          Temurin 17
 Kotlin Native:      ReminderScheduler, ReminderAlarmReceiver, BootReceiver
-Platform Channel:   com.aidaddy.app/bubble (13 methods)
+Platform Channel:   com.aidaddy.ai_daddy/bubble (13 methods)
 Notification Channels: ai_daddy_v9, ai_daddy_bubbles_v1, ai_daddy_fallback
 
 ============================================================

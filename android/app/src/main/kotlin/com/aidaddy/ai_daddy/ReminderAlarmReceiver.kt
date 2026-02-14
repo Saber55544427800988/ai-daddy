@@ -1,4 +1,4 @@
-package com.aidaddy.app
+package com.aidaddy.ai_daddy
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,13 +6,13 @@ import android.content.Intent
 import android.util.Log
 
 /**
- * ReminderAlarmReceiver â€?fires when AlarmManager triggers a scheduled reminder.
+ * ReminderAlarmReceiver â€” fires when AlarmManager triggers a scheduled reminder.
  *
  * This runs 100% in native Android. No Flutter engine required.
  * Shows notification directly via BubbleNotificationHelper.
  *
  * Architecture:
- *   AlarmManager â†?ReminderAlarmReceiver.onReceive() â†?BubbleNotificationHelper.showBubble()
+ *   AlarmManager â†’ ReminderAlarmReceiver.onReceive() â†’ BubbleNotificationHelper.showBubble()
  *
  * For daily repeating reminders, reschedules the next occurrence automatically.
  */
@@ -46,7 +46,7 @@ class ReminderAlarmReceiver : BroadcastReceiver() {
             Log.d(TAG, "Notification shown for id=$requestCode")
         } catch (e: Exception) {
             Log.e(TAG, "Show notification FAILED: ${e.message}")
-            // Direct fallback â€?create bare notification
+            // Direct fallback â€” create bare notification
             try {
                 BubbleNotificationHelper.showBasicFallbackPublic(
                     context.applicationContext, requestCode, title, body
@@ -70,7 +70,7 @@ class ReminderAlarmReceiver : BroadcastReceiver() {
                 "daily"
             )
         } else {
-            // One-shot â€?remove from persistence
+            // One-shot â€” remove from persistence
             ReminderScheduler.removeReminder(context.applicationContext, requestCode)
             Log.d(TAG, "One-shot alarm cleaned up: id=$requestCode")
         }

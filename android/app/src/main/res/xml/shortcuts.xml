@@ -8,8 +8,8 @@
         android:icon="@mipmap/ic_launcher">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.aidaddy.app"
-            android:targetClass="com.aidaddy.app.MainActivity" />
+            android:targetPackage="com.aidaddy.ai_daddy"
+            android:targetClass="com.aidaddy.ai_daddy.MainActivity" />
         <categories android:name="com.android.voicemail.SHARE_TARGET" />
     </shortcut>
 </shortcuts>

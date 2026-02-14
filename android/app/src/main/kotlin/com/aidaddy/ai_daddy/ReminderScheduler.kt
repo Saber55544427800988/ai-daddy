@@ -1,4 +1,4 @@
-package com.aidaddy.app
+package com.aidaddy.ai_daddy
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -9,7 +9,7 @@ import android.util.Log
 import org.json.JSONObject
 
 /**
- * ReminderScheduler �?the core of the universal reminder engine.
+ * ReminderScheduler — the core of the universal reminder engine.
  *
  * Architecture:
  *   - Uses AlarmManager.setExactAndAllowWhileIdle() with RTC_WAKEUP
@@ -18,7 +18,7 @@ import org.json.JSONObject
  *   - On boot: BootReceiver reads saved reminders and reschedules all
  *   - On alarm fire: ReminderAlarmReceiver shows notification natively
  *
- * This runs 100% in native Android �?no Flutter engine needed for alarm delivery.
+ * This runs 100% in native Android — no Flutter engine needed for alarm delivery.
  */
 object ReminderScheduler {
 
@@ -181,7 +181,7 @@ object ReminderScheduler {
     }
 
     // ────────────────────────────────────────────────────────────────────────
-    // Persistence �?SharedPreferences (survives reboot)
+    // Persistence — SharedPreferences (survives reboot)
     // ────────────────────────────────────────────────────────────────────────
 
     private fun saveReminder(
@@ -274,11 +274,11 @@ object ReminderScheduler {
                 val repeatPolicy = reminder.optString("repeatPolicy", "none")
 
                 if (triggerTimeMs > now) {
-                    // Future reminder �?reschedule
+                    // Future reminder — reschedule
                     scheduleAlarm(context, id, title, body, triggerTimeMs, priority, repeatPolicy)
                     rescheduled++
                 } else if (repeatPolicy == "daily") {
-                    // Expired daily reminder �?reschedule for next occurrence
+                    // Expired daily reminder — reschedule for next occurrence
                     var nextTrigger = triggerTimeMs
                     val dayMs = 24 * 60 * 60 * 1000L
                     while (nextTrigger <= now) {
@@ -288,7 +288,7 @@ object ReminderScheduler {
                     scheduleAlarm(context, id, title, body, nextTrigger, priority, repeatPolicy)
                     rescheduled++
                 } else {
-                    // Expired one-shot �?clean up
+                    // Expired one-shot — clean up
                     removeReminder(context, id)
                     expired++
                 }
@@ -301,7 +301,7 @@ object ReminderScheduler {
     }
 
     // ────────────────────────────────────────────────────────────────────────
-    // Diagnostic �?check if exact alarms are permitted
+    // Diagnostic — check if exact alarms are permitted
     // ────────────────────────────────────────────────────────────────────────
 
     fun canScheduleExactAlarms(context: Context): Boolean {

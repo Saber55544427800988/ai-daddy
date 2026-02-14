@@ -207,18 +207,7 @@ class _PermissionSetupScreenState extends State<PermissionSetupScreen>
                           ),
                           const SizedBox(height: 16),
 
-                          // 3. Exact alarm permission (Android 12+)
-                          if (!_exactAlarmGranted)
-                            _buildPermissionCard(
-                              icon: Icons.alarm_rounded,
-                              title: l.t('permExactAlarmTitle'),
-                              description: l.t('permExactAlarmDesc'),
-                              buttonText: l.t('permExactAlarmBtn'),
-                              granted: false,
-                              onTap: _requestExactAlarm,
-                            ),
-                          if (!_exactAlarmGranted)
-                            const SizedBox(height: 16),
+                          // Exact alarm permission removed — Google Play policy
 
                           // 4. OEM-specific guidance
                           if (_isOemDevice)

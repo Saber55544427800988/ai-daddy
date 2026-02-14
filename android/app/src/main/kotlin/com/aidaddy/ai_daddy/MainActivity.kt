@@ -73,21 +73,10 @@ class MainActivity : FlutterActivity() {
                     result.success(ReminderScheduler.getPendingCount(applicationContext))
                 }
                 "canScheduleExactAlarms" -> {
-                    result.success(ReminderScheduler.canScheduleExactAlarms(applicationContext))
+                    result.success(true) // No longer needed, always return true
                 }
                 "openExactAlarmSettings" -> {
-                    try {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            val intent = android.content.Intent(
-                                android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM,
-                                android.net.Uri.parse("package:$packageName")
-                            )
-                            startActivity(intent)
-                        }
-                        result.success(true)
-                    } catch (e: Exception) {
-                        result.success(false)
-                    }
+                    result.success(true) // No-op, exact alarms removed
                 }
 
                 // ── Device / Battery ─────────────────────────────────────

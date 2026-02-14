@@ -290,9 +290,6 @@ class NotificationService {
           AndroidFlutterLocalNotificationsPlugin>();
       if (p != null) {
         final ok = await p.requestNotificationsPermission();
-        try {
-          await p.requestExactAlarmsPermission();
-        } catch (_) {}
         debugPrint('[AI Daddy] Notification permission: $ok');
         return ok ?? false;
       }
@@ -427,7 +424,7 @@ class NotificationService {
     final triggerTimeMs = scheduledTime.millisecondsSinceEpoch;
 
     // ── METHOD 1 (PRIMARY): Native AlarmManager via platform channel ──
-    // This uses setExactAndAllowWhileIdle() with native SharedPreferences
+    // This uses setAndAllowWhileIdle() with native SharedPreferences
     // persistence and BootReceiver for reboot recovery. Shows notification
     // entirely in native code — no Flutter engine needed.
     try {
@@ -697,21 +694,14 @@ class NotificationService {
 
   // ── Native scheduling diagnostics ─────────────────────────────────────
 
-  /// Check if device can schedule exact alarms (Android 12+)
+  /// Check if device can schedule exact alarms (always true now, exact alarms removed)
   Future<bool> canScheduleExactAlarms() async {
-    try {
-      final result = await _bubblePlatform.invokeMethod<bool>('canScheduleExactAlarms');
-      return result ?? false;
-    } catch (_) {
-      return false;
-    }
+    return true; // No longer using exact alarms per Google Play policy
   }
 
-  /// Open system exact alarm settings (Android 12+)
+  /// Open system exact alarm settings (no-op, exact alarms removed)
   Future<void> openExactAlarmSettings() async {
-    try {
-      await _bubblePlatform.invokeMethod('openExactAlarmSettings');
-    } catch (_) {}
+    // No-op — exact alarms removed per Google Play policy
   }
 
   /// Check if app is battery optimized (bad for reminders)

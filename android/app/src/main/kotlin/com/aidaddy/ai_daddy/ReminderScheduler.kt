@@ -12,7 +12,7 @@ import org.json.JSONObject
  * ReminderScheduler — the core of the universal reminder engine.
  *
  * Architecture:
- *   - Uses AlarmManager.setExactAndAllowWhileIdle() with RTC_WAKEUP
+ *   - Uses AlarmManager.setAndAllowWhileIdle() with RTC_WAKEUP (inexact, no permission needed)
  *   - Persists ALL reminders to SharedPreferences BEFORE scheduling
  *   - Each reminder has unique requestCode, message, triggerTime, priority
  *   - On boot: BootReceiver reads saved reminders and reschedules all
@@ -89,33 +89,14 @@ object ReminderScheduler {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
-            // Check if we can schedule exact alarms (Android 12+)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                if (alarmManager.canScheduleExactAlarms()) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        triggerTimeMs,
-                        pendingIntent
-                    )
-                    Log.d(TAG, "Exact alarm scheduled: id=$requestCode time=$triggerTimeMs")
-                } else {
-                    // Fallback: inexact but still wakes from Doze
-                    alarmManager.setAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        triggerTimeMs,
-                        pendingIntent
-                    )
-                    Log.w(TAG, "Exact alarm NOT permitted, using inexact: id=$requestCode")
-                }
-            } else {
-                // Pre-Android 12: always allowed
-                alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    triggerTimeMs,
-                    pendingIntent
-                )
-                Log.d(TAG, "Exact alarm scheduled (pre-S): id=$requestCode time=$triggerTimeMs")
-            }
+            // Use inexact alarm that still wakes from Doze
+            // (no SCHEDULE_EXACT_ALARM permission needed)
+            alarmManager.setAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                triggerTimeMs,
+                pendingIntent
+            )
+            Log.d(TAG, "Alarm scheduled: id=$requestCode time=$triggerTimeMs")
 
             return true
         } catch (e: Exception) {
@@ -298,20 +279,6 @@ object ReminderScheduler {
         }
 
         Log.d(TAG, "Reschedule complete: $rescheduled rescheduled, $expired expired")
-    }
-
-    // ────────────────────────────────────────────────────────────────────────
-    // Diagnostic — check if exact alarms are permitted
-    // ────────────────────────────────────────────────────────────────────────
-
-    fun canScheduleExactAlarms(context: Context): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return true
-        return try {
-            val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            am.canScheduleExactAlarms()
-        } catch (_: Exception) {
-            false
-        }
     }
 
     fun getPendingCount(context: Context): Int {

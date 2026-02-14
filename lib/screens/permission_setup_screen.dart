@@ -42,7 +42,7 @@ class _PermissionSetupScreenState extends State<PermissionSetupScreen>
 
   void _detectOem() async {
     try {
-      const platform = MethodChannel('com.aidaddy.ai_daddy/bubble');
+      const platform = MethodChannel('com.aidaddy.app/bubble');
       final manufacturer = await platform.invokeMethod<String>('getDeviceManufacturer') ?? '';
       final m = manufacturer.toLowerCase();
       setState(() {
@@ -79,7 +79,7 @@ class _PermissionSetupScreenState extends State<PermissionSetupScreen>
 
   Future<void> _requestBatteryOptimization() async {
     try {
-      const platform = MethodChannel('com.aidaddy.ai_daddy/bubble');
+      const platform = MethodChannel('com.aidaddy.app/bubble');
       await platform.invokeMethod('requestBatteryOptimization');
       setState(() => _batteryOptimized = true);
     } catch (_) {

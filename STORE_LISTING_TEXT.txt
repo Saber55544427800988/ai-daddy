@@ -1,0 +1,127 @@
+============================================================
+     AI DADDY - STORE LISTING TEXT (English + Arabic)
+============================================================
+
+============================================================
+SHORT DESCRIPTION (80 chars max)
+============================================================
+[EN] Your AI-powered fatherly companion. Guidance, motivation & support 24/7.
+[AR] رفيقك الأبوي بالذكاء الاصطناعي. إرشاد وتحفيز ودعم على مدار الساعة.
+
+============================================================
+FULL DESCRIPTION (4000 chars max)
+============================================================
+[EN]
+AI Daddy — Your Always-There AI Father
+
+Ever wished you had a dad who's always available, never judges, and always knows what to say? AI Daddy is the world's first AI-powered fatherly companion — a virtual dad who provides guidance, motivation, gentle reminders, and unconditional emotional support whenever you need it.
+
+🎯 What AI Daddy Does:
+
+💬 Talk Anytime
+Have real conversations with your AI Dad. Whether you need advice about life decisions, a pep talk before a big day, or just someone to listen — Daddy is always here. Choose from different personality styles: Wise & Calm, Fun & Energetic, or Strict & Motivating.
+
+⏰ Smart Reminders
+AI Daddy proactively sends you reminders to drink water, take breaks, study, exercise, or anything you set up. He checks in on you like a real caring father would. Reminders work reliably on ALL Android devices using native AlarmManager technology.
+
+🫧 Bubble Notifications
+Get dad's messages as floating bubbles on your screen — just like getting a text from a real parent. Non-intrusive but always there when you need them.
+
+🌙 Bedtime & Morning Check-ins
+AI Daddy wishes you goodnight and greets you in the morning. Start and end your day with positive encouragement.
+
+🌍 Bilingual Support
+Full support in English and Arabic. Switch languages anytime.
+
+🔒 100% Private
+All your conversations stay on YOUR device. No accounts required. No data uploaded to servers. No tracking. No ads.
+
+❤️ Why People Love AI Daddy:
+• "It's like having the supportive dad I always needed"
+• "The reminders actually make me take better care of myself"
+• "I talk to AI Daddy every night before sleep"
+
+AI Daddy is NOT a replacement for professional mental health support. If you're in crisis, please contact a mental health professional or crisis helpline.
+
+Download AI Daddy today and never feel alone again. 💙
+
+---
+
+[AR]
+AI Daddy — أبوك الذكي اللي دايماً موجود
+
+تمنيت يكون عندك أب دايماً موجود، ما يحكم عليك، ودايماً يعرف شو يقول؟ AI Daddy هو أول رفيق أبوي بالذكاء الاصطناعي في العالم — أب افتراضي يقدم لك التوجيه والتحفيز والتذكيرات والدعم العاطفي في أي وقت.
+
+🎯 شو يسوي AI Daddy:
+
+💬 احكي بأي وقت
+سوِّ محادثات حقيقية مع أبوك الذكي. سواء تحتاج نصيحة عن قرارات الحياة أو كلمة تشجيع قبل يوم مهم أو مجرد حد يسمعك — بابا دايماً هنا. اختار من شخصيات مختلفة: حكيم وهادئ، مرح ونشيط، أو صارم ومحفز.
+
+⏰ تذكيرات ذكية
+AI Daddy يرسل لك تذكيرات تشرب ماي، تاخذ استراحة، تدرس، تتمرن أو أي شي تحدده. يتابعك مثل أب حقيقي يهتم فيك. التذكيرات تشتغل على كل أجهزة الأندرويد.
+
+🫧 إشعارات فقاعية
+استقبل رسائل بابا كفقاعات عائمة على شاشتك — مثل ما تستقبل رسالة من أب حقيقي.
+
+🌙 تسجيل الصباح والمسا
+AI Daddy يتمنى لك ليلة سعيدة ويحييك بالصباح. ابدأ وانهِ يومك بتشجيع إيجابي.
+
+🌍 دعم ثنائي اللغة
+دعم كامل بالإنجليزي والعربي.
+
+🔒 خصوصية 100%
+كل محادثاتك تبقى على جهازك. بدون حسابات. بدون بيانات مرفوعة. بدون تتبع. بدون إعلانات.
+
+حمّل AI Daddy اليوم وما تحس بالوحدة أبداً. 💙
+
+============================================================
+RELEASE NOTES (What's New)
+============================================================
+[EN]
+🎉 Welcome to AI Daddy v1.0!
+• Meet your AI-powered fatherly companion
+• Real-time conversations with customizable dad personalities
+• Smart reminders that work on ALL Android devices
+• Bubble notifications — dad's messages float on screen
+• Morning greetings & bedtime check-ins
+• Full English & Arabic support
+• 100% private — all data stays on your device
+
+[AR]
+🎉 أهلاً بك في AI Daddy الإصدار 1.0!
+• تعرّف على رفيقك الأبوي بالذكاء الاصطناعي
+• محادثات فورية مع شخصيات أب قابلة للتخصيص
+• تذكيرات ذكية تشتغل على كل أجهزة الأندرويد
+• إشعارات فقاعية — رسائل بابا تطفو على الشاشة
+• تحيات صباحية وتسجيل قبل النوم
+• دعم كامل بالإنجليزي والعربي
+• خصوصية 100% — كل البيانات تبقى على جهازك
+
+============================================================
+APP DETAILS FOR PLAY CONSOLE
+============================================================
+App Name:               AI Daddy
+Developer Name:         AI Daddy
+Category:               Lifestyle
+Tags:                   AI, companion, parenting, motivation, reminders, mental health
+Contact Email:          (your developer email)
+Contact Phone:          (optional)
+Privacy Policy URL:     https://ai-daddy.pages.dev/privacy.html
+Website:                https://ai-daddy.pages.dev
+
+============================================================
+STORE GRAPHICS SPECIFICATIONS
+============================================================
+Required graphics (generate with store_graphics_generator.py):
+
+1. App Icon:           512 x 512 px (PNG, 32-bit, no alpha)
+2. Feature Graphic:    1024 x 500 px (PNG or JPG)
+3. Phone Screenshots:  1080 x 1920 px (min 2, max 8)
+   - Screenshot 1: "Meet Your AI Dad" (hero)
+   - Screenshot 2: "Smart Daily Reminders"
+   - Screenshot 3: "Bubble Notifications"
+   - Screenshot 4: "Bilingual Support"
+4. 7-inch Tablet:      1200 x 1920 px (optional, recommended)
+5. 10-inch Tablet:     1920 x 1200 px (optional, recommended)
+
+============================================================

@@ -1,0 +1,140 @@
+============================================================
+       AI DADDY - GOOGLE PLAY STORE SETUP REFERENCE
+============================================================
+Last Updated: February 14, 2026
+
+============================================================
+1. APP IDENTITY
+============================================================
+App Name:           AI Daddy
+Package Name:       com.aidaddy.app
+Default Language:   English (en-US)
+Category:           Lifestyle (or Parenting)
+Current Version:    1.0.1+3 (versionCode=3)
+
+============================================================
+2. SIGNING KEY INFORMATION
+============================================================
+Key Alias:          ai-daddy-release
+Store Password:     AiDaddy2026!Secure
+Key Password:       AiDaddy2026!Secure
+Keystore File:      keystore/upload-keystore.jks
+PEM Certificate:    keystore/upload-key.pem
+Base64 Keystore:    keystore/keystore-base64.txt
+
+NEW Key SHA1:       EA:C3:DE:59:D6:10:95:13:AC:4E:C6:1A:63:13:5C:C9:F3:E4:93:FD
+
+OLD Key SHA1 (lost, from build #23):
+                    56:D2:1C:D2:2F:66:F0:E4:26:CC:65:1B:24:25:FE:4B:D6:37:D4:14
+
+GitHub Secret:      KEYSTORE_BASE64 (contains base64-encoded keystore)
+
+============================================================
+3. GITHUB REPOSITORY
+============================================================
+Repository:         Saber55544427800988/ai-daddy
+Branch:             main
+CI/CD Workflow:     .github/workflows/build.yml
+Keystore Workflow:  .github/workflows/generate-keystore.yml
+Token:              (stored locally — do not commit)
+
+============================================================
+4. BUILD OUTPUT LOCATIONS
+============================================================
+AAB File:           build-output/app-release.aab (26.29 MB)
+APK File:           build-output/app-release.apk (54.70 MB)
+
+============================================================
+5. WEBSITE & PRIVACY POLICY
+============================================================
+Website URL:        https://ai-daddy.pages.dev
+Privacy Policy URL: https://ai-daddy.pages.dev/privacy.html
+Terms of Service:   https://ai-daddy.pages.dev/terms.html
+Website Files:      website/ folder (deployed on Cloudflare Pages)
+
+============================================================
+6. ANDROID PERMISSIONS DECLARED
+============================================================
+- SCHEDULE_EXACT_ALARM (NOT USE_EXACT_ALARM)
+- RECEIVE_BOOT_COMPLETED
+- POST_NOTIFICATIONS
+- USE_FULL_SCREEN_INTENT
+- WAKE_LOCK
+- FOREGROUND_SERVICE
+- REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+- INTERNET / ACCESS_NETWORK_STATE
+
+============================================================
+7. PLAY CONSOLE DECLARATIONS (copy these when setting up)
+============================================================
+
+--- App Access ---
+All functionality available without special access
+
+--- Content Rating ---
+Questionnaire Type: All Other App Types
+- Violence: No
+- Sexual Content: No
+- Language: No
+- Controlled Substance: No
+- Miscellaneous: No
+Result: Rated for Everyone / PEGI 3
+
+--- Ads Declaration ---
+App does NOT contain ads
+
+--- Data Safety ---
+App collects/shares: No user data collected or shared
+Data encrypted in transit: Yes
+Data deletion mechanism: Users can delete local data by clearing app data or uninstalling
+
+--- Financial Features ---
+App does not provide financial features
+
+--- Health Features ---
+App is not a health app (not regulated as medical device)
+
+--- Government Apps ---
+Not a government app
+
+--- News Apps ---
+Not a news app
+
+--- Target Audience ---
+18+ (NOT designed for children under 13)
+
+--- Advertising ID ---
+App does NOT use advertising ID (Google Play Services not included)
+
+--- Full-Screen Intent ---
+Status: Used for AI reminder notifications (bubble + fallback)
+Permission: USE_FULL_SCREEN_INTENT declared
+
+============================================================
+8. TECH STACK SUMMARY
+============================================================
+Framework:          Flutter 3.24.0 / Dart 3.5.0
+Android compileSdk: 35
+Android targetSdk:  35
+Android minSdk:     24
+Java (CI):          Temurin 17
+Kotlin Native:      ReminderScheduler, ReminderAlarmReceiver, BootReceiver
+Platform Channel:   com.aidaddy.app/bubble (13 methods)
+Notification Channels: ai_daddy_v9, ai_daddy_bubbles_v1, ai_daddy_fallback
+
+============================================================
+9. KEY FILE LOCATIONS
+============================================================
+Keystore files:         keystore/
+Build outputs:          build-output/
+Website files:          website/
+CI/CD workflows:        .github/workflows/
+Android native code:    android/app/src/main/kotlin/com/aidaddy/ai_daddy/
+Gradle config:          android/app/build.gradle
+Manifest:               android/app/src/main/AndroidManifest.xml
+Proguard:               android/app/proguard-rules.pro
+Localizations:          lib/l10n/app_localizations.dart
+Notification service:   lib/services/notification_service_impl.dart
+Permission screen:      lib/screens/permission_setup_screen.dart
+
+============================================================

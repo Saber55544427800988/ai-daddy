@@ -1,4 +1,4 @@
-package com.aidaddy.ai_daddy
+package com.aidaddy.app
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -21,7 +21,7 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 
 /**
- * BubbleNotificationHelper â€” creates Android 11+ bubble notifications
+ * BubbleNotificationHelper â€?creates Android 11+ bubble notifications
  * that look and behave like Messenger chat heads.
  *
  * On devices that don't support bubbles (< Android 11), falls back to
@@ -198,7 +198,7 @@ object BubbleNotificationHelper {
                     Log.d(TAG, "Bubble notification shown id=$notifId")
                 } else {
                     Log.w(TAG, "POST_NOTIFICATIONS permission not granted")
-                    // Still try â€” some ROMs allow it
+                    // Still try â€?some ROMs allow it
                     try { nm.notify(notifId, builder.build()) } catch (_: Exception) {}
                 }
             } else {
@@ -208,7 +208,7 @@ object BubbleNotificationHelper {
 
         } catch (e: Exception) {
             Log.e(TAG, "showBubble FAILED: ${e.message}")
-            // Ultimate fallback â€” basic notification via NotificationManager
+            // Ultimate fallback â€?basic notification via NotificationManager
             showBasicFallback(context, notifId, title, body)
         }
     }
@@ -247,7 +247,7 @@ object BubbleNotificationHelper {
     }
 
     /**
-     * Public basic fallback â€” called by ReminderAlarmReceiver when bubble fails.
+     * Public basic fallback â€?called by ReminderAlarmReceiver when bubble fails.
      */
     fun showBasicFallbackPublic(context: Context, notifId: Int, title: String, body: String) {
         try {

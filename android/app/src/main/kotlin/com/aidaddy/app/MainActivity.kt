@@ -1,4 +1,4 @@
-package com.aidaddy.ai_daddy
+package com.aidaddy.app
 
 import android.os.Build
 import io.flutter.embedding.android.FlutterActivity
@@ -7,7 +7,7 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
 
-    private val CHANNEL = "com.aidaddy.ai_daddy/bubble"
+    private val CHANNEL = "com.aidaddy.app/bubble"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -128,7 +128,7 @@ class MainActivity : FlutterActivity() {
                         applicationContext,
                         99999,
                         "AI Daddy Test 🧪",
-                        "Test reminder fired! Notifications work on your device ✅",
+                        "Test reminder fired! Notifications work on your device �?,
                         testTime,
                         "high",
                         "none"

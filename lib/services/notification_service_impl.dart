@@ -18,7 +18,7 @@ import '../widgets/in_app_notification.dart';
 // ──────────────────────────────────────────────────────────────────────────────
 const _alarmPortName = 'ai_daddy_alarm_port';
 const _pendingPrefsKey = 'ai_daddy_pending_notifs';
-const _bubbleChannelName = 'com.aidaddy.ai_daddy/bubble';
+const _bubbleChannelName = 'com.aidaddy.app/bubble';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Top-level callback for android_alarm_manager_plus.
